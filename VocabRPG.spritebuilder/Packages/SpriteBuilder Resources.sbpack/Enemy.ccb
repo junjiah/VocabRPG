@@ -103,7 +103,7 @@
 				<key>value</key>
 				<array>
 					<string></string>
-					<string>VocabArtPack/minotaur-stand.png</string>
+					<string>VocabArtPack/dorver/dorver-idle0.png</string>
 				</array>
 			</dict>
 			<dict>
@@ -139,8 +139,6 @@
 				<array/>
 			</dict>
 		</array>
-		<key>selected</key>
-		<true/>
 	</dict>
 	<key>notes</key>
 	<array/>
