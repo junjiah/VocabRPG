@@ -15,7 +15,7 @@
 - (void)didLoadFromCCB {
   CCLabelBMFont *label =
       [CCLabelBMFont labelWithString:@"junjiah"
-                             fntFile:@"arial16.fnt"
+                             fntFile:@"fonts/AmericanTypewriter.ttc"
                                width:_button.contentSize.width
                            alignment:CCTextAlignmentCenter];
   label.position = ccp(0.5, 0.5);
