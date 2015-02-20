@@ -1,5 +1,7 @@
 #import "MainScene.h"
 #import "Obstacle.h"
+#import "LeftBlock.h"
+#import "RightBlock.h"
 
 @interface CGPointObject : NSObject {
   CGPoint _ratio;
@@ -45,16 +47,16 @@
 #pragma mark - Touch Handling
 
 - (void)touchBegan:(CCTouch *)touch withEvent:(CCTouchEvent *)event {
-  if (!_gameOver) {
-    [_character.physicsBody applyAngularImpulse:10000.f];
-    _sinceTouch = 0.f;
-
-    @try {
-      [_character flap];
-    }
-    @catch (NSException *ex) {
-    }
-  }
+//  if (!_gameOver) {
+//    [_character.physicsBody applyAngularImpulse:10000.f];
+//    _sinceTouch = 0.f;
+//
+//    @try {
+//      [_character flap];
+//    }
+//    @catch (NSException *ex) {
+//    }
+//  }
 }
 
 #pragma mark - Game Actions
@@ -102,49 +104,49 @@
 #pragma mark - Update
 
 - (void)update:(CCTime)delta {
-  _sinceTouch += delta;
-
-  _character.rotation = clampf(_character.rotation, -30.f, 90.f);
-
-  if (_character.physicsBody.allowsRotation) {
-    float angularVelocity =
-        clampf(_character.physicsBody.angularVelocity, -2.f, 1.f);
-    _character.physicsBody.angularVelocity = angularVelocity;
-  }
-
-  if ((_sinceTouch > 0.5f)) {
-    [_character.physicsBody applyAngularImpulse:-40000.f * delta];
-  }
-
-  _physicsNode.position =
-      ccp(_physicsNode.position.x - (_character.physicsBody.velocity.x * delta),
-          _physicsNode.position.y);
-
-  if (!_gameOver) {
-    @try {
-      _character.physicsBody.velocity = ccp(
-          80.f, clampf(_character.physicsBody.velocity.y, -MAXFLOAT, 200.f));
-
-      [super update:delta];
-    }
-    @catch (NSException *ex) {
-    }
-  }
+//  _sinceTouch += delta;
+//
+//  _character.rotation = clampf(_character.rotation, -30.f, 90.f);
+//
+//  if (_character.physicsBody.allowsRotation) {
+//    float angularVelocity =
+//        clampf(_character.physicsBody.angularVelocity, -2.f, 1.f);
+//    _character.physicsBody.angularVelocity = angularVelocity;
+//  }
+//
+//  if ((_sinceTouch > 0.5f)) {
+//    [_character.physicsBody applyAngularImpulse:-40000.f * delta];
+//  }
+//
+//  _physicsNode.position =
+//      ccp(_physicsNode.position.x - (_character.physicsBody.velocity.x * delta),
+//          _physicsNode.position.y);
+//
+//  if (!_gameOver) {
+//    @try {
+//      _character.physicsBody.velocity = ccp(
+//          80.f, clampf(_character.physicsBody.velocity.y, -MAXFLOAT, 200.f));
+//
+//      [super update:delta];
+//    }
+//    @catch (NSException *ex) {
+//    }
+//  }
 }
 
-- (BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair
-                      character:(CCSprite *)character
-                          level:(CCNode *)level {
-  [self gameOver];
-  return TRUE;
-}
-
-- (BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair
-                      character:(CCNode *)character
-                           goal:(CCNode *)goal {
-  [goal removeFromParent];
-  points++;
-  return TRUE;
-}
+//- (BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair
+//                      character:(CCSprite *)character
+//                          level:(CCNode *)level {
+//  [self gameOver];
+//  return TRUE;
+//}
+//
+//- (BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair
+//                      character:(CCNode *)character
+//                           goal:(CCNode *)goal {
+//  [goal removeFromParent];
+//  points++;
+//  return TRUE;
+//}
 
 @end
