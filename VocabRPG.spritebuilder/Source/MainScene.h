@@ -1,5 +1,5 @@
 #import "CCNode.h"
-#import "GamePlayScene.h"
+#import "Character.h"
 
 @interface MainScene: CCNode <CCPhysicsCollisionDelegate>
 
