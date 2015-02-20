@@ -27,7 +27,7 @@
 }
 
 - (void)initialize {
-  _character = (Character *)[CCBReader load:@"Character"];
+  _character = NULL;//(Character *)[CCBReader load:@"Character"];
   [_physicsNode addChild:_character];
   [self addObstacle];
   _timeSinceObstacle = 0.0f;
@@ -92,13 +92,13 @@
 #pragma mark - Obstacle Spawning
 
 - (void)addObstacle {
-  Obstacle *obstacle = (Obstacle *)[CCBReader load:@"Obstacle"];
-  CGPoint screenPosition = [self convertToWorldSpace:ccp(380, 0)];
-  CGPoint worldPosition = [_physicsNode convertToNodeSpace:screenPosition];
-  obstacle.position = worldPosition;
-  [obstacle setupRandomPosition];
-//  obstacle.zOrder = DrawingOrderPipes;
-  [_physicsNode addChild:obstacle];
+//  Obstacle *obstacle = (Obstacle *)[CCBReader load:@"Obstacle"];
+//  CGPoint screenPosition = [self convertToWorldSpace:ccp(380, 0)];
+//  CGPoint worldPosition = [_physicsNode convertToNodeSpace:screenPosition];
+//  obstacle.position = worldPosition;
+//  [obstacle setupRandomPosition];
+////  obstacle.zOrder = DrawingOrderPipes;
+//  [_physicsNode addChild:obstacle];
 }
 
 #pragma mark - Update
