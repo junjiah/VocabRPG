@@ -43,7 +43,7 @@ static int const BLOCK_X_MARGIN = 77;
   _rightBlocks = [NSMutableArray arrayWithCapacity:4];
   _blockSize = 4;
 
-  int block_yspacing = 50, block_ystart = 60;
+  int block_yspacing = 50, block_ystart = 40;
 
   for (int i = 0; i < _blockSize; ++i) {
     LeftBlock *left = (LeftBlock *)[CCBReader load:@"LeftBlock"];
