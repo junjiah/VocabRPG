@@ -95,7 +95,7 @@
   CGPoint worldPosition = [_physicsNode convertToNodeSpace:screenPosition];
   obstacle.position = worldPosition;
   [obstacle setupRandomPosition];
-  obstacle.zOrder = DrawingOrderPipes;
+//  obstacle.zOrder = DrawingOrderPipes;
   [_physicsNode addChild:obstacle];
 }
 
