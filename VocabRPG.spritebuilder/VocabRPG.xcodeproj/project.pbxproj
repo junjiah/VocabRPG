@@ -36,7 +36,6 @@
 		B77F1B4017B978D7009739AE /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B77F1B3F17B978D7009739AE /* CoreGraphics.framework */; };
 		B77F1B4217B978D7009739AE /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B77F1B4117B978D7009739AE /* CoreText.framework */; };
 		BCF66F7C19563563004691FD /* Character.m in Sources */ = {isa = PBXBuildFile; fileRef = BCF66F7319563563004691FD /* Character.m */; };
-		BCF66F7D19563563004691FD /* GamePlayScene.m in Sources */ = {isa = PBXBuildFile; fileRef = BCF66F7519563563004691FD /* GamePlayScene.m */; };
 		BCF66F7E19563563004691FD /* Goal.m in Sources */ = {isa = PBXBuildFile; fileRef = BCF66F7719563563004691FD /* Goal.m */; };
 		BCF66F7F19563563004691FD /* MainScene.m in Sources */ = {isa = PBXBuildFile; fileRef = BCF66F7919563563004691FD /* MainScene.m */; };
 		BCF66F8019563563004691FD /* Obstacle.m in Sources */ = {isa = PBXBuildFile; fileRef = BCF66F7B19563563004691FD /* Obstacle.m */; };
@@ -115,8 +114,6 @@
 		B7B3713D180358F1007369CC /* libObjectiveChipmunk.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libObjectiveChipmunk.a; path = "../libs/cocos2d-iphone/external/Chipmunk/xcode/build/Debug-iphoneos/libObjectiveChipmunk.a"; sourceTree = "<group>"; };
 		BCF66F7219563563004691FD /* Character.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Character.h; path = Source/Character.h; sourceTree = "<group>"; };
 		BCF66F7319563563004691FD /* Character.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Character.m; path = Source/Character.m; sourceTree = "<group>"; };
-		BCF66F7419563563004691FD /* GamePlayScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GamePlayScene.h; path = Source/GamePlayScene.h; sourceTree = "<group>"; };
-		BCF66F7519563563004691FD /* GamePlayScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GamePlayScene.m; path = Source/GamePlayScene.m; sourceTree = "<group>"; };
 		BCF66F7619563563004691FD /* Goal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Goal.h; path = Source/Goal.h; sourceTree = "<group>"; };
 		BCF66F7719563563004691FD /* Goal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Goal.m; path = Source/Goal.m; sourceTree = "<group>"; };
 		BCF66F7819563563004691FD /* MainScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MainScene.h; path = Source/MainScene.h; sourceTree = "<group>"; };
@@ -160,8 +157,6 @@
 			children = (
 				BCF66F7219563563004691FD /* Character.h */,
 				BCF66F7319563563004691FD /* Character.m */,
-				BCF66F7419563563004691FD /* GamePlayScene.h */,
-				BCF66F7519563563004691FD /* GamePlayScene.m */,
 				BCF66F7619563563004691FD /* Goal.h */,
 				BCF66F7719563563004691FD /* Goal.m */,
 				BCF66F7819563563004691FD /* MainScene.h */,
@@ -406,7 +401,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				BCF66F7E19563563004691FD /* Goal.m in Sources */,
-				BCF66F7D19563563004691FD /* GamePlayScene.m in Sources */,
 				B737893F1807617C0076A88C /* AppDelegate.m in Sources */,
 				B73789871807631A0076A88C /* main.m in Sources */,
 				BCF66F8019563563004691FD /* Obstacle.m in Sources */,
