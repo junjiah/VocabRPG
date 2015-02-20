@@ -10,6 +10,8 @@
 		5017222A1A97D7F000F266C3 /* Hero.m in Sources */ = {isa = PBXBuildFile; fileRef = 501722291A97D7F000F266C3 /* Hero.m */; };
 		5017222D1A97E0FA00F266C3 /* LeftBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 5017222C1A97E0FA00F266C3 /* LeftBlock.m */; };
 		501722301A97E10400F266C3 /* RightBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 5017222F1A97E10400F266C3 /* RightBlock.m */; };
+		501722341A97F14B00F266C3 /* AmericanTypewriter.ttc in Resources */ = {isa = PBXBuildFile; fileRef = 501722321A97F14B00F266C3 /* AmericanTypewriter.ttc */; };
+		501722351A97F14B00F266C3 /* Chalkduster.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 501722331A97F14B00F266C3 /* Chalkduster.ttf */; };
 		8392007A18EE8E3300B6C429 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8392007918EE8E3300B6C429 /* GLKit.framework */; };
 		B71F5911188484E7003F4D28 /* iPad-old.png in Resources */ = {isa = PBXBuildFile; fileRef = B71F5907188484E7003F4D28 /* iPad-old.png */; };
 		B71F5912188484E7003F4D28 /* iPad-old@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B71F5908188484E7003F4D28 /* iPad-old@2x.png */; };
@@ -89,6 +91,8 @@
 		5017222C1A97E0FA00F266C3 /* LeftBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeftBlock.m; sourceTree = "<group>"; };
 		5017222E1A97E10400F266C3 /* RightBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RightBlock.h; sourceTree = "<group>"; };
 		5017222F1A97E10400F266C3 /* RightBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RightBlock.m; sourceTree = "<group>"; };
+		501722321A97F14B00F266C3 /* AmericanTypewriter.ttc */ = {isa = PBXFileReference; lastKnownFileType = file; path = AmericanTypewriter.ttc; sourceTree = "<group>"; };
+		501722331A97F14B00F266C3 /* Chalkduster.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Chalkduster.ttf; sourceTree = "<group>"; };
 		8392007918EE8E3300B6C429 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
 		B71F5907188484E7003F4D28 /* iPad-old.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "iPad-old.png"; path = "Icons/iPad-old.png"; sourceTree = "<group>"; };
 		B71F5908188484E7003F4D28 /* iPad-old@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "iPad-old@2x.png"; path = "Icons/iPad-old@2x.png"; sourceTree = "<group>"; };
@@ -153,6 +157,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		501722311A97F14B00F266C3 /* fonts */ = {
+			isa = PBXGroup;
+			children = (
+				501722321A97F14B00F266C3 /* AmericanTypewriter.ttc */,
+				501722331A97F14B00F266C3 /* Chalkduster.ttf */,
+			);
+			path = fonts;
+			sourceTree = "<group>";
+		};
 		9222E2B918734FF800A246C7 /* libs */ = {
 			isa = PBXGroup;
 			children = (
@@ -255,6 +268,7 @@
 		B77F1B4617B978D7009739AE /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				501722311A97F14B00F266C3 /* fonts */,
 				B73789911807667A0076A88C /* Icons */,
 				B737893A180761570076A88C /* Published-iOS */,
 			);
@@ -379,6 +393,7 @@
 				B71F5913188484E7003F4D28 /* iPad.png in Resources */,
 				B71F5912188484E7003F4D28 /* iPad-old@2x.png in Resources */,
 				B71F5916188484E7003F4D28 /* iPhone-old@2x.png in Resources */,
+				501722351A97F14B00F266C3 /* Chalkduster.ttf in Resources */,
 				B737893B180761570076A88C /* Published-iOS in Resources */,
 				B71F591A188484E7003F4D28 /* Settings@2x.png in Resources */,
 				B7378976180762440076A88C /* Default-Landscape~ipad.png in Resources */,
@@ -387,6 +402,7 @@
 				B7378975180762440076A88C /* Default-568h@2x.png in Resources */,
 				B71F5918188484E7003F4D28 /* iPhone@2x.png in Resources */,
 				B7378977180762440076A88C /* Default.png in Resources */,
+				501722341A97F14B00F266C3 /* AmericanTypewriter.ttc in Resources */,
 				B71F5911188484E7003F4D28 /* iPad-old.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
