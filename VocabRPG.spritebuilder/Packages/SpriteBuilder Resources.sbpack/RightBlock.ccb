@@ -51,7 +51,7 @@
 				<key>displayName</key>
 				<string>CCButton</string>
 				<key>memberVarAssignmentName</key>
-				<string></string>
+				<string>_button</string>
 				<key>memberVarAssignmentType</key>
 				<integer>1</integer>
 				<key>properties</key>
@@ -154,7 +154,7 @@
 						<string>String</string>
 						<key>value</key>
 						<array>
-							<string>Title</string>
+							<string></string>
 							<false/>
 						</array>
 					</dict>
@@ -237,7 +237,7 @@
 						<key>type</key>
 						<string>FontTTF</string>
 						<key>value</key>
-						<string>Helvetica</string>
+						<string>AmericanTypewriter</string>
 					</dict>
 					<dict>
 						<key>name</key>
@@ -246,7 +246,7 @@
 						<string>FloatScale</string>
 						<key>value</key>
 						<array>
-							<real>17</real>
+							<real>14</real>
 							<integer>0</integer>
 						</array>
 					</dict>
@@ -364,6 +364,8 @@
 						</array>
 					</dict>
 				</array>
+				<key>selected</key>
+				<true/>
 			</dict>
 		</array>
 		<key>customClass</key>
@@ -436,8 +438,6 @@
 				</array>
 			</dict>
 		</array>
-		<key>selected</key>
-		<true/>
 	</dict>
 	<key>notes</key>
 	<array/>
