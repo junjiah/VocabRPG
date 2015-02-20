@@ -54,7 +54,7 @@ static int const BLOCK_X_MARGIN = 77;
     RightBlock *right = (RightBlock *)[CCBReader load:@"RightBlock"];
     static CCPositionType rightCornerRef = {
         CCPositionUnitPoints, CCPositionUnitPoints,
-        CCPositionReferenceCornerBottomLeft};
+        CCPositionReferenceCornerBottomRight};
     right.positionType = rightCornerRef;
     right.position = ccp(BLOCK_X_MARGIN, block_ystart + i * block_yspacing);
     [_rightBlocks addObject:right];
