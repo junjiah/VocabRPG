@@ -15,27 +15,7 @@
 @end
 
 @implementation MainScene {
-    CCNode *_ground1;
-    CCNode *_ground2;
-    NSArray *_grounds;
-    
-    CCNode *_cloud1;
-    CCNode *_cloud2;
-    NSArray *_clouds;
-    
-    CCNode *_bush1;
-    CCNode *_bush2;
-    NSArray *_bushes;
-    
-    CGPoint _cloudParallaxRatio;
-    CGPoint _bushParallaxRatio;
-    
-    CCNode *_parallaxContainer;
-    CCParallaxNode *_parallaxBackground;
-    
     NSTimeInterval _sinceTouch;
-    
-    NSMutableArray *_obstacles;
     
     CCButton *_restartButton;
     
@@ -50,39 +30,9 @@
 - (void)didLoadFromCCB {
     self.userInteractionEnabled = TRUE;
     
-    _grounds = @[_ground1, _ground2];
-    _bushes = @[_bush1, _bush2];
-    _clouds = @[_cloud1, _cloud2];
-    
-    _parallaxBackground = [CCParallaxNode node];
-    [_parallaxContainer addChild:_parallaxBackground];
-    
-    // Note that the bush ratio is larger than the cloud
-    _bushParallaxRatio = ccp(0.1, 1);
-    _cloudParallaxRatio = ccp(0.1, 1);
-    
-    for (CCNode *bush in _bushes) {
-        CGPoint offset = bush.position;
-        [self removeChild:bush];
-        [_parallaxBackground addChild:bush z:0 parallaxRatio:_bushParallaxRatio positionOffset:offset];
-    }
-    
-    for (CCNode *cloud in _clouds) {
-        CGPoint offset = cloud.position;
-        [self removeChild:cloud];
-        [_parallaxBackground addChild:cloud z:0 parallaxRatio:_cloudParallaxRatio positionOffset:offset];
-    }
-    
-    for (CCNode *ground in _grounds) {
-        // set collision txpe
-        ground.physicsBody.collisionType = @"level";
-        ground.zOrder = DrawingOrderGround;
-    }
-    
     // set this class as delegate
     physicsNode.collisionDelegate = self;
     
-    _obstacles = [NSMutableArray array];
     points = 0;
     _scoreLabel.visible = true;
     
@@ -143,7 +93,6 @@
     [obstacle setupRandomPosition];
     obstacle.zOrder = DrawingOrderPipes;
     [physicsNode addChild:obstacle];
-    [_obstacles addObject:obstacle];
 }
 
 #pragma mark - Update
@@ -170,66 +119,7 @@
     }
     
     physicsNode.position = ccp(physicsNode.position.x - (character.physicsBody.velocity.x * delta), physicsNode.position.y);
-    
-    // loop the ground
-    for (CCNode *ground in _grounds) {
-        // get the world position of the ground
-        CGPoint groundWorldPosition = [physicsNode convertToWorldSpace:ground.position];
-        // get the screen position of the ground
-        CGPoint groundScreenPosition = [self convertToNodeSpace:groundWorldPosition];
-        
-        // if the left corner is one complete width off the screen, move it to the right
-        if (groundScreenPosition.x <= (-1 * ground.contentSize.width)) {
-            ground.position = ccp(ground.position.x + 2 * ground.contentSize.width, ground.position.y);
-        }
-    }
-
-    _parallaxBackground.position = ccp(_parallaxBackground.position.x - (character.physicsBody.velocity.x * delta), _parallaxBackground.position.y);
-    
-    for (CCNode *cloud in _clouds) {
-        CGPoint cloudWorldPosition = [_parallaxBackground convertToWorldSpace:cloud.position];
-        CGPoint cloudScreenPosition = [self convertToNodeSpace:cloudWorldPosition];
-        if (cloudScreenPosition.x <= (-1 * cloud.contentSize.width)) {
-            for (CGPointObject *child in _parallaxBackground.parallaxArray) {
-                if (child.child == cloud) {
-                    child.offset = ccp(child.offset.x + 2*cloud.contentSize.width, child.offset.y);
-                }
-            }
-        }
-    }
-    
-    for (CCNode *bush in _bushes) {
-        CGPoint bushWorldPosition = [_parallaxBackground convertToWorldSpace:bush.position];
-        CGPoint bushScreenPosition = [self convertToNodeSpace:bushWorldPosition];
-//        bush.position = ccp(bush.position.x -
-//                            (character.physicsBody.velocity.x * delta), bush.position.y);
-        if (bushScreenPosition.x <= (-1 * bush.contentSize.width)) {
-            for (CGPointObject *child in _parallaxBackground.parallaxArray) {
-                if (child.child == bush) {
-                    child.offset = ccp(child.offset.x + 2*bush.contentSize.width, child.offset.y);
-                }
-            }
-        }
-    }
-    
-    NSMutableArray *offScreenObstacles = nil;
-    
-    for (CCNode *obstacle in _obstacles) {
-        CGPoint obstacleWorldPosition = [physicsNode convertToWorldSpace:obstacle.position];
-        CGPoint obstacleScreenPosition = [self convertToNodeSpace:obstacleWorldPosition];
-        if (obstacleScreenPosition.x < -obstacle.contentSize.width) {
-            if (!offScreenObstacles) {
-                offScreenObstacles = [NSMutableArray array];
-            }
-            [offScreenObstacles addObject:obstacle];
-        }
-    }
-    
-    for (CCNode *obstacleToRemove in offScreenObstacles) {
-        [obstacleToRemove removeFromParent];
-        [_obstacles removeObject:obstacleToRemove];
-    }
-    
+  
     if (!_gameOver)
     {
         @try
