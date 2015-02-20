@@ -13,10 +13,11 @@
 }
 
 - (void)didLoadFromCCB {
-  CCLabelBMFont *label = [CCLabelBMFont labelWithString:@"junjiah"
-                                                fntFile:@"Chalkduster"
-                                                  width:_button.contentSize.width
-                                              alignment:CCTextAlignmentCenter];
+  CCLabelBMFont *label =
+      [CCLabelBMFont labelWithString:@"junjiah"
+                             fntFile:@"Helvetica"
+                               width:_button.contentSize.width
+                           alignment:CCTextAlignmentCenter];
   label.position = ccp(0.5, 0.5);
   label.positionType = CCPositionTypeNormalized;
   [_button addChild:label];
