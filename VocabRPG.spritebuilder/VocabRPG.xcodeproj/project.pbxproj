@@ -92,7 +92,7 @@
 		5017222E1A97E10400F266C3 /* RightBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RightBlock.h; sourceTree = "<group>"; };
 		5017222F1A97E10400F266C3 /* RightBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RightBlock.m; sourceTree = "<group>"; };
 		501722321A97F14B00F266C3 /* AmericanTypewriter.ttc */ = {isa = PBXFileReference; lastKnownFileType = file; path = AmericanTypewriter.ttc; sourceTree = "<group>"; };
-		501722331A97F14B00F266C3 /* Chalkduster.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Chalkduster.ttf; sourceTree = "<group>"; };
+		501722331A97F14B00F266C3 /* Chalkduster.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Chalkduster.ttf; path = fonts/Chalkduster.ttf; sourceTree = "<group>"; };
 		8392007918EE8E3300B6C429 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
 		B71F5907188484E7003F4D28 /* iPad-old.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "iPad-old.png"; path = "Icons/iPad-old.png"; sourceTree = "<group>"; };
 		B71F5908188484E7003F4D28 /* iPad-old@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "iPad-old@2x.png"; path = "Icons/iPad-old@2x.png"; sourceTree = "<group>"; };
@@ -161,7 +161,6 @@
 			isa = PBXGroup;
 			children = (
 				501722321A97F14B00F266C3 /* AmericanTypewriter.ttc */,
-				501722331A97F14B00F266C3 /* Chalkduster.ttf */,
 			);
 			path = fonts;
 			sourceTree = "<group>";
@@ -268,6 +267,7 @@
 		B77F1B4617B978D7009739AE /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				501722331A97F14B00F266C3 /* Chalkduster.ttf */,
 				501722311A97F14B00F266C3 /* fonts */,
 				B73789911807667A0076A88C /* Icons */,
 				B737893A180761570076A88C /* Published-iOS */,
