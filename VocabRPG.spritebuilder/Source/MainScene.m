@@ -27,8 +27,8 @@
 }
 
 - (void)initialize {
-  _character = NULL;//(Character *)[CCBReader load:@"Character"];
-  [_physicsNode addChild:_character];
+  _character = (Character *)[CCBReader load:@"Character"];
+//  [_physicsNode addChild:_character];
   [self addObstacle];
   _timeSinceObstacle = 0.0f;
 }
