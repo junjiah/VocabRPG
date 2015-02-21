@@ -1,5 +1,5 @@
 //
-//  LeftBlock.h
+//  MatchingLayout.h
 //  VocabRPG
 //
 //  Created by Junjia He on 2/20/15.
@@ -8,6 +8,6 @@
 
 #import "CCNode.h"
 
-@interface LeftBlock : CCNode
+@interface MatchingLayout : CCNode
 
 @end

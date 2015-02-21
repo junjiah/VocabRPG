@@ -1,4 +1,4 @@
-#import "MainScene.h"
+#import "CombatScene.h"
 #import "Obstacle.h"
 #import "LeftBlock.h"
 #import "RightBlock.h"
@@ -15,9 +15,7 @@
 - (id)initWithCGPoint:(CGPoint)point offset:(CGPoint)offset;
 @end
 
-static int const BLOCK_X_MARGIN = 77;
-
-@implementation MainScene {
+@implementation CombatScene {
   NSTimeInterval _sinceTouch;
 
   CCButton *_restartButton;
@@ -26,10 +24,6 @@ static int const BLOCK_X_MARGIN = 77;
   CCLabelTTF *_nameLabel;
 
   int _points;
-
-  NSMutableArray *_leftBlocks, *_rightBlocks;
-
-  int _blockSize;
 }
 
 - (void)initialize {
@@ -37,29 +31,6 @@ static int const BLOCK_X_MARGIN = 77;
   //  [_physicsNode addChild:_character];
   [self addObstacle];
   _timeSinceObstacle = 0.0f;
-
-  // init blocks
-  _leftBlocks = [NSMutableArray arrayWithCapacity:4];
-  _rightBlocks = [NSMutableArray arrayWithCapacity:4];
-  _blockSize = 4;
-
-  int block_yspacing = 50, block_ystart = 40;
-
-  for (int i = 0; i < _blockSize; ++i) {
-    LeftBlock *left = (LeftBlock *)[CCBReader load:@"LeftBlock"];
-    left.position = ccp(BLOCK_X_MARGIN, block_ystart + i * block_yspacing);
-    [_leftBlocks addObject:left];
-    [self addChild:left];
-
-    RightBlock *right = (RightBlock *)[CCBReader load:@"RightBlock"];
-    static CCPositionType rightCornerRef = {
-        CCPositionUnitPoints, CCPositionUnitPoints,
-        CCPositionReferenceCornerBottomRight};
-    right.positionType = rightCornerRef;
-    right.position = ccp(BLOCK_X_MARGIN, block_ystart + i * block_yspacing);
-    [_rightBlocks addObject:right];
-    [self addChild:right];
-  }
 }
 
 - (void)didLoadFromCCB {

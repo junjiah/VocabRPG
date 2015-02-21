@@ -1,5 +1,5 @@
 //
-//  RightBlock.h
+//  CombatLayout.h
 //  VocabRPG
 //
 //  Created by Junjia He on 2/20/15.
@@ -8,6 +8,6 @@
 
 #import "CCNode.h"
 
-@interface RightBlock : CCNode
+@interface CombatLayout : CCNode
 
 @end

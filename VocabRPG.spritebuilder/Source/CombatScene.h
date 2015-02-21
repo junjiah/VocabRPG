@@ -1,7 +1,7 @@
 #import "CCNode.h"
 #import "Character.h"
 
-@interface MainScene: CCNode <CCPhysicsCollisionDelegate>
+@interface CombatScene: CCNode <CCPhysicsCollisionDelegate>
 
 @property (nonatomic, strong) Character* character;
 
