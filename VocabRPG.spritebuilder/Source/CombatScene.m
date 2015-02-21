@@ -1,5 +1,4 @@
 #import "CombatScene.h"
-#import "Obstacle.h"
 
 @interface CGPointObject : NSObject {
   CGPoint _ratio;

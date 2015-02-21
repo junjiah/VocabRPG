@@ -13,12 +13,15 @@
 }
 
 - (void)didLoadFromCCB {
-  _button.title = @"yuetaoxu";
   _button.zoomWhenHighlighted = YES;
 }
 
 - (void)setButtonName:(NSString *)name {
   _button.name = name;
+}
+
+- (void)setButtonTitle:(NSString *)buttonTitle {
+  _button.title = buttonTitle;
 }
 
 @end

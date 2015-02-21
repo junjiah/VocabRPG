@@ -11,5 +11,6 @@
 @interface MatchingBlock : CCNode
 
 @property (nonatomic, strong) NSString *buttonName;
+@property (nonatomic, strong) NSString *buttonTitle;
 
 @end

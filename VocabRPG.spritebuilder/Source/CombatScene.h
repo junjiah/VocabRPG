@@ -3,6 +3,4 @@
 
 @interface CombatScene: CCNode <CCPhysicsCollisionDelegate>
 
--(void) gameOver;
-
 @end
