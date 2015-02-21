@@ -15,6 +15,7 @@
 		50A247761A985A2900969231 /* font.png in Resources */ = {isa = PBXBuildFile; fileRef = 50A247741A985A2900969231 /* font.png */; };
 		50BF5D781A990B5600153DBD /* MatchingLayerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 50BF5D771A990B5600153DBD /* MatchingLayerController.m */; };
 		50BF5D7B1A99163F00153DBD /* MemorizationModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 50BF5D7A1A99163F00153DBD /* MemorizationModel.m */; };
+		50BF5D801A9937F900153DBD /* Enemy.m in Sources */ = {isa = PBXBuildFile; fileRef = 50BF5D7F1A9937F900153DBD /* Enemy.m */; };
 		8392007A18EE8E3300B6C429 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8392007918EE8E3300B6C429 /* GLKit.framework */; };
 		B71F5911188484E7003F4D28 /* iPad-old.png in Resources */ = {isa = PBXBuildFile; fileRef = B71F5907188484E7003F4D28 /* iPad-old.png */; };
 		B71F5912188484E7003F4D28 /* iPad-old@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B71F5908188484E7003F4D28 /* iPad-old@2x.png */; };
@@ -100,6 +101,8 @@
 		50BF5D771A990B5600153DBD /* MatchingLayerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MatchingLayerController.m; path = Source/MatchingLayerController.m; sourceTree = "<group>"; };
 		50BF5D791A99163F00153DBD /* MemorizationModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MemorizationModel.h; path = Source/MemorizationModel.h; sourceTree = "<group>"; };
 		50BF5D7A1A99163F00153DBD /* MemorizationModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MemorizationModel.m; path = Source/MemorizationModel.m; sourceTree = "<group>"; };
+		50BF5D7E1A9937F900153DBD /* Enemy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Enemy.h; path = Source/Enemy.h; sourceTree = "<group>"; };
+		50BF5D7F1A9937F900153DBD /* Enemy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Enemy.m; path = Source/Enemy.m; sourceTree = "<group>"; };
 		8392007918EE8E3300B6C429 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
 		B71F5907188484E7003F4D28 /* iPad-old.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "iPad-old.png"; path = "Icons/iPad-old.png"; sourceTree = "<group>"; };
 		B71F5908188484E7003F4D28 /* iPad-old@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "iPad-old@2x.png"; path = "Icons/iPad-old@2x.png"; sourceTree = "<group>"; };
@@ -173,6 +176,8 @@
 			children = (
 				501722381A9814E100F266C3 /* Hero.h */,
 				501722391A9814E100F266C3 /* Hero.m */,
+				50BF5D7E1A9937F900153DBD /* Enemy.h */,
+				50BF5D7F1A9937F900153DBD /* Enemy.m */,
 				5017223A1A9814E100F266C3 /* MatchingBlock.h */,
 				5017223B1A9814E100F266C3 /* MatchingBlock.m */,
 				BCF66F7219563563004691FD /* Character.h */,
@@ -437,6 +442,7 @@
 				BCF66F7C19563563004691FD /* Character.m in Sources */,
 				BCF66F7F19563563004691FD /* CombatScene.m in Sources */,
 				5017223F1A9814E100F266C3 /* Hero.m in Sources */,
+				50BF5D801A9937F900153DBD /* Enemy.m in Sources */,
 				501722441A9816FB00F266C3 /* CombatLayer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

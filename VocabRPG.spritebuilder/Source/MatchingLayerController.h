@@ -10,6 +10,6 @@
 
 @interface MatchingLayerController : NSObject
 
-- (NSArray *)generateMatchingBlock;
+- (NSDictionary *)generateWordMeaningPairs;
 
 @end

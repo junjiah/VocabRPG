@@ -159,7 +159,7 @@
 				<key>displayName</key>
 				<string>Hero</string>
 				<key>memberVarAssignmentName</key>
-				<string></string>
+				<string>_hero</string>
 				<key>memberVarAssignmentType</key>
 				<integer>1</integer>
 				<key>properties</key>
@@ -221,7 +221,7 @@
 				<key>displayName</key>
 				<string>Enemy</string>
 				<key>memberVarAssignmentName</key>
-				<string></string>
+				<string>_enemy</string>
 				<key>memberVarAssignmentType</key>
 				<integer>1</integer>
 				<key>properties</key>

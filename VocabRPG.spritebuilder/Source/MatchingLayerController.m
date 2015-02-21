@@ -10,14 +10,10 @@
 #import "MatchingBlock.h"
 #import "MemorizationModel.h"
 
-static double const BLOCK_X_MARGIN = 0.2;
 static int WORD_NUM = 4;
 
 @implementation MatchingLayerController {
   MemorizationModel *_model;
-  NSMutableArray *_leftBlocks, *_rightBlocks;
-  int _blockSize;
-
   NSMutableArray *correctWordMap;
   int _pressedRecords[2];
 }
@@ -29,7 +25,7 @@ static int WORD_NUM = 4;
   return self;
 }
 
-- (NSArray *)generateMatchingBlock {
+- (NSDictionary *)generateWordMeaningPairs {
   // get next 4 word-meaning pairs
   NSMutableArray *words = [NSMutableArray new],
                  *meanings = [NSMutableArray new];
@@ -42,33 +38,15 @@ static int WORD_NUM = 4;
   [MatchingLayerController shuffle:correctWordMap];
   NSLog(@"shuffled array:%@", correctWordMap);
 
-  // init blocks
-  _leftBlocks = [NSMutableArray arrayWithCapacity:4];
-  _rightBlocks = [NSMutableArray arrayWithCapacity:4];
-  _blockSize = 4;
-
-  double block_yspacing = 0.2f, block_ystart = 0.2;
-
-  for (int i = 0; i < _blockSize; ++i) {
-    MatchingBlock *left =
-        (MatchingBlock *)[CCBReader load:@"MatchingBlock" owner:self];
-    left.positionType = CCPositionTypeNormalized;
-    left.position = ccp(BLOCK_X_MARGIN, block_ystart + i * block_yspacing);
-    left.buttonName = [NSString stringWithFormat:@"left_%d", i];
-    left.buttonTitle = [words objectAtIndex:i];
-    [_leftBlocks addObject:left];
-
-    MatchingBlock *right =
-        (MatchingBlock *)[CCBReader load:@"MatchingBlock" owner:self];
-    right.positionType = CCPositionTypeNormalized;
-    right.position = ccp(1 - BLOCK_X_MARGIN, block_ystart + i * block_yspacing);
-    right.buttonName = [NSString stringWithFormat:@"right_%d", i];
-    right.buttonTitle = [meanings
-        objectAtIndex:[[correctWordMap objectAtIndex:i] unsignedIntegerValue]];
-    [_rightBlocks addObject:right];
+  NSMutableDictionary *toReturn = [NSMutableDictionary dictionary];
+  NSMutableArray *shuffledMeanings = [NSMutableArray arrayWithArray:meanings];
+  for (int i = 0; i < WORD_NUM; ++i) {
+    [shuffledMeanings setObject:[meanings objectAtIndex:i]
+             atIndexedSubscript:[[correctWordMap objectAtIndex:i] unsignedIntValue]];
   }
-
-  return [_leftBlocks arrayByAddingObjectsFromArray:_rightBlocks];
+  [toReturn setObject:words forKey:@"words"];
+  [toReturn setObject:shuffledMeanings forKey:@"meanings"];
+  return toReturn;
 }
 
 - (void)blockPressed:(id)sender {

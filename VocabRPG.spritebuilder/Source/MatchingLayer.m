@@ -10,14 +10,45 @@
 #import "MatchingBlock.h"
 #import "MatchingLayerController.h"
 
+static double const BLOCK_X_MARGIN = 0.2;
+
 @implementation MatchingLayer {
   MatchingLayerController *controller;
+  NSMutableArray *_leftBlocks, *_rightBlocks;
+  int _blockSize;
 }
 
 - (void)didLoadFromCCB {
   controller = [MatchingLayerController new];
-  for (MatchingBlock *b in [controller generateMatchingBlock]) {
-    [self addChild:b];
+  NSDictionary *wordMeaningPairs = [controller generateWordMeaningPairs];
+  NSMutableArray *words = [wordMeaningPairs objectForKey:@"words"],
+                 *shuffledMeanings =
+                     [wordMeaningPairs objectForKey:@"meanings"];
+  // init blocks
+  _leftBlocks = [NSMutableArray arrayWithCapacity:4];
+  _rightBlocks = [NSMutableArray arrayWithCapacity:4];
+  _blockSize = 4;
+
+  double block_yspacing = 0.2f, block_ystart = 0.2;
+
+  for (int i = 0; i < _blockSize; ++i) {
+    MatchingBlock *left =
+        (MatchingBlock *)[CCBReader load:@"MatchingBlock" owner:controller];
+    left.positionType = CCPositionTypeNormalized;
+    left.position = ccp(BLOCK_X_MARGIN, block_ystart + i * block_yspacing);
+    left.buttonName = [NSString stringWithFormat:@"left_%d", i];
+    left.buttonTitle = [words objectAtIndex:i];
+    [_leftBlocks addObject:left];
+    [self addChild:left];
+
+    MatchingBlock *right =
+        (MatchingBlock *)[CCBReader load:@"MatchingBlock" owner:controller];
+    right.positionType = CCPositionTypeNormalized;
+    right.position = ccp(1 - BLOCK_X_MARGIN, block_ystart + i * block_yspacing);
+    right.buttonName = [NSString stringWithFormat:@"right_%d", i];
+    right.buttonTitle = [shuffledMeanings objectAtIndex:i];
+    [_rightBlocks addObject:right];
+    [self addChild:right];
   }
 }
 
