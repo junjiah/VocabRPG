@@ -13,74 +13,19 @@
 - (id)initWithCGPoint:(CGPoint)point offset:(CGPoint)offset;
 @end
 
-@implementation CombatScene {
-  NSTimeInterval _sinceTouch;
-
-  CCButton *_restartButton;
-
-  BOOL _gameOver;
-  CCLabelTTF *_nameLabel;
-
-  int _points;
-}
+@implementation CombatScene
 
 - (void)initialize {
-  _character = (Character *)[CCBReader load:@"Character"];
   //  [_physicsNode addChild:_character];
   [self addObstacle];
-  _timeSinceObstacle = 0.0f;
 }
 
 - (void)didLoadFromCCB {
   self.userInteractionEnabled = TRUE;
-
-  // set this class as delegate
-  _physicsNode.collisionDelegate = self;
-
-  _points = 0;
-
   [self initialize];
 }
 
-#pragma mark - Touch Handling
-
-- (void)touchBegan:(CCTouch *)touch withEvent:(CCTouchEvent *)event {
-  //  if (!_gameOver) {
-  //    [_character.physicsBody applyAngularImpulse:10000.f];
-  //    _sinceTouch = 0.f;
-  //
-  //    @try {
-  //      [_character flap];
-  //    }
-  //    @catch (NSException *ex) {
-  //    }
-  //  }
-}
-
 #pragma mark - Game Actions
-
-- (void)gameOver {
-  if (!_gameOver) {
-    _gameOver = TRUE;
-    _restartButton.visible = TRUE;
-
-    _character.physicsBody.velocity =
-        ccp(0.0f, _character.physicsBody.velocity.y);
-    _character.rotation = 90.f;
-    _character.physicsBody.allowsRotation = FALSE;
-    [_character stopAllActions];
-
-    CCActionMoveBy *moveBy =
-        [CCActionMoveBy actionWithDuration:0.2f position:ccp(-2, 2)];
-    CCActionInterval *reverseMovement = [moveBy reverse];
-    CCActionSequence *shakeSequence =
-        [CCActionSequence actionWithArray:@[ moveBy, reverseMovement ]];
-    CCActionEaseBounce *bounce =
-        [CCActionEaseBounce actionWithAction:shakeSequence];
-
-    [self runAction:bounce];
-  }
-}
 
 - (void)restart {
   CCScene *scene = [CCBReader loadAsScene:@"MainScene"];

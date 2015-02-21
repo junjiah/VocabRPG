@@ -33,3 +33,40 @@ static const CGFloat maximumYPosition = 380.f;
 }
 
 @end
+
+- (void)touchBegan:(CCTouch *)touch withEvent:(CCTouchEvent *)event {
+  //  if (!_gameOver) {
+  //    [_character.physicsBody applyAngularImpulse:10000.f];
+  //    _sinceTouch = 0.f;
+  //
+  //    @try {
+  //      [_character flap];
+  //    }
+  //    @catch (NSException *ex) {
+  //    }
+  //  }
+}
+
+- (void)gameOver {
+  if (!_gameOver) {
+    _gameOver = TRUE;
+    _restartButton.visible = TRUE;
+
+    _character.physicsBody.velocity =
+        ccp(0.0f, _character.physicsBody.velocity.y);
+    _character.rotation = 90.f;
+    _character.physicsBody.allowsRotation = FALSE;
+    [_character stopAllActions];
+
+    CCActionMoveBy *moveBy =
+        [CCActionMoveBy actionWithDuration:0.2f position:ccp(-2, 2)];
+    CCActionInterval *reverseMovement = [moveBy reverse];
+    CCActionSequence *shakeSequence =
+        [CCActionSequence actionWithArray:@[ moveBy, reverseMovement ]];
+    CCActionEaseBounce *bounce =
+        [CCActionEaseBounce actionWithAction:shakeSequence];
+
+    [self runAction:bounce];
+  }
+}
+

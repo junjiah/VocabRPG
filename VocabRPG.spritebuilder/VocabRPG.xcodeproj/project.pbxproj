@@ -7,12 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5017223E1A9814E100F266C3 /* CombatScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 501722371A9814E100F266C3 /* CombatScene.m */; };
 		5017223F1A9814E100F266C3 /* Hero.m in Sources */ = {isa = PBXBuildFile; fileRef = 501722391A9814E100F266C3 /* Hero.m */; };
-		501722401A9814E100F266C3 /* Block.m in Sources */ = {isa = PBXBuildFile; fileRef = 5017223B1A9814E100F266C3 /* Block.m */; };
-		501722411A9814E100F266C3 /* Obstacle.m in Sources */ = {isa = PBXBuildFile; fileRef = 5017223D1A9814E100F266C3 /* Obstacle.m */; };
-		501722441A9816FB00F266C3 /* CombatLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 501722431A9816FB00F266C3 /* CombatLayout.m */; };
-		501722471A9817CD00F266C3 /* MatchingLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 501722461A9817CD00F266C3 /* MatchingLayout.m */; };
+		501722401A9814E100F266C3 /* MatchingBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 5017223B1A9814E100F266C3 /* MatchingBlock.m */; };
+		501722441A9816FB00F266C3 /* CombatLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 501722431A9816FB00F266C3 /* CombatLayer.m */; };
+		501722471A9817CD00F266C3 /* MatchingLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 501722461A9817CD00F266C3 /* MatchingLayer.m */; };
+		50A247751A985A2900969231 /* font.fnt in Resources */ = {isa = PBXBuildFile; fileRef = 50A247731A985A2900969231 /* font.fnt */; };
+		50A247761A985A2900969231 /* font.png in Resources */ = {isa = PBXBuildFile; fileRef = 50A247741A985A2900969231 /* font.png */; };
+		50BF5D781A990B5600153DBD /* MatchingLayerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 50BF5D771A990B5600153DBD /* MatchingLayerController.m */; };
 		8392007A18EE8E3300B6C429 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8392007918EE8E3300B6C429 /* GLKit.framework */; };
 		B71F5911188484E7003F4D28 /* iPad-old.png in Resources */ = {isa = PBXBuildFile; fileRef = B71F5907188484E7003F4D28 /* iPad-old.png */; };
 		B71F5912188484E7003F4D28 /* iPad-old@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B71F5908188484E7003F4D28 /* iPad-old@2x.png */; };
@@ -85,18 +86,18 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		501722361A9814E100F266C3 /* CombatScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CombatScene.h; path = Source/CombatScene.h; sourceTree = "<group>"; };
-		501722371A9814E100F266C3 /* CombatScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CombatScene.m; path = Source/CombatScene.m; sourceTree = "<group>"; };
 		501722381A9814E100F266C3 /* Hero.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Hero.h; path = Source/Hero.h; sourceTree = "<group>"; };
 		501722391A9814E100F266C3 /* Hero.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Hero.m; path = Source/Hero.m; sourceTree = "<group>"; };
-		5017223A1A9814E100F266C3 /* Block.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Block.h; path = Source/Block.h; sourceTree = "<group>"; };
-		5017223B1A9814E100F266C3 /* Block.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Block.m; path = Source/Block.m; sourceTree = "<group>"; };
-		5017223C1A9814E100F266C3 /* Obstacle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Obstacle.h; path = Source/Obstacle.h; sourceTree = "<group>"; };
-		5017223D1A9814E100F266C3 /* Obstacle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Obstacle.m; path = Source/Obstacle.m; sourceTree = "<group>"; };
-		501722421A9816FB00F266C3 /* CombatLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CombatLayout.h; path = Source/CombatLayout.h; sourceTree = "<group>"; };
-		501722431A9816FB00F266C3 /* CombatLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CombatLayout.m; path = Source/CombatLayout.m; sourceTree = "<group>"; };
-		501722451A9817CD00F266C3 /* MatchingLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MatchingLayout.h; path = Source/MatchingLayout.h; sourceTree = "<group>"; };
-		501722461A9817CD00F266C3 /* MatchingLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MatchingLayout.m; path = Source/MatchingLayout.m; sourceTree = "<group>"; };
+		5017223A1A9814E100F266C3 /* MatchingBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MatchingBlock.h; path = Source/MatchingBlock.h; sourceTree = "<group>"; };
+		5017223B1A9814E100F266C3 /* MatchingBlock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MatchingBlock.m; path = Source/MatchingBlock.m; sourceTree = "<group>"; };
+		501722421A9816FB00F266C3 /* CombatLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CombatLayer.h; path = Source/CombatLayer.h; sourceTree = "<group>"; };
+		501722431A9816FB00F266C3 /* CombatLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CombatLayer.m; path = Source/CombatLayer.m; sourceTree = "<group>"; };
+		501722451A9817CD00F266C3 /* MatchingLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MatchingLayer.h; path = Source/MatchingLayer.h; sourceTree = "<group>"; };
+		501722461A9817CD00F266C3 /* MatchingLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MatchingLayer.m; path = Source/MatchingLayer.m; sourceTree = "<group>"; };
+		50A247731A985A2900969231 /* font.fnt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = font.fnt; sourceTree = "<group>"; };
+		50A247741A985A2900969231 /* font.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = font.png; sourceTree = "<group>"; };
+		50BF5D761A990B5600153DBD /* MatchingLayerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MatchingLayerController.h; path = Source/MatchingLayerController.h; sourceTree = "<group>"; };
+		50BF5D771A990B5600153DBD /* MatchingLayerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MatchingLayerController.m; path = Source/MatchingLayerController.m; sourceTree = "<group>"; };
 		8392007918EE8E3300B6C429 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
 		B71F5907188484E7003F4D28 /* iPad-old.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "iPad-old.png"; path = "Icons/iPad-old.png"; sourceTree = "<group>"; };
 		B71F5908188484E7003F4D28 /* iPad-old@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "iPad-old@2x.png"; path = "Icons/iPad-old@2x.png"; sourceTree = "<group>"; };
@@ -159,13 +160,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		501722311A97F14B00F266C3 /* fonts */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = fonts;
-			sourceTree = "<group>";
-		};
 		9222E2B918734FF800A246C7 /* libs */ = {
 			isa = PBXGroup;
 			children = (
@@ -177,22 +171,20 @@
 		B737893C1807616C0076A88C /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				501722361A9814E100F266C3 /* CombatScene.h */,
-				501722371A9814E100F266C3 /* CombatScene.m */,
 				501722381A9814E100F266C3 /* Hero.h */,
 				501722391A9814E100F266C3 /* Hero.m */,
-				5017223A1A9814E100F266C3 /* Block.h */,
-				5017223B1A9814E100F266C3 /* Block.m */,
-				5017223C1A9814E100F266C3 /* Obstacle.h */,
-				5017223D1A9814E100F266C3 /* Obstacle.m */,
+				5017223A1A9814E100F266C3 /* MatchingBlock.h */,
+				5017223B1A9814E100F266C3 /* MatchingBlock.m */,
 				BCF66F7219563563004691FD /* Character.h */,
 				BCF66F7319563563004691FD /* Character.m */,
 				BCF66F7819563563004691FD /* CombatScene.h */,
 				BCF66F7919563563004691FD /* CombatScene.m */,
-				501722421A9816FB00F266C3 /* CombatLayout.h */,
-				501722431A9816FB00F266C3 /* CombatLayout.m */,
-				501722451A9817CD00F266C3 /* MatchingLayout.h */,
-				501722461A9817CD00F266C3 /* MatchingLayout.m */,
+				501722421A9816FB00F266C3 /* CombatLayer.h */,
+				501722431A9816FB00F266C3 /* CombatLayer.m */,
+				501722451A9817CD00F266C3 /* MatchingLayer.h */,
+				501722461A9817CD00F266C3 /* MatchingLayer.m */,
+				50BF5D761A990B5600153DBD /* MatchingLayerController.h */,
+				50BF5D771A990B5600153DBD /* MatchingLayerController.m */,
 				BCF66F7A19563563004691FD /* Obstacle.h */,
 				BCF66F7B19563563004691FD /* Obstacle.m */,
 			);
@@ -272,7 +264,8 @@
 		B77F1B4617B978D7009739AE /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				501722311A97F14B00F266C3 /* fonts */,
+				50A247731A985A2900969231 /* font.fnt */,
+				50A247741A985A2900969231 /* font.png */,
 				B73789911807667A0076A88C /* Icons */,
 				B737893A180761570076A88C /* Published-iOS */,
 			);
@@ -393,9 +386,11 @@
 			files = (
 				B71F5919188484E7003F4D28 /* Settings.png in Resources */,
 				B7378978180762440076A88C /* Default@2x.png in Resources */,
+				50A247761A985A2900969231 /* font.png in Resources */,
 				B71F5914188484E7003F4D28 /* iPad@2x.png in Resources */,
 				B71F5913188484E7003F4D28 /* iPad.png in Resources */,
 				B71F5912188484E7003F4D28 /* iPad-old@2x.png in Resources */,
+				50A247751A985A2900969231 /* font.fnt in Resources */,
 				B71F5916188484E7003F4D28 /* iPhone-old@2x.png in Resources */,
 				B737893B180761570076A88C /* Published-iOS in Resources */,
 				B71F591A188484E7003F4D28 /* Settings@2x.png in Resources */,
@@ -424,7 +419,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "osascript -e 'tell application \"System Events\"' -e 'set ProcessList to name of every process' -e 'if \"SpriteBuilder\" is in ProcessList then' -e 'tell application \"SpriteBuilder\" to publish' -e 'end if' -e 'end tell'\n\nif ! [ -n \"${MGWU_SKIP_PUSH}\" ]; then\ngit add . --all\ngit commit -m \"Automatically Committed for MakeGamesWithUs\"\ngit push origin master || true\nfi";
+			shellScript = "osascript -e 'tell application \"System Events\"' -e 'set ProcessList to name of every process' -e 'if \"SpriteBuilder\" is in ProcessList then' -e 'tell application \"SpriteBuilder\" to publish' -e 'end if' -e 'end tell'";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -433,17 +428,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				501722471A9817CD00F266C3 /* MatchingLayout.m in Sources */,
+				50BF5D781A990B5600153DBD /* MatchingLayerController.m in Sources */,
+				501722471A9817CD00F266C3 /* MatchingLayer.m in Sources */,
 				B737893F1807617C0076A88C /* AppDelegate.m in Sources */,
 				B73789871807631A0076A88C /* main.m in Sources */,
-				5017223E1A9814E100F266C3 /* CombatScene.m in Sources */,
 				BCF66F8019563563004691FD /* Obstacle.m in Sources */,
-				501722411A9814E100F266C3 /* Obstacle.m in Sources */,
-				501722401A9814E100F266C3 /* Block.m in Sources */,
+				501722401A9814E100F266C3 /* MatchingBlock.m in Sources */,
 				BCF66F7C19563563004691FD /* Character.m in Sources */,
 				BCF66F7F19563563004691FD /* CombatScene.m in Sources */,
 				5017223F1A9814E100F266C3 /* Hero.m in Sources */,
-				501722441A9816FB00F266C3 /* CombatLayout.m in Sources */,
+				501722441A9816FB00F266C3 /* CombatLayer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
