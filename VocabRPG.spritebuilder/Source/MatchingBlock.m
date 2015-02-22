@@ -35,9 +35,7 @@
 }
 
 - (void)shake {
-  id actionRotateLeft = [CCActionRotateBy actionWithDuration:0.2f angle:30.f];
-  id actionRotateRight = [CCActionRotateBy actionWithDuration:0.4f angle:-30.f];
-  [_button runAction:[CCActionSequence actions:actionRotateLeft, actionRotateRight, nil]];
+
 }
 
 @end

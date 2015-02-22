@@ -186,7 +186,7 @@
 								<string>Position</string>
 								<key>value</key>
 								<array>
-									<real>0.49000000953674316</real>
+									<real>0.49580913782119751</real>
 									<real>0.34444445371627808</real>
 									<integer>0</integer>
 									<integer>2</integer>
@@ -280,176 +280,6 @@
 					</dict>
 					<dict>
 						<key>UUID</key>
-						<integer>9</integer>
-						<key>baseClass</key>
-						<string>CCPhysicsNode</string>
-						<key>children</key>
-						<array/>
-						<key>customClass</key>
-						<string></string>
-						<key>displayName</key>
-						<string>pullback</string>
-						<key>memberVarAssignmentName</key>
-						<string>_pullbackNode</string>
-						<key>memberVarAssignmentType</key>
-						<integer>1</integer>
-						<key>physicsBody</key>
-						<dict>
-							<key>affectedByGravity</key>
-							<true/>
-							<key>allowsRotation</key>
-							<true/>
-							<key>bodyShape</key>
-							<integer>0</integer>
-							<key>collisionCategories</key>
-							<array/>
-							<key>collisionMask</key>
-							<array/>
-							<key>collisionType</key>
-							<string></string>
-							<key>cornerRadius</key>
-							<real>0.0</real>
-							<key>density</key>
-							<real>1</real>
-							<key>dynamic</key>
-							<false/>
-							<key>elasticity</key>
-							<real>0.30000001192092896</real>
-							<key>friction</key>
-							<real>0.30000001192092896</real>
-							<key>points</key>
-							<array>
-								<array>
-									<real>0.0</real>
-									<real>0.0</real>
-								</array>
-								<array>
-									<real>0.0</real>
-									<real>32</real>
-								</array>
-								<array>
-									<real>32</real>
-									<real>32</real>
-								</array>
-								<array>
-									<real>32</real>
-									<real>0.0</real>
-								</array>
-							</array>
-							<key>polygons</key>
-							<array>
-								<array>
-									<array>
-										<real>32</real>
-										<real>0.0</real>
-									</array>
-									<array>
-										<real>32</real>
-										<real>32</real>
-									</array>
-									<array>
-										<real>0.0</real>
-										<real>32</real>
-									</array>
-									<array>
-										<real>0.0</real>
-										<real>0.0</real>
-									</array>
-								</array>
-							</array>
-						</dict>
-						<key>properties</key>
-						<array>
-							<dict>
-								<key>name</key>
-								<string>visible</string>
-								<key>type</key>
-								<string>Check</string>
-								<key>value</key>
-								<false/>
-							</dict>
-							<dict>
-								<key>name</key>
-								<string>name</string>
-								<key>type</key>
-								<string>StringSimple</string>
-								<key>value</key>
-								<string></string>
-							</dict>
-							<dict>
-								<key>name</key>
-								<string>position</string>
-								<key>type</key>
-								<string>Position</string>
-								<key>value</key>
-								<array>
-									<real>391.5101318359375</real>
-									<real>124</real>
-									<integer>0</integer>
-									<integer>0</integer>
-									<integer>0</integer>
-								</array>
-							</dict>
-							<dict>
-								<key>name</key>
-								<string>contentSize</string>
-								<key>type</key>
-								<string>Size</string>
-								<key>value</key>
-								<array>
-									<real>0.0</real>
-									<real>0.0</real>
-									<integer>0</integer>
-									<integer>0</integer>
-								</array>
-							</dict>
-							<dict>
-								<key>name</key>
-								<string>anchorPoint</string>
-								<key>type</key>
-								<string>Point</string>
-								<key>value</key>
-								<array>
-									<real>0.0</real>
-									<real>0.0</real>
-								</array>
-							</dict>
-							<dict>
-								<key>name</key>
-								<string>scale</string>
-								<key>type</key>
-								<string>ScaleLock</string>
-								<key>value</key>
-								<array>
-									<real>1</real>
-									<real>1</real>
-									<false/>
-									<integer>0</integer>
-								</array>
-							</dict>
-							<dict>
-								<key>name</key>
-								<string>gravity</string>
-								<key>type</key>
-								<string>Point</string>
-								<key>value</key>
-								<array>
-									<real>0.0</real>
-									<real>-100</real>
-								</array>
-							</dict>
-							<dict>
-								<key>name</key>
-								<string>sleepTimeThreshold</string>
-								<key>type</key>
-								<string>Float</string>
-								<key>value</key>
-								<real>0.5</real>
-							</dict>
-						</array>
-					</dict>
-					<dict>
-						<key>UUID</key>
 						<integer>7</integer>
 						<key>animatedProperties</key>
 						<dict>
@@ -521,8 +351,8 @@
 							<key>points</key>
 							<array>
 								<array>
-									<real>-49.204135894775391</real>
-									<real>-20.0662841796875</real>
+									<real>-54.478794097900391</real>
+									<real>-18.864664077758789</real>
 								</array>
 								<array>
 									<real>4.6997737884521484</real>
@@ -545,8 +375,8 @@
 										<real>2.0778827667236328</real>
 									</array>
 									<array>
-										<real>-49.204135894775391</real>
-										<real>-20.0662841796875</real>
+										<real>-54.478794097900391</real>
+										<real>-18.864664077758789</real>
 									</array>
 								</array>
 							</array>
@@ -576,7 +406,7 @@
 								<string>Position</string>
 								<key>value</key>
 								<array>
-									<real>365.92178344726562</real>
+									<real>374.57763671875</real>
 									<real>112.68083190917969</real>
 									<integer>0</integer>
 									<integer>0</integer>
@@ -631,8 +461,6 @@
 								<real>0.0</real>
 							</dict>
 						</array>
-						<key>selected</key>
-						<true/>
 						<key>seqExpanded</key>
 						<true/>
 					</dict>
@@ -1045,7 +873,7 @@
 			<key>name</key>
 			<string>Default Timeline</string>
 			<key>offset</key>
-			<real>0.0</real>
+			<real>0.02500152587890625</real>
 			<key>position</key>
 			<real>0.0</real>
 			<key>resolution</key>

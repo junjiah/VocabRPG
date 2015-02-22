@@ -39,7 +39,6 @@
   }
   correctWordMap = [NSMutableArray arrayWithObjects:@0, @1, @2, @3, nil];
   [MatchingLayerController shuffle:correctWordMap];
-  NSLog(@"shuffled array:%@", correctWordMap);
 
   NSMutableDictionary *toReturn = [NSMutableDictionary dictionary];
   NSMutableArray *shuffledMeanings = [NSMutableArray arrayWithArray:meanings];
@@ -55,6 +54,11 @@
 
 #pragma mark Callbacks
 
+/**
+ *  Callback to check pressed records and correctness.
+ *
+ *  @param sender pressed button
+ */
 - (void)blockPressed:(id)sender {
   NSArray *parts = [((CCButton *)sender).name componentsSeparatedByString:@"_"];
   NSString *side = [parts objectAtIndex:0];
@@ -65,18 +69,13 @@
 
   // check answer if both column pressed
   if (_pressedRecords[0] > -1 && _pressedRecords[1] > -1) {
-    if ([[correctWordMap objectAtIndex:_pressedRecords[0]] intValue] ==
-        _pressedRecords[1]) {
-      NSLog(@"Correct");
-      [_view clearPairWithLeftIndex:_pressedRecords[0]
-                     withRightIndex:_pressedRecords[1]
-                         withResult:YES];
-    } else {
-      NSLog(@"Wrong");
-      [_view clearPairWithLeftIndex:_pressedRecords[0]
-                     withRightIndex:_pressedRecords[1]
-                         withResult:NO];
-    }
+    BOOL correctMath =
+        [[correctWordMap objectAtIndex:_pressedRecords[0]] intValue] ==
+        _pressedRecords[1];
+    
+    [_view clearPairWithLeftIndex:_pressedRecords[0]
+                   withRightIndex:_pressedRecords[1]
+                       withResult:correctMath];
     // reset pressed records
     _pressedRecords[0] = -1;
     _pressedRecords[1] = -1;
