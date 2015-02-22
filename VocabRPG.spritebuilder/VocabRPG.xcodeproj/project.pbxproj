@@ -44,7 +44,6 @@
 		B77F1B3E17B978D7009739AE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B77F1B3D17B978D7009739AE /* Foundation.framework */; };
 		B77F1B4017B978D7009739AE /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B77F1B3F17B978D7009739AE /* CoreGraphics.framework */; };
 		B77F1B4217B978D7009739AE /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B77F1B4117B978D7009739AE /* CoreText.framework */; };
-		BCF66F7C19563563004691FD /* Character.m in Sources */ = {isa = PBXBuildFile; fileRef = BCF66F7319563563004691FD /* Character.m */; };
 		BCF66F7F19563563004691FD /* CombatScene.m in Sources */ = {isa = PBXBuildFile; fileRef = BCF66F7919563563004691FD /* CombatScene.m */; };
 /* End PBXBuildFile section */
 
@@ -135,8 +134,6 @@
 		B77F1B3F17B978D7009739AE /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		B77F1B4117B978D7009739AE /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		B7B3713D180358F1007369CC /* libObjectiveChipmunk.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libObjectiveChipmunk.a; path = "../libs/cocos2d-iphone/external/Chipmunk/xcode/build/Debug-iphoneos/libObjectiveChipmunk.a"; sourceTree = "<group>"; };
-		BCF66F7219563563004691FD /* Character.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Character.h; path = Source/Character.h; sourceTree = "<group>"; };
-		BCF66F7319563563004691FD /* Character.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Character.m; path = Source/Character.m; sourceTree = "<group>"; };
 		BCF66F7819563563004691FD /* CombatScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CombatScene.h; path = Source/CombatScene.h; sourceTree = "<group>"; };
 		BCF66F7919563563004691FD /* CombatScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CombatScene.m; path = Source/CombatScene.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -180,8 +177,6 @@
 				50BF5D7F1A9937F900153DBD /* Enemy.m */,
 				5017223A1A9814E100F266C3 /* MatchingBlock.h */,
 				5017223B1A9814E100F266C3 /* MatchingBlock.m */,
-				BCF66F7219563563004691FD /* Character.h */,
-				BCF66F7319563563004691FD /* Character.m */,
 				BCF66F7819563563004691FD /* CombatScene.h */,
 				BCF66F7919563563004691FD /* CombatScene.m */,
 				501722421A9816FB00F266C3 /* CombatLayer.h */,
@@ -439,7 +434,6 @@
 				B737893F1807617C0076A88C /* AppDelegate.m in Sources */,
 				B73789871807631A0076A88C /* main.m in Sources */,
 				501722401A9814E100F266C3 /* MatchingBlock.m in Sources */,
-				BCF66F7C19563563004691FD /* Character.m in Sources */,
 				BCF66F7F19563563004691FD /* CombatScene.m in Sources */,
 				5017223F1A9814E100F266C3 /* Hero.m in Sources */,
 				50BF5D801A9937F900153DBD /* Enemy.m in Sources */,

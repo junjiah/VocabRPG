@@ -8,8 +8,8 @@
 
 #import "CCNode.h"
 
-@interface CombatLayer : CCNode
+@interface CombatLayer : CCNode <CCPhysicsCollisionDelegate>
 
-- (void)attack:(NSNotification*)notification;
+- (void)attack;
 
 @end

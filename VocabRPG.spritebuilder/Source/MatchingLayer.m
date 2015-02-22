@@ -9,6 +9,7 @@
 #import "MatchingLayer.h"
 #import "MatchingLayerController.h"
 #import "MatchingBlock.h"
+#import "CombatScene.h"
 
 static double const BLOCK_X_MARGIN = 0.2;
 
@@ -32,7 +33,9 @@ static double const BLOCK_X_MARGIN = 0.2;
   // init blocks
   _leftBlocks = [NSMutableArray arrayWithCapacity:4];
   _rightBlocks = [NSMutableArray arrayWithCapacity:4];
-  _blockSize = 4;
+
+  //*******DEBUGG!
+  _blockSize = DISPLAY_WORD_NUM;
 
   double block_yspacing = 0.2f, block_ystart = 0.2;
 
@@ -62,6 +65,18 @@ static double const BLOCK_X_MARGIN = 0.2;
 - (void)clearPair:(int)leftIndex withRightIndex:(int)rightIndex {
   [[_leftBlocks objectAtIndex:leftIndex] clear];
   [[_rightBlocks objectAtIndex:rightIndex] clear];
+  _blockSize--;
+  
+  /***** DEBUG *****/
+  _blockSize = 0;
+  /***** DEBUG *****/
+  
+  // if all cleared, attack
+  if (_blockSize == 0) {
+    CombatScene *scene = (CombatScene *)self.parent;
+    [scene attackWithCharacter:0 withType:0];
+    _blockSize = DISPLAY_WORD_NUM;
+  }
 }
 
 @end

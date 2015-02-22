@@ -10,4 +10,8 @@
 
 @implementation Hero
 
+- (void)didLoadFromCCB {
+  self.physicsBody.collisionType = @"hero";
+}
+
 @end

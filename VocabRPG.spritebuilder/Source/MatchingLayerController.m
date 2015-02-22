@@ -12,8 +12,6 @@
 #import "MemorizationModel.h"
 #import "CombatLayer.h"
 
-static int WORD_NUM = 4;
-
 @implementation MatchingLayerController {
   MemorizationModel *_model;
   NSMutableArray *correctWordMap;
@@ -34,7 +32,7 @@ static int WORD_NUM = 4;
   // get next 4 word-meaning pairs
   NSMutableArray *words = [NSMutableArray new],
                  *meanings = [NSMutableArray new];
-  for (int i = 0; i < WORD_NUM; ++i) {
+  for (int i = 0; i < DISPLAY_WORD_NUM; ++i) {
     NSArray *wordPair = [[_model getNextPair] componentsSeparatedByString:@":"];
     [words addObject:[wordPair objectAtIndex:0]];
     [meanings addObject:[wordPair objectAtIndex:1]];
@@ -45,7 +43,7 @@ static int WORD_NUM = 4;
 
   NSMutableDictionary *toReturn = [NSMutableDictionary dictionary];
   NSMutableArray *shuffledMeanings = [NSMutableArray arrayWithArray:meanings];
-  for (int i = 0; i < WORD_NUM; ++i) {
+  for (int i = 0; i < DISPLAY_WORD_NUM; ++i) {
     [shuffledMeanings
                  setObject:[meanings objectAtIndex:i]
         atIndexedSubscript:[[correctWordMap objectAtIndex:i] unsignedIntValue]];

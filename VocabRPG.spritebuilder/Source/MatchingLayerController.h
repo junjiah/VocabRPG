@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import "MatchingLayer.h"
 
+static const int DISPLAY_WORD_NUM = 4;
+
 @interface MatchingLayerController : NSObject <VocabularyDataSource>
 
 - (id)initWithView:(MatchingLayer *)view;
