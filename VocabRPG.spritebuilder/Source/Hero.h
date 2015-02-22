@@ -7,7 +7,8 @@
 //
 
 #import "CCSprite.h"
+#import "Character.h"
 
-@interface Hero : CCSprite
+@interface Hero : CCSprite <Character>
 
 @end

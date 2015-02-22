@@ -14,5 +14,7 @@
 @property (nonatomic, strong) NSString *buttonTitle;
 
 - (void)clear;
+- (void)reappear;
+- (void)shake;
 
 @end

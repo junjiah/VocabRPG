@@ -9,16 +9,17 @@
 #import "CombatLayer.h"
 #import "CombatScene.h"
 #import "MatchingBlock.h"
+#import "Character.h"
 #import "Hero.h"
 #import "Enemy.h"
-
-static const double FORWARD_FORCE = 1000;
 
 @implementation CombatLayer {
   CCPhysicsNode *_physicsNode;
   Hero *_hero;
   Enemy *_enemy;
   __weak CombatScene *_parentController;
+  
+  int _attackStrength;
 }
 
 - (void)didLoadFromCCB {
@@ -26,21 +27,40 @@ static const double FORWARD_FORCE = 1000;
   _parentController = (CombatScene *)self.parent;
 }
 
-- (void)attack {
+- (void)attackWithCharacter:(int)character withType:(int)type withStrength:(int)strength {
   NSLog(@"ATTACK!");
-  [_hero.physicsBody applyImpulse:ccp(FORWARD_FORCE, 0)];
+  _attackStrength = strength;
+  switch (character) {
+    case 1:
+      [_enemy.physicsBody applyImpulse:ccp(-FORWARD_IMPULSE, 0)];
+      break;
+    case -1:
+      [_hero.physicsBody applyImpulse:ccp(FORWARD_IMPULSE, 0)];
+    default:
+      break;
+  }
 }
 
 - (BOOL)ccPhysicsCollisionPreSolve:(CCPhysicsCollisionPair *)pair
                               hero:(CCSprite *)hero
                              enemy:(CCNode *)enemy {
-  [hero.physicsBody applyImpulse:ccp(-FORWARD_FORCE * 2, 0)];
-  id actionRotateLeft = [CCActionRotateBy actionWithDuration:0.2f angle:30.f];
-  id actionRotateRight = [CCActionRotateBy actionWithDuration:0.4f angle:-30.f];
-  [enemy runAction:[CCActionSequence actions:actionRotateLeft, actionRotateRight, nil]];
+  // judge who collides whom by the velocity
+  id<Character> collider, collidee;
+  int side;
+  if (hero.physicsBody.velocity.x == 0) {
+    collider = _enemy;
+    collidee = _hero;
+    side = -1;
+  } else {
+    collider = _hero;
+    collidee = _enemy;
+    side = 1;
+  }
   
+  [collider moveBack];
+  [collidee takeDamage];
   // update HP labels in parent view
-  [_parentController updateHealthPointsOn:1 withUpdate:-20];
+  [_parentController updateHealthPointsOn:side withUpdate:-1 * _attackStrength];
   return NO;
 }
 
@@ -48,6 +68,13 @@ static const double FORWARD_FORCE = 1000;
                            hero:(CCNode *)hero
                         barrier:(CCNode *)barrier {
   hero.physicsBody.velocity = ccp(0, 0);
+  return NO;
+}
+
+- (BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair
+                           enemy:(CCNode *)enemy
+                        barrier:(CCNode *)barrier {
+  enemy.physicsBody.velocity = ccp(0, 0);
   return NO;
 }
 

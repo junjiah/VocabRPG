@@ -16,6 +16,8 @@
 
 @interface MatchingLayer : CCNode
 
-- (void)clearPair:(int)withLeftIndex withRightIndex:(int)rightIndex;
+- (void)clearPairWithLeftIndex:(int)withLeftIndex
+                withRightIndex:(int)rightIndex
+                    withResult:(BOOL)result;
 
 @end

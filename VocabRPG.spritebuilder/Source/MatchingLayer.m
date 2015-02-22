@@ -16,8 +16,8 @@ static double const BLOCK_X_MARGIN = 0.2;
 @implementation MatchingLayer {
   NSMutableArray *_leftBlocks, *_rightBlocks;
   int _blockSize;
-  
-  id <VocabularyDataSource> dataSource;
+
+  id<VocabularyDataSource> dataSource;
 }
 
 - (void)didLoadFromCCB {
@@ -25,6 +25,8 @@ static double const BLOCK_X_MARGIN = 0.2;
   NSDictionary *vocabularyData = [dataSource generateWordMeaningPairs];
   [self deployBlocks:vocabularyData];
 }
+
+#pragma mark Place blocks
 
 - (void)deployBlocks:(NSDictionary *)wordMeaningPairs {
   NSMutableArray *words = [wordMeaningPairs objectForKey:@"words"],
@@ -34,7 +36,6 @@ static double const BLOCK_X_MARGIN = 0.2;
   _leftBlocks = [NSMutableArray arrayWithCapacity:4];
   _rightBlocks = [NSMutableArray arrayWithCapacity:4];
 
-  //*******DEBUGG!
   _blockSize = DISPLAY_WORD_NUM;
 
   double block_yspacing = 0.2f, block_ystart = 0.2;
@@ -60,22 +61,58 @@ static double const BLOCK_X_MARGIN = 0.2;
   }
 }
 
-# pragma mark Callbacks
+- (void)reDeployBlocks:(NSDictionary *)wordMeaningPairs {
+  NSMutableArray *words = [wordMeaningPairs objectForKey:@"words"],
+                 *shuffledMeanings =
+                     [wordMeaningPairs objectForKey:@"meanings"];
+  _blockSize = DISPLAY_WORD_NUM;
+  // first clear all blocks
+  for (int i = 0; i < _blockSize; ++i) {
+    [[_leftBlocks objectAtIndex:i] clear];
+    [[_rightBlocks objectAtIndex:i] clear];
+  }
 
-- (void)clearPair:(int)leftIndex withRightIndex:(int)rightIndex {
-  [[_leftBlocks objectAtIndex:leftIndex] clear];
-  [[_rightBlocks objectAtIndex:rightIndex] clear];
-  _blockSize--;
-  
-  /***** DEBUG *****/
-  _blockSize = 0;
-  /***** DEBUG *****/
-  
-  // if all cleared, attack
-  if (_blockSize == 0) {
+  // reassign button titles
+  for (int i = 0; i < _blockSize; ++i) {
+    MatchingBlock *left = [_leftBlocks objectAtIndex:i],
+                  *right = [_rightBlocks objectAtIndex:i];
+    [left setButtonTitle:[words objectAtIndex:i]];
+    [left reappear];
+    [right setButtonTitle:[shuffledMeanings objectAtIndex:i]];
+    [right reappear];
+  }
+}
+
+#pragma mark Callbacks
+
+- (void)clearPairWithLeftIndex:(int)leftIndex
+                withRightIndex:(int)rightIndex
+                    withResult:(BOOL)result {
+  if (result) {
+    // correct pair
+    [[_leftBlocks objectAtIndex:leftIndex] clear];
+    [[_rightBlocks objectAtIndex:rightIndex] clear];
+    _blockSize--;
+
+    /***** DEBUG *****/
+//    _blockSize = 0;
+    /***** DEBUG *****/
+
+    // if all cleared, attack
+    if (_blockSize == 0) {
+      CombatScene *scene = (CombatScene *)self.parent;
+      [scene attackWithCharacter:-1 withType:0];
+      // redeploy
+      NSDictionary *vocabularyData = [dataSource generateWordMeaningPairs];
+      [self reDeployBlocks:vocabularyData];
+    }
+  } else {
+    // wrong pair, enemy's turn to attack
     CombatScene *scene = (CombatScene *)self.parent;
-    [scene attackWithCharacter:0 withType:0];
-    _blockSize = DISPLAY_WORD_NUM;
+    [scene attackWithCharacter:1 withType:0];
+    // redeploy
+    NSDictionary *vocabularyData = [dataSource generateWordMeaningPairs];
+    [self reDeployBlocks:vocabularyData];
   }
 }
 

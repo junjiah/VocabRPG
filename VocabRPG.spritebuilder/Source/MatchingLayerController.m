@@ -16,7 +16,7 @@
   MemorizationModel *_model;
   NSMutableArray *correctWordMap;
   int _pressedRecords[2];
-  
+
   __weak MatchingLayer *_view;
 }
 
@@ -68,9 +68,14 @@
     if ([[correctWordMap objectAtIndex:_pressedRecords[0]] intValue] ==
         _pressedRecords[1]) {
       NSLog(@"Correct");
-      [_view clearPair:_pressedRecords[0] withRightIndex:_pressedRecords[1]];
+      [_view clearPairWithLeftIndex:_pressedRecords[0]
+                     withRightIndex:_pressedRecords[1]
+                         withResult:YES];
     } else {
       NSLog(@"Wrong");
+      [_view clearPairWithLeftIndex:_pressedRecords[0]
+                     withRightIndex:_pressedRecords[1]
+                         withResult:NO];
     }
     // reset pressed records
     _pressedRecords[0] = -1;

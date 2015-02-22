@@ -28,4 +28,16 @@
   _button.visible = NO;
 }
 
+- (void)reappear {
+  id actionAppear = [CCActionShow action];
+  id delay = [CCActionDelay actionWithDuration:1.f];
+  [_button runAction:[CCActionSequence actions:delay, actionAppear, nil]];
+}
+
+- (void)shake {
+  id actionRotateLeft = [CCActionRotateBy actionWithDuration:0.2f angle:30.f];
+  id actionRotateRight = [CCActionRotateBy actionWithDuration:0.4f angle:-30.f];
+  [_button runAction:[CCActionSequence actions:actionRotateLeft, actionRotateRight, nil]];
+}
+
 @end

@@ -21,11 +21,11 @@
 }
 
 - (void)attackWithCharacter:(int)character withType:(int)type {
-  [_combatLayer attack];
+  [_combatLayer attackWithCharacter:character withType:type withStrength:20];
 }
 
 - (void)updateHealthPointsOn:(int)side withUpdate:(int)value {
-  if (side == 0) {
+  if (side == -1) {
     _heroHealthValue += value;
     [_heroHealth setString:[NSString stringWithFormat:@"HP %d", _heroHealthValue]];
   } else {
