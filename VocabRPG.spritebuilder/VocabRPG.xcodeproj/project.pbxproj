@@ -188,10 +188,10 @@
 				501722431A9816FB00F266C3 /* CombatLayer.m */,
 				501722451A9817CD00F266C3 /* MatchingLayer.h */,
 				501722461A9817CD00F266C3 /* MatchingLayer.m */,
-				50BF5D791A99163F00153DBD /* MemorizationModel.h */,
-				50BF5D7A1A99163F00153DBD /* MemorizationModel.m */,
 				50BF5D761A990B5600153DBD /* MatchingLayerController.h */,
 				50BF5D771A990B5600153DBD /* MatchingLayerController.m */,
+				50BF5D791A99163F00153DBD /* MemorizationModel.h */,
+				50BF5D7A1A99163F00153DBD /* MemorizationModel.m */,
 			);
 			name = Source;
 			sourceTree = "<group>";

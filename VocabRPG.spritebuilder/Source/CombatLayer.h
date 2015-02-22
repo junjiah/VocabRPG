@@ -10,4 +10,6 @@
 
 @interface CombatLayer : CCNode
 
+- (void)attack:(NSNotification*)notification;
+
 @end

@@ -7,20 +7,25 @@
 //
 
 #import "MatchingLayer.h"
-#import "MatchingBlock.h"
 #import "MatchingLayerController.h"
+#import "MatchingBlock.h"
 
 static double const BLOCK_X_MARGIN = 0.2;
 
 @implementation MatchingLayer {
-  MatchingLayerController *controller;
   NSMutableArray *_leftBlocks, *_rightBlocks;
   int _blockSize;
+  
+  id <VocabularyDataSource> dataSource;
 }
 
 - (void)didLoadFromCCB {
-  controller = [MatchingLayerController new];
-  NSDictionary *wordMeaningPairs = [controller generateWordMeaningPairs];
+  dataSource = [[MatchingLayerController alloc] initWithView:self];
+  NSDictionary *vocabularyData = [dataSource generateWordMeaningPairs];
+  [self deployBlocks:vocabularyData];
+}
+
+- (void)deployBlocks:(NSDictionary *)wordMeaningPairs {
   NSMutableArray *words = [wordMeaningPairs objectForKey:@"words"],
                  *shuffledMeanings =
                      [wordMeaningPairs objectForKey:@"meanings"];
@@ -33,7 +38,7 @@ static double const BLOCK_X_MARGIN = 0.2;
 
   for (int i = 0; i < _blockSize; ++i) {
     MatchingBlock *left =
-        (MatchingBlock *)[CCBReader load:@"MatchingBlock" owner:controller];
+        (MatchingBlock *)[CCBReader load:@"MatchingBlock" owner:dataSource];
     left.positionType = CCPositionTypeNormalized;
     left.position = ccp(BLOCK_X_MARGIN, block_ystart + i * block_yspacing);
     left.buttonName = [NSString stringWithFormat:@"left_%d", i];
@@ -42,7 +47,7 @@ static double const BLOCK_X_MARGIN = 0.2;
     [self addChild:left];
 
     MatchingBlock *right =
-        (MatchingBlock *)[CCBReader load:@"MatchingBlock" owner:controller];
+        (MatchingBlock *)[CCBReader load:@"MatchingBlock" owner:dataSource];
     right.positionType = CCPositionTypeNormalized;
     right.position = ccp(1 - BLOCK_X_MARGIN, block_ystart + i * block_yspacing);
     right.buttonName = [NSString stringWithFormat:@"right_%d", i];
@@ -50,6 +55,13 @@ static double const BLOCK_X_MARGIN = 0.2;
     [_rightBlocks addObject:right];
     [self addChild:right];
   }
+}
+
+# pragma mark Callbacks
+
+- (void)clearPair:(int)leftIndex withRightIndex:(int)rightIndex {
+  [[_leftBlocks objectAtIndex:leftIndex] clear];
+  [[_rightBlocks objectAtIndex:rightIndex] clear];
 }
 
 @end

@@ -7,8 +7,10 @@
 //
 
 #import "MatchingLayerController.h"
+#import "MatchingLayer.h"
 #import "MatchingBlock.h"
 #import "MemorizationModel.h"
+#import "CombatLayer.h"
 
 static int WORD_NUM = 4;
 
@@ -16,9 +18,12 @@ static int WORD_NUM = 4;
   MemorizationModel *_model;
   NSMutableArray *correctWordMap;
   int _pressedRecords[2];
+  
+  __weak MatchingLayer *_view;
 }
 
-- (id)init {
+- (id)initWithView:(MatchingLayer *)view {
+  _view = view;
   _model = [MemorizationModel new];
   _pressedRecords[0] = -1;
   _pressedRecords[1] = -1;
@@ -41,13 +46,16 @@ static int WORD_NUM = 4;
   NSMutableDictionary *toReturn = [NSMutableDictionary dictionary];
   NSMutableArray *shuffledMeanings = [NSMutableArray arrayWithArray:meanings];
   for (int i = 0; i < WORD_NUM; ++i) {
-    [shuffledMeanings setObject:[meanings objectAtIndex:i]
-             atIndexedSubscript:[[correctWordMap objectAtIndex:i] unsignedIntValue]];
+    [shuffledMeanings
+                 setObject:[meanings objectAtIndex:i]
+        atIndexedSubscript:[[correctWordMap objectAtIndex:i] unsignedIntValue]];
   }
   [toReturn setObject:words forKey:@"words"];
   [toReturn setObject:shuffledMeanings forKey:@"meanings"];
   return toReturn;
 }
+
+#pragma mark Callbacks
 
 - (void)blockPressed:(id)sender {
   NSArray *parts = [((CCButton *)sender).name componentsSeparatedByString:@"_"];
@@ -61,7 +69,8 @@ static int WORD_NUM = 4;
   if (_pressedRecords[0] > -1 && _pressedRecords[1] > -1) {
     if ([[correctWordMap objectAtIndex:_pressedRecords[0]] intValue] ==
         _pressedRecords[1]) {
-      NSLog(@"Good");
+      NSLog(@"Correct");
+      [_view clearPair:_pressedRecords[0] withRightIndex:_pressedRecords[1]];
     } else {
       NSLog(@"Wrong");
     }
@@ -70,6 +79,8 @@ static int WORD_NUM = 4;
     _pressedRecords[1] = -1;
   }
 }
+
+#pragma mark Class methods
 
 + (void)shuffle:(NSMutableArray *)array {
   NSUInteger count = [array count];

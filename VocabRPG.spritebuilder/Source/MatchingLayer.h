@@ -8,6 +8,14 @@
 
 #import "CCNode.h"
 
+@protocol VocabularyDataSource <NSObject>
+
+- (NSDictionary *)generateWordMeaningPairs;
+
+@end
+
 @interface MatchingLayer : CCNode
+
+- (void)clearPair:(int)withLeftIndex withRightIndex:(int)rightIndex;
 
 @end

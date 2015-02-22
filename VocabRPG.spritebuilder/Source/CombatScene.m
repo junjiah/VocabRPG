@@ -1,4 +1,6 @@
 #import "CombatScene.h"
+#import "CombatLayer.h"
+#import "MatchingLayer.h"
 
 @interface CGPointObject : NSObject {
   CGPoint _ratio;
@@ -12,11 +14,14 @@
 - (id)initWithCGPoint:(CGPoint)point offset:(CGPoint)offset;
 @end
 
-@implementation CombatScene
+@implementation CombatScene {
+  MatchingLayer *_matching;
+  CombatLayer *_combat;
+}
 
 - (void)initialize {
   //  [_physicsNode addChild:_character];
-  [self addObstacle];
+//  [self addObstacle];
 }
 
 - (void)didLoadFromCCB {

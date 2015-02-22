@@ -7,9 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "MatchingLayer.h"
 
-@interface MatchingLayerController : NSObject
+@interface MatchingLayerController : NSObject <VocabularyDataSource>
 
+- (id)initWithView:(MatchingLayer *)view;
 - (NSDictionary *)generateWordMeaningPairs;
 
 @end

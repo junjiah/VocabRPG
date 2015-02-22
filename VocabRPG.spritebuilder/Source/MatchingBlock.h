@@ -13,4 +13,6 @@
 @property (nonatomic, strong) NSString *buttonName;
 @property (nonatomic, strong) NSString *buttonTitle;
 
+- (void)clear;
+
 @end

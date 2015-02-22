@@ -53,7 +53,7 @@
 				<key>displayName</key>
 				<string>matching background</string>
 				<key>memberVarAssignmentName</key>
-				<string></string>
+				<string>_matching</string>
 				<key>memberVarAssignmentType</key>
 				<integer>1</integer>
 				<key>properties</key>
@@ -113,6 +113,8 @@
 						<string>MatchingLayer.ccb</string>
 					</dict>
 				</array>
+				<key>selected</key>
+				<true/>
 			</dict>
 			<dict>
 				<key>UUID</key>
@@ -126,7 +128,7 @@
 				<key>displayName</key>
 				<string>combat background</string>
 				<key>memberVarAssignmentName</key>
-				<string></string>
+				<string>_combat</string>
 				<key>memberVarAssignmentType</key>
 				<integer>1</integer>
 				<key>properties</key>

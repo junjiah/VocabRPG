@@ -24,4 +24,8 @@
   _button.title = buttonTitle;
 }
 
+- (void)clear {
+  _button.visible = NO;
+}
+
 @end
