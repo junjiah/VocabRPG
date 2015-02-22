@@ -3,32 +3,35 @@
 #import "MatchingLayer.h"
 
 @implementation CombatScene {
-  MatchingLayer *_matching;
-  CombatLayer *_combat;
-}
-
-- (void)initialize {
-
+  MatchingLayer *_matchingLayer;
+  CombatLayer *_combatLayer;
+  
+  CCLabelTTF *_heroHealth, *_enemyHealth;
+  int _heroHealthValue, _enemyHealthValue;
 }
 
 - (void)didLoadFromCCB {
-  self.userInteractionEnabled = TRUE;
-  [self initialize];
+  _heroHealthValue = _enemyHealthValue = 100;
+  
 }
-
-#pragma mark - Game Actions
 
 - (void)restart {
   CCScene *scene = [CCBReader loadAsScene:@"MainScene"];
   [[CCDirector sharedDirector] replaceScene:scene];
 }
 
-#pragma mark - Obstacle Spawning
-
 - (void)attackWithCharacter:(int)character withType:(int)type {
-  [_combat attack];
+  [_combatLayer attack];
 }
 
-
+- (void)updateHealthPointsOn:(int)side withUpdate:(int)value {
+  if (side == 0) {
+    _heroHealthValue += value;
+    [_heroHealth setString:[NSString stringWithFormat:@"HP %d", _heroHealthValue]];
+  } else {
+    _enemyHealthValue += value;
+    [_enemyHealth setString:[NSString stringWithFormat:@"HP %d", _enemyHealthValue]];
+  }
+}
 
 @end

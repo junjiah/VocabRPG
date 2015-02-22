@@ -7,6 +7,7 @@
 //
 
 #import "CombatLayer.h"
+#import "CombatScene.h"
 #import "MatchingBlock.h"
 #import "Hero.h"
 #import "Enemy.h"
@@ -17,10 +18,12 @@ static const double FORWARD_FORCE = 1000;
   CCPhysicsNode *_physicsNode;
   Hero *_hero;
   Enemy *_enemy;
+  __weak CombatScene *_parentController;
 }
 
 - (void)didLoadFromCCB {
   _physicsNode.collisionDelegate = self;
+  _parentController = (CombatScene *)self.parent;
 }
 
 - (void)attack {
@@ -35,6 +38,9 @@ static const double FORWARD_FORCE = 1000;
   id actionRotateLeft = [CCActionRotateBy actionWithDuration:0.2f angle:30.f];
   id actionRotateRight = [CCActionRotateBy actionWithDuration:0.4f angle:-30.f];
   [enemy runAction:[CCActionSequence actions:actionRotateLeft, actionRotateRight, nil]];
+  
+  // update HP labels in parent view
+  [_parentController updateHealthPointsOn:1 withUpdate:-20];
   return NO;
 }
 
