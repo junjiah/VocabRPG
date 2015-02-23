@@ -12,28 +12,6 @@
 
 #define ARC4RANDOM_MAX      0x100000000
 
-// visibility on a 3,5-inch iPhone ends a 88 points and we want some meat
-static const CGFloat minimumYPosition = 200.f;
-// visibility ends at 480 and we want some meat
-static const CGFloat maximumYPosition = 380.f;
-
-- (void)didLoadFromCCB {
-  _topPipe.physicsBody.collisionType = @"level";
-  _topPipe.physicsBody.sensor = YES;
-
-  _bottomPipe.physicsBody.collisionType = @"level";
-  _bottomPipe.physicsBody.sensor = YES;
-}
-
-- (void)setupRandomPosition {
-  // value between 0.f and 1.f
-  CGFloat random = ((double)arc4random() / ARC4RANDOM_MAX);
-  CGFloat range = maximumYPosition - minimumYPosition;
-  self.position = ccp(self.position.x, minimumYPosition + (random * range));
-}
-
-@end
-
 - (void)touchBegan:(CCTouch *)touch withEvent:(CCTouchEvent *)event {
   //  if (!_gameOver) {
   //    [_character.physicsBody applyAngularImpulse:10000.f];
@@ -70,3 +48,37 @@ static const CGFloat maximumYPosition = 380.f;
   }
 }
 
+#pragma mark - Update
+
+- (void)update:(CCTime)delta {
+  //  _sinceTouch += delta;
+  //
+  //  _character.rotation = clampf(_character.rotation, -30.f, 90.f);
+  //
+  //  if (_character.physicsBody.allowsRotation) {
+  //    float angularVelocity =
+  //        clampf(_character.physicsBody.angularVelocity, -2.f, 1.f);
+  //    _character.physicsBody.angularVelocity = angularVelocity;
+  //  }
+  //
+  //  if ((_sinceTouch > 0.5f)) {
+  //    [_character.physicsBody applyAngularImpulse:-40000.f * delta];
+  //  }
+  //
+  //  _physicsNode.position =
+  //      ccp(_physicsNode.position.x - (_character.physicsBody.velocity.x *
+  //      delta),
+  //          _physicsNode.position.y);
+  //
+  //  if (!_gameOver) {
+  //    @try {
+  //      _character.physicsBody.velocity = ccp(
+  //          80.f, clampf(_character.physicsBody.velocity.y, -MAXFLOAT,
+  //          200.f));
+  //
+  //      [super update:delta];
+  //    }
+  //    @catch (NSException *ex) {
+  //    }
+  //  }
+}

@@ -7,6 +7,7 @@
 //
 
 #import "CCNode.h"
+#import "MatchingLayer.h"
 
 @interface MatchingBlock : CCNode
 
@@ -15,6 +16,6 @@
 
 - (void)clear;
 - (void)reappear;
-- (void)shake;
+- (void)shakeOnView:(MatchingLayer *)view;
 
 @end

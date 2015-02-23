@@ -104,25 +104,12 @@ static double const BLOCK_X_MARGIN = 0.2;
     }
   } else {
     // wrong pair, shake them
-    [self shakeBlockOnLeft:[_leftBlocks objectAtIndex:leftIndex]
-                   OnRight:[_rightBlocks objectAtIndex:rightIndex]];
+    [[_leftBlocks objectAtIndex:leftIndex] shakeOnView:nil];
+    [[_rightBlocks objectAtIndex:rightIndex] shakeOnView:self];
     // enemy's turn to attack
     CombatScene *scene = (CombatScene *)self.parent;
     [scene attackWithCharacter:1 withType:0];
   }
-}
-
-- (void)shakeBlockOnLeft:(MatchingBlock *)leftBlock
-                 OnRight:(MatchingBlock *)rightBlock {
-  id rotateLeft = [CCActionRotateBy actionWithDuration:0.1f angle:30.f];
-  id rotateRight = [CCActionRotateBy actionWithDuration:0.1f angle:-30.f];
-  id callDeploy = [CCActionCallFunc actionWithTarget:self
-                                            selector:@selector(reDeployBlocks)];
-  id delay = [CCActionDelay actionWithDuration:0.5f];
-  [leftBlock runAction:[CCActionSequence actions:rotateLeft, rotateRight, nil]];
-  [rightBlock
-      runAction:[CCActionSequence actions:[rotateLeft copy], [rotateRight copy],
-                                          delay, callDeploy, nil]];
 }
 
 @end
