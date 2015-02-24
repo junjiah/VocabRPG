@@ -1,29 +1,4 @@
-- (void)didLoadFromCCB {
-  self.physicsBody.collisionType = @"goal";
-  self.physicsBody.sensor = YES;
-}
-
-#import "Obstacle.h"
-
-@implementation Obstacle {
-  CCNode *_topPipe;
-  CCNode *_bottomPipe;
-}
-
 #define ARC4RANDOM_MAX      0x100000000
-
-- (void)touchBegan:(CCTouch *)touch withEvent:(CCTouchEvent *)event {
-  //  if (!_gameOver) {
-  //    [_character.physicsBody applyAngularImpulse:10000.f];
-  //    _sinceTouch = 0.f;
-  //
-  //    @try {
-  //      [_character flap];
-  //    }
-  //    @catch (NSException *ex) {
-  //    }
-  //  }
-}
 
 - (void)gameOver {
   if (!_gameOver) {

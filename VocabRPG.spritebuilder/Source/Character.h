@@ -14,6 +14,7 @@ static NSString * const CHARACTER_DIED_NOTIFICATION = @"CharacterDidDieNotificat
 @protocol Character <NSObject>
 
 @property (nonatomic, readonly) int healthPoint;
+@property (nonatomic, readonly) CGPoint initPosition;
 
 - (void)takeDamageBy:(int)damage;
 - (void)moveBack;

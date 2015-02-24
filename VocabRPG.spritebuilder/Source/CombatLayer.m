@@ -76,14 +76,16 @@
 - (BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair
                            hero:(CCNode *)hero
                         barrier:(CCNode *)barrier {
-  hero.physicsBody.velocity = ccp(0, 0);
+  _hero.physicsBody.velocity = ccp(0, 0);
+  [_hero runAction:[CCActionMoveTo actionWithDuration:0.5f position:_hero.initPosition]];
   return NO;
 }
 
 - (BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair
                            enemy:(CCNode *)enemy
                         barrier:(CCNode *)barrier {
-  enemy.physicsBody.velocity = ccp(0, 0);
+  _enemy.physicsBody.velocity = ccp(0, 0);
+  [_enemy runAction:[CCActionMoveTo actionWithDuration:0.5f position:_enemy.initPosition]];
   return NO;
 }
 

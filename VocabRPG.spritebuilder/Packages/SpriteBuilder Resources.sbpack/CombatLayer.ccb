@@ -545,24 +545,24 @@
 									<real>14.05078125</real>
 								</array>
 								<array>
-									<real>-10.585783958435059</real>
-									<real>45.068367004394531</real>
+									<real>-6.5257830619812012</real>
+									<real>43.337814331054688</real>
 								</array>
 								<array>
-									<real>-2.9833176136016846</real>
-									<real>-23.320024490356445</real>
+									<real>2.8594672679901123</real>
+									<real>-23.338136672973633</real>
 								</array>
 							</array>
 							<key>polygons</key>
 							<array>
 								<array>
 									<array>
-										<real>-2.9833176136016846</real>
-										<real>-23.320024490356445</real>
+										<real>2.8594672679901123</real>
+										<real>-23.338136672973633</real>
 									</array>
 									<array>
-										<real>-10.585783958435059</real>
-										<real>45.068367004394531</real>
+										<real>-6.5257830619812012</real>
+										<real>43.337814331054688</real>
 									</array>
 									<array>
 										<real>-26.77734375</real>
@@ -655,6 +655,8 @@
 								<real>0.0</real>
 							</dict>
 						</array>
+						<key>selected</key>
+						<true/>
 						<key>seqExpanded</key>
 						<true/>
 					</dict>

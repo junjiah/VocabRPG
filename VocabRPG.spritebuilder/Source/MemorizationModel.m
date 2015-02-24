@@ -25,8 +25,8 @@ static long predefinedCounter = 0;
 }
 
 + (void)initialize {
-  predefinedWords = @[ @"junjiah", @"yuetaoxu", @"dz1", @"Heiheihei" ];
-  predefinedMeanings = @[ @"贺俊嘉", @"许悦韬", @"张丹", @"嘿嘿嘿" ];
+  predefinedWords = @[ @"1+1", @"3*2", @"1÷0", @"9-5" ];
+  predefinedMeanings = @[ @"2", @"6", @"NaN", @"4" ];
 }
 
 @end
