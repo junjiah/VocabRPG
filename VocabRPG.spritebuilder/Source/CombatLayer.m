@@ -32,10 +32,10 @@
   _attackStrength = strength;
   switch (character) {
     case 1:
-      [_enemy.physicsBody applyImpulse:ccp(-FORWARD_IMPULSE, 0)];
+      [_enemy moveForward];
       break;
     case -1:
-      [_hero.physicsBody applyImpulse:ccp(FORWARD_IMPULSE, 0)];
+      [_hero moveForward];
     default:
       break;
   }
@@ -58,9 +58,9 @@
   }
   
   [collider moveBack];
-  [collidee takeDamage];
+  [collidee takeDamageBy:_attackStrength];
   // update HP labels in parent view
-  [_parentController updateHealthPointsOn:side withUpdate:-1 * _attackStrength];
+  [_parentController updateHealthPointsOn:side withUpdate:[collidee healthPoint]];
   return NO;
 }
 

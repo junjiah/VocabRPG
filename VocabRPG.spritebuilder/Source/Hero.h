@@ -11,4 +11,6 @@
 
 @interface Hero : CCSprite <Character>
 
+@property (nonatomic, readonly) int healthPoint;
+
 @end

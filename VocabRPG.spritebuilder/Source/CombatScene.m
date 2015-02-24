@@ -7,11 +7,9 @@
   CombatLayer *_combatLayer;
   
   CCLabelTTF *_heroHealth, *_enemyHealth;
-  int _heroHealthValue, _enemyHealthValue;
 }
 
 - (void)didLoadFromCCB {
-  _heroHealthValue = _enemyHealthValue = 100;
   
 }
 
@@ -26,11 +24,9 @@
 
 - (void)updateHealthPointsOn:(int)side withUpdate:(int)value {
   if (side == -1) {
-    _heroHealthValue += value;
-    [_heroHealth setString:[NSString stringWithFormat:@"HP %d", _heroHealthValue]];
+    [_heroHealth setString:[NSString stringWithFormat:@"HP %d", value]];
   } else {
-    _enemyHealthValue += value;
-    [_enemyHealth setString:[NSString stringWithFormat:@"HP %d", _enemyHealthValue]];
+    [_enemyHealth setString:[NSString stringWithFormat:@"HP %d", value]];
   }
 }
 

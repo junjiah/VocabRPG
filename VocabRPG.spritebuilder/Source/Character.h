@@ -12,7 +12,10 @@ static const double FORWARD_IMPULSE = 1000;
 
 @protocol Character <NSObject>
 
-- (void)takeDamage;
+@property (nonatomic, readonly) int healthPoint;
+
+- (void)takeDamageBy:(int)damage;
 - (void)moveBack;
+- (void)moveForward;
 
 @end

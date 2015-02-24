@@ -13,17 +13,26 @@ static id actionRotateLeft, actionRotateRight;
 @implementation Hero
 
 - (void)didLoadFromCCB {
-  actionRotateLeft = [CCActionRotateBy actionWithDuration:0.2f angle:-30.f];
-  actionRotateRight = [CCActionRotateBy actionWithDuration:0.4f angle:30.f];
   self.physicsBody.collisionType = @"hero";
+  _healthPoint = 100;
 }
 
-- (void)takeDamage {
+- (void)takeDamageBy:(int)damage {
   [self runAction:[CCActionSequence actions:actionRotateLeft, actionRotateRight, nil]];
+  _healthPoint -= damage;
 }
 
 - (void)moveBack {
   [self.physicsBody applyImpulse:ccp(-2 * FORWARD_IMPULSE, 0)];
+}
+
+- (void)moveForward {
+  [self.physicsBody applyImpulse:ccp(FORWARD_IMPULSE, 0)];
+}
+
++ (void)initialize {
+  actionRotateLeft = [CCActionRotateBy actionWithDuration:0.2f angle:-30.f];
+  actionRotateRight = [CCActionRotateBy actionWithDuration:0.4f angle:30.f];
 }
 
 @end

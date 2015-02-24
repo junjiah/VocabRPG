@@ -11,4 +11,6 @@
 
 @interface Enemy : CCSprite <Character>
 
+@property (nonatomic, readonly) int healthPoint;
+
 @end
