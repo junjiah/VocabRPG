@@ -9,17 +9,29 @@
 #import "Enemy.h"
 
 static id actionRotateLeft, actionRotateRight;
+static const int startHealth = 20;
 
 @implementation Enemy
 
 - (void)didLoadFromCCB {
   self.physicsBody.collisionType = @"enemy";
-  _healthPoint = 100;
+  _healthPoint = startHealth;
 }
 
 - (void)takeDamageBy:(int)damage {
-  [self runAction:[CCActionSequence actions:actionRotateRight, actionRotateLeft, nil]];
+  [self runAction:[CCActionSequence
+                      actions:actionRotateRight, actionRotateLeft, nil]];
   _healthPoint -= damage;
+  if (_healthPoint <= 0) {
+    // send winning notification
+    NSDictionary *resultDict =
+        [NSDictionary dictionaryWithObject:[NSNumber numberWithInt:-1]
+                                    forKey:@"winSide"];
+    [[NSNotificationCenter defaultCenter]
+        postNotificationName:CHARACTER_DIED_NOTIFICATION
+                      object:nil
+                    userInfo:resultDict];
+  }
 }
 
 - (void)moveBack {

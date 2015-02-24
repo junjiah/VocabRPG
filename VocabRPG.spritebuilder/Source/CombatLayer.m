@@ -22,10 +22,17 @@
   int _attackStrength;
 }
 
+# pragma mark Set up
+
 - (void)didLoadFromCCB {
   _physicsNode.collisionDelegate = self;
   _parentController = (CombatScene *)self.parent;
+  // display both sides' health points
+  [_parentController updateHealthPointsOn:HERO_SIDE withUpdate:[_hero healthPoint]];
+  [_parentController updateHealthPointsOn:ENEMY_SIDE withUpdate:[_enemy healthPoint]];
 }
+
+# pragma mark Message to characters
 
 - (void)attackWithCharacter:(int)character withType:(int)type withStrength:(int)strength {
   NSLog(@"ATTACK!");
@@ -41,6 +48,8 @@
   }
 }
 
+# pragma mark Collision
+
 - (BOOL)ccPhysicsCollisionPreSolve:(CCPhysicsCollisionPair *)pair
                               hero:(CCSprite *)hero
                              enemy:(CCNode *)enemy {
@@ -50,11 +59,11 @@
   if (hero.physicsBody.velocity.x == 0) {
     collider = _enemy;
     collidee = _hero;
-    side = -1;
+    side = HERO_SIDE;
   } else {
     collider = _hero;
     collidee = _enemy;
-    side = 1;
+    side = ENEMY_SIDE;
   }
   
   [collider moveBack];

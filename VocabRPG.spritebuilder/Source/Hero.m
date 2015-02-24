@@ -9,17 +9,29 @@
 #import "Hero.h"
 
 static id actionRotateLeft, actionRotateRight;
+static const int startHealth = 20;
 
 @implementation Hero
 
 - (void)didLoadFromCCB {
   self.physicsBody.collisionType = @"hero";
-  _healthPoint = 100;
+  _healthPoint = startHealth;
 }
 
 - (void)takeDamageBy:(int)damage {
-  [self runAction:[CCActionSequence actions:actionRotateLeft, actionRotateRight, nil]];
+  [self runAction:[CCActionSequence
+                      actions:actionRotateLeft, actionRotateRight, nil]];
   _healthPoint -= damage;
+  if (_healthPoint <= 0) {
+    // send losing notification
+    NSDictionary *resultDict =
+        [NSDictionary dictionaryWithObject:[NSNumber numberWithInt:1]
+                                    forKey:@"winSide"];
+    [[NSNotificationCenter defaultCenter]
+        postNotificationName:CHARACTER_DIED_NOTIFICATION
+                      object:nil
+                    userInfo:resultDict];
+  }
 }
 
 - (void)moveBack {

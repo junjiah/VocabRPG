@@ -16,6 +16,7 @@
 
 - (void)clear;
 - (void)reappear;
+- (void)disable;
 - (void)shakeOnView:(MatchingLayer *)view;
 
 @end

@@ -35,6 +35,11 @@ static id rotateLeft, rotateRight, tintRed, appear;
   [_button runAction:[CCActionSequence actions:delay, appear, nil]];
 }
 
+- (void)disable {
+  [_button stopAllActions];
+  _button.visible = NO;
+}
+
 - (void)shakeOnView:(MatchingLayer *)view {
   NSMutableArray *actions =
       [NSMutableArray arrayWithObjects:[rotateLeft copy], [rotateRight copy],

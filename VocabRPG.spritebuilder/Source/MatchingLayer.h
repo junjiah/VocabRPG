@@ -20,5 +20,6 @@
                 withRightIndex:(int)rightIndex
                     withResult:(BOOL)result;
 - (void)reDeployBlocks;
+- (void)clearAllButtons;
 
 @end
