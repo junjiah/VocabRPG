@@ -9,14 +9,15 @@
 #import "Enemy.h"
 
 static id actionRotateLeft, actionRotateRight;
-static const int startHealth = 40;
+static const int startHealth = 60;
 
 @implementation Enemy
 
 - (void)didLoadFromCCB {
-  self.physicsBody.collisionType = @"enemy";
+  self.physicsBody.collisionType = @"character";
   _healthPoint = startHealth;
   _initPosition = self.position;
+  _side = 1;
 }
 
 - (void)takeDamageBy:(int)damage {

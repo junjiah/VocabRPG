@@ -25,8 +25,8 @@ static long predefinedCounter = 0;
 }
 
 + (void)initialize {
-  predefinedWords = @[ @"1+1", @"3*2", @"1÷0", @"9-5" ];
-  predefinedMeanings = @[ @"2", @"6", @"NaN", @"4" ];
+  predefinedWords = @[ @"Apple", @"Banana", @"Pear", @"Orange" ];
+  predefinedMeanings = @[ @"苹果(A)", @"香蕉(B)", @"梨子(P)", @"橘子(O)" ];
 }
 
 @end

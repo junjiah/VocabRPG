@@ -12,6 +12,7 @@
 @interface Hero : CCSprite <Character>
 
 @property (nonatomic, readonly) int healthPoint;
+@property (nonatomic, readonly) int side;
 @property (nonatomic, readonly) CGPoint initPosition;
 
 @end
