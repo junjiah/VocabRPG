@@ -18,10 +18,12 @@ static double const BLOCK_X_MARGIN = 0.2;
   int _blockSize;
 
   id<VocabularyDataSource> dataSource;
+  __weak CombatScene *scene;
 }
 
 - (void)didLoadFromCCB {
   dataSource = [[MatchingLayerController alloc] initWithView:self];
+  scene = (CombatScene *)self.parent;
   [self deployBlocks];
 }
 
@@ -97,8 +99,7 @@ static double const BLOCK_X_MARGIN = 0.2;
 
     // if all cleared, attack
     if (_blockSize == 0) {
-      CombatScene *scene = (CombatScene *)self.parent;
-      [scene attackWithCharacter:-1 withType:0];
+      [scene attackWithCharacter:HERO_SIDE withType:0];
       // redeploy
       [self reDeployBlocks];
     }
@@ -107,18 +108,17 @@ static double const BLOCK_X_MARGIN = 0.2;
     [[_leftBlocks objectAtIndex:leftIndex] shakeOnView:nil];
     [[_rightBlocks objectAtIndex:rightIndex] shakeOnView:self];
     // enemy's turn to attack
-    CombatScene *scene = (CombatScene *)self.parent;
-    [scene attackWithCharacter:1 withType:0];
+    [scene attackWithCharacter:ENEMY_SIDE withType:0];
   }
 }
 
-# pragma mark Player interaction
+#pragma mark Player interaction
 
 - (void)clearAllButtons {
   for (MatchingBlock *button in _leftBlocks) {
     [button disable];
   }
-  
+
   for (MatchingBlock *button in _rightBlocks) {
     [button disable];
   }

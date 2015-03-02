@@ -5,12 +5,17 @@
 static NSString *const CHARACTER_DIED_NOTIFICATION =
     @"CharacterDidDieNotification";
 
+static const int COUNT_DOWN_MAX = 10;
+
 @implementation CombatScene {
   MatchingLayer *_matchingLayer;
   CombatLayer *_combatLayer;
 
   CCLabelTTF *_heroHealth, *_enemyHealth;
   CCLabelTTF *_winLabel, *_loseLabel;
+  CCLabelTTF *_countDown;
+  
+  int _countDownTime;
 }
 
 # pragma mark Set up
@@ -20,6 +25,10 @@ static NSString *const CHARACTER_DIED_NOTIFICATION =
                                            selector:@selector(gameOverForSide:)
                                                name:CHARACTER_DIED_NOTIFICATION
                                              object:nil];
+  _countDownTime = COUNT_DOWN_MAX;
+  [_countDown setString:[@(_countDownTime) stringValue]];
+  _countDown.visible = YES;
+  [self schedule:@selector(tick) interval:1];
 }
 
 - (void)replay {
@@ -32,6 +41,7 @@ static NSString *const CHARACTER_DIED_NOTIFICATION =
 
 - (void)attackWithCharacter:(int)character withType:(int)type {
   [_combatLayer attackWithCharacter:character withType:type withStrength:20];
+  _countDownTime = COUNT_DOWN_MAX + 1;
 }
 
 - (void)updateHealthPointsOn:(int)side withUpdate:(int)value {
@@ -44,6 +54,8 @@ static NSString *const CHARACTER_DIED_NOTIFICATION =
 
 - (void)gameOverForSide:(NSNotification *)notification {
   // stop interaction
+  [self unschedule:@selector(tick)];
+  _countDown.visible = NO;
   [_matchingLayer clearAllButtons];
 
   NSDictionary *resultDict = [notification userInfo];
@@ -63,6 +75,18 @@ static NSString *const CHARACTER_DIED_NOTIFICATION =
         nodeWithColor:[CCColor colorWithRed:255 green:0 blue:0 alpha:1]];
     [self addChild:layer z:-1];
     _loseLabel.visible = YES;
+  }
+}
+
+#pragma mark Others
+
+- (void)tick {
+  if (_countDownTime == 0) {
+    [self attackWithCharacter:ENEMY_SIDE withType:0];
+    [_matchingLayer reDeployBlocks];
+  } else {
+    _countDownTime -= 1;
+    [_countDown setString:[@(_countDownTime) stringValue]];
   }
 }
 
