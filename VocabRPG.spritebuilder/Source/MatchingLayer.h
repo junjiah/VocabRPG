@@ -19,7 +19,7 @@
 - (void)clearPairWithLeftIndex:(int)withLeftIndex
                 withRightIndex:(int)rightIndex
                     withResult:(BOOL)result;
-- (void)reDeployBlocks;
+- (void)redeployBlocks;
 - (void)clearAllButtons;
 
 @end

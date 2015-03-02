@@ -35,9 +35,13 @@ static id rotateLeft, rotateRight, tintRed, appear;
   [_button runAction:[CCActionSequence actions:delay, appear, nil]];
 }
 
-- (void)disable {
+- (void)remove {
   [_button stopAllActions];
   _button.visible = NO;
+}
+
+- (void)setTouchableAs:(BOOL)touchable {
+  _button.userInteractionEnabled = touchable;
 }
 
 - (void)shakeOnView:(MatchingLayer *)view {
@@ -48,7 +52,7 @@ static id rotateLeft, rotateRight, tintRed, appear;
     id delay = [CCActionDelay actionWithDuration:0.5f];
     id callDeploy =
         [CCActionCallFunc actionWithTarget:view
-                                  selector:@selector(reDeployBlocks)];
+                                  selector:@selector(redeployBlocks)];
     [actions addObject:delay];
     [actions addObject:callDeploy];
   }

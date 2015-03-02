@@ -63,7 +63,7 @@ static double const BLOCK_X_MARGIN = 0.2;
   }
 }
 
-- (void)reDeployBlocks {
+- (void)redeployBlocks {
   NSDictionary *wordMeaningPairs = [dataSource generateWordMeaningPairs];
   NSMutableArray *words = [wordMeaningPairs objectForKey:@"words"],
                  *shuffledMeanings =
@@ -84,6 +84,9 @@ static double const BLOCK_X_MARGIN = 0.2;
     [right setButtonTitle:[shuffledMeanings objectAtIndex:i]];
     [right reappear];
   }
+  
+  // enable touching for all buttons
+  [self setAllButtonTouchableAs:YES];
 }
 
 #pragma mark Callbacks
@@ -101,12 +104,14 @@ static double const BLOCK_X_MARGIN = 0.2;
     if (_blockSize == 0) {
       [scene attackWithCharacter:HERO_SIDE withType:0];
       // redeploy
-      [self reDeployBlocks];
+      [self redeployBlocks];
     }
   } else {
     // wrong pair, shake them
     [[_leftBlocks objectAtIndex:leftIndex] shakeOnView:nil];
     [[_rightBlocks objectAtIndex:rightIndex] shakeOnView:self];
+    // disable touching for buttons
+    [self setAllButtonTouchableAs:NO];
     // enemy's turn to attack
     [scene attackWithCharacter:ENEMY_SIDE withType:0];
   }
@@ -116,11 +121,21 @@ static double const BLOCK_X_MARGIN = 0.2;
 
 - (void)clearAllButtons {
   for (MatchingBlock *button in _leftBlocks) {
-    [button disable];
+    [button remove];
   }
 
   for (MatchingBlock *button in _rightBlocks) {
-    [button disable];
+    [button remove];
+  }
+}
+
+- (void)setAllButtonTouchableAs:(BOOL)touchable {
+  for (MatchingBlock *button in _leftBlocks) {
+    [button setTouchableAs:touchable];
+  }
+  
+  for (MatchingBlock *button in _rightBlocks) {
+    [button setTouchableAs:touchable];
   }
 }
 

@@ -34,7 +34,7 @@ static const int COUNT_DOWN_MAX = 10;
 - (void)replay {
   CCScene *scene = [CCBReader loadAsScene:@"CombatScene"];
   [[CCDirector sharedDirector] replaceScene:scene];
-  [_matchingLayer reDeployBlocks];
+  [_matchingLayer redeployBlocks];
 }
 
 # pragma mark Message coordinate
@@ -83,7 +83,7 @@ static const int COUNT_DOWN_MAX = 10;
 - (void)tick {
   if (_countDownTime == 0) {
     [self attackWithCharacter:ENEMY_SIDE withType:0];
-    [_matchingLayer reDeployBlocks];
+    [_matchingLayer redeployBlocks];
   } else {
     _countDownTime -= 1;
     [_countDown setString:[@(_countDownTime) stringValue]];

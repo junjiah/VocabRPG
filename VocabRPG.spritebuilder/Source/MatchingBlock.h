@@ -16,7 +16,8 @@
 
 - (void)clear;
 - (void)reappear;
-- (void)disable;
+- (void)remove;
+- (void)setTouchableAs:(BOOL)touchable;
 - (void)shakeOnView:(MatchingLayer *)view;
 
 @end
