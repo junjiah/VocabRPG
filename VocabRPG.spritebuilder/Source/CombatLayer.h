@@ -14,4 +14,6 @@
                    withType:(int)type
                withStrength:(int)strength;
 
+- (void)goToNextLevel;
+
 @end

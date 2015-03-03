@@ -51,7 +51,7 @@
 				<key>displayName</key>
 				<string>background</string>
 				<key>memberVarAssignmentName</key>
-				<string></string>
+				<string>_background</string>
 				<key>memberVarAssignmentType</key>
 				<integer>1</integer>
 				<key>properties</key>
@@ -72,8 +72,8 @@
 						<key>value</key>
 						<array>
 							<real>0.0</real>
-							<real>1</real>
-							<integer>1</integer>
+							<real>0.0</real>
+							<integer>0</integer>
 							<integer>2</integer>
 							<integer>2</integer>
 						</array>
@@ -146,6 +146,8 @@
 						<array/>
 					</dict>
 				</array>
+				<key>selected</key>
+				<true/>
 			</dict>
 			<dict>
 				<key>UUID</key>
@@ -655,8 +657,6 @@
 								<real>0.0</real>
 							</dict>
 						</array>
-						<key>selected</key>
-						<true/>
 						<key>seqExpanded</key>
 						<true/>
 					</dict>
@@ -875,7 +875,7 @@
 			<key>name</key>
 			<string>Default Timeline</string>
 			<key>offset</key>
-			<real>0.02500152587890625</real>
+			<real>0.053128242492675781</real>
 			<key>position</key>
 			<real>0.0</real>
 			<key>resolution</key>

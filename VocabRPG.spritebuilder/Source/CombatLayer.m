@@ -15,6 +15,7 @@
 
 @implementation CombatLayer {
   CCPhysicsNode *_physicsNode;
+  CCNode *_background;
   Hero *_hero;
   Enemy *_enemy;
   __weak CombatScene *_parentController;
@@ -32,6 +33,20 @@
                                withUpdate:[_hero healthPoint]];
   [_parentController updateHealthPointsOn:ENEMY_SIDE
                                withUpdate:[_enemy healthPoint]];
+}
+
+- (void)goToNextLevel {
+  _enemy.visible = NO;
+  id delay = [CCActionDelay actionWithDuration:2];
+  id moveLeft = [CCActionMoveBy actionWithDuration:2 position:ccp(-0.2f, 0)];
+  id enemyAppear = [CCActionCallBlock actionWithBlock:^(void) {
+    _enemy.visible = YES;
+    [_enemy reset];
+    [_parentController updateHealthPointsOn:ENEMY_SIDE
+                                 withUpdate:[_enemy healthPoint]];
+  }];
+  [_background
+      runAction:[CCActionSequence actions:delay, moveLeft, enemyAppear, nil]];
 }
 
 #pragma mark Message to characters

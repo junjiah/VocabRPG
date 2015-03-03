@@ -14,11 +14,11 @@ static const int COUNT_DOWN_MAX = 10;
   CCLabelTTF *_heroHealth, *_enemyHealth;
   CCLabelTTF *_winLabel, *_loseLabel;
   CCLabelTTF *_countDown;
-  
+
   int _countDownTime;
 }
 
-# pragma mark Set up
+#pragma mark Set up
 
 - (void)didLoadFromCCB {
   [[NSNotificationCenter defaultCenter] addObserver:self
@@ -37,7 +37,7 @@ static const int COUNT_DOWN_MAX = 10;
   [_matchingLayer redeployBlocks];
 }
 
-# pragma mark Message coordinate
+#pragma mark Message coordinate
 
 - (void)attackWithCharacter:(int)character withType:(int)type {
   [_combatLayer attackWithCharacter:character withType:type withStrength:20];
@@ -65,9 +65,21 @@ static const int COUNT_DOWN_MAX = 10;
     // player wins
     NSLog(@"GameOver! You win!");
     CCNodeColor *layer = [CCNodeColor
-                          nodeWithColor:[CCColor colorWithRed:100 green:100 blue:100 alpha:1]];
+        nodeWithColor:[CCColor colorWithRed:100 green:100 blue:100 alpha:1]];
     [self addChild:layer z:-1];
+
     _winLabel.visible = YES;
+    // to next level
+    [_combatLayer goToNextLevel];
+    // wait 2 seconds then remove game-over layer
+    id delay = [CCActionDelay actionWithDuration:4];
+    id cleanLayer = [CCActionCallBlock actionWithBlock:^(void) {
+      _winLabel.visible = NO;
+      [self removeChild:layer];
+      [_matchingLayer redeployBlocks];
+    }];
+    [self runAction:[CCActionSequence actions:delay, cleanLayer, nil]];
+    
   } else if (winSide == ENEMY_SIDE) {
     // player loses
     NSLog(@"GameOver! You lose");

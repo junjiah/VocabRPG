@@ -107,11 +107,11 @@ static double const BLOCK_X_MARGIN = 0.2;
       [self redeployBlocks];
     }
   } else {
+    // disable touching for buttons
+    [self setAllButtonTouchableAs:NO];
     // wrong pair, shake them
     [[_leftBlocks objectAtIndex:leftIndex] shakeOnView:nil];
     [[_rightBlocks objectAtIndex:rightIndex] shakeOnView:self];
-    // disable touching for buttons
-    [self setAllButtonTouchableAs:NO];
     // enemy's turn to attack
     [scene attackWithCharacter:ENEMY_SIDE withType:0];
   }

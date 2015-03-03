@@ -15,4 +15,6 @@
 @property (nonatomic, readonly) int side;
 @property (nonatomic, readonly) CGPoint initPosition;
 
+- (void)reset;
+
 @end

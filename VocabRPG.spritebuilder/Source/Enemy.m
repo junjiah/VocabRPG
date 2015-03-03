@@ -9,7 +9,7 @@
 #import "Enemy.h"
 
 static id actionRotateLeft, actionRotateRight;
-static const int startHealth = 60;
+static const int startHealth = 20;
 
 @implementation Enemy
 
@@ -42,6 +42,10 @@ static const int startHealth = 60;
 
 - (void)moveForward {
   [self.physicsBody applyImpulse:ccp(-1 * FORWARD_IMPULSE, 0)];
+}
+
+- (void)reset {
+  _healthPoint = startHealth;
 }
 
 + (void)initialize {
