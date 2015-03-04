@@ -52,6 +52,8 @@ static const int COUNT_DOWN_MAX = 10;
   }
 }
 
+# pragma mark Notification callback
+
 - (void)gameOverForSide:(NSNotification *)notification {
   // stop interaction
   [self unschedule:@selector(tick)];
@@ -71,12 +73,14 @@ static const int COUNT_DOWN_MAX = 10;
     _winLabel.visible = YES;
     // to next level
     [_combatLayer goToNextLevel];
-    // wait 2 seconds then remove game-over layer
+    // wait 4 seconds then reset game
     id delay = [CCActionDelay actionWithDuration:4];
     id cleanLayer = [CCActionCallBlock actionWithBlock:^(void) {
       _winLabel.visible = NO;
       [self removeChild:layer];
       [_matchingLayer redeployBlocks];
+      [self schedule:@selector(tick) interval:1];
+      _countDown.visible = YES;
     }];
     [self runAction:[CCActionSequence actions:delay, cleanLayer, nil]];
     

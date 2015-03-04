@@ -84,7 +84,7 @@ static double const BLOCK_X_MARGIN = 0.2;
     [right setButtonTitle:[shuffledMeanings objectAtIndex:i]];
     [right reappear];
   }
-  
+
   // enable touching for all buttons
   [self setAllButtonTouchableAs:YES];
 }
@@ -110,10 +110,13 @@ static double const BLOCK_X_MARGIN = 0.2;
     // disable touching for buttons
     [self setAllButtonTouchableAs:NO];
     // wrong pair, shake them
-    [[_leftBlocks objectAtIndex:leftIndex] shakeOnView:nil];
-    [[_rightBlocks objectAtIndex:rightIndex] shakeOnView:self];
-    // enemy's turn to attack
+    [[_leftBlocks objectAtIndex:leftIndex] shakeOnView];
+    [[_rightBlocks objectAtIndex:rightIndex] shakeOnView];
+    // delay, then it's enemy's turn to attack, and redeploy blocks
     [scene attackWithCharacter:ENEMY_SIDE withType:0];
+    [self performSelector:@selector(redeployBlocks)
+               withObject:nil
+               afterDelay:0.5];
   }
 }
 
@@ -133,7 +136,7 @@ static double const BLOCK_X_MARGIN = 0.2;
   for (MatchingBlock *button in _leftBlocks) {
     [button setTouchableAs:touchable];
   }
-  
+
   for (MatchingBlock *button in _rightBlocks) {
     [button setTouchableAs:touchable];
   }

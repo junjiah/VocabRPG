@@ -18,6 +18,6 @@
 - (void)reappear;
 - (void)remove;
 - (void)setTouchableAs:(BOOL)touchable;
-- (void)shakeOnView:(MatchingLayer *)view;
+- (void)shakeOnView;
 
 @end

@@ -44,19 +44,10 @@ static id rotateLeft, rotateRight, tintRed, appear;
   _button.userInteractionEnabled = touchable;
 }
 
-- (void)shakeOnView:(MatchingLayer *)view {
-  NSMutableArray *actions =
-      [NSMutableArray arrayWithObjects:[rotateLeft copy], [rotateRight copy],
-                                       [tintRed copy], nil];
-  if (view != nil) {
-    id delay = [CCActionDelay actionWithDuration:0.5f];
-    id callDeploy =
-        [CCActionCallFunc actionWithTarget:view
-                                  selector:@selector(redeployBlocks)];
-    [actions addObject:delay];
-    [actions addObject:callDeploy];
-  }
-  [_button runAction:[CCActionSequence actionWithArray:actions]];
+- (void)shakeOnView {
+  [_button
+      runAction:[CCActionSequence actions:[rotateLeft copy], [rotateRight copy],
+                                          [tintRed copy], nil]];
 }
 
 + (void)initialize {

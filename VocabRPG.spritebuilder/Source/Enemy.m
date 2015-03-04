@@ -21,19 +21,21 @@ static const int startHealth = 20;
 }
 
 - (void)takeDamageBy:(int)damage {
-  [self runAction:[CCActionSequence
-                      actions:actionRotateRight, actionRotateLeft, nil]];
   _healthPoint -= damage;
-  if (_healthPoint <= 0) {
-    // send winning notification
-    NSDictionary *resultDict =
-        [NSDictionary dictionaryWithObject:[NSNumber numberWithInt:-1]
-                                    forKey:@"winSide"];
-    [[NSNotificationCenter defaultCenter]
-        postNotificationName:CHARACTER_DIED_NOTIFICATION
-                      object:nil
-                    userInfo:resultDict];
-  }
+  id notify = [CCActionCallBlock actionWithBlock:^(void) {
+    if (_healthPoint <= 0) {
+      // send winning notification
+      NSDictionary *resultDict =
+          [NSDictionary dictionaryWithObject:[NSNumber numberWithInt:-1]
+                                      forKey:@"winSide"];
+      [[NSNotificationCenter defaultCenter]
+          postNotificationName:CHARACTER_DIED_NOTIFICATION
+                        object:nil
+                      userInfo:resultDict];
+    }
+  }];
+  [self runAction:[CCActionSequence actions:actionRotateRight, actionRotateLeft,
+                                            notify, nil]];
 }
 
 - (void)moveBack {
