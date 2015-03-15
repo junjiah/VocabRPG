@@ -41,7 +41,7 @@ static NSUInteger predefinedCounter = 0;
 }
 
 + (void)initialize {
-  NSString *vocabList = [[NSBundle mainBundle] pathForResource: @"vocabulary-toefl" ofType: @"tsv"];
+  NSString *vocabList = [[NSBundle mainBundle] pathForResource: @"TOEFL-test" ofType: @"tsv"];
   NSString *vocabFile = [[NSString alloc] initWithContentsOfFile:vocabList encoding:NSUTF8StringEncoding error:nil];
   NSArray *allLines = [vocabFile componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]];
   
@@ -52,7 +52,7 @@ static NSUInteger predefinedCounter = 0;
     }
     
     NSArray *parts = [line componentsSeparatedByString:@"\t"];
-    Word *w = [[Word alloc] initWithWord:[parts objectAtIndex:0] ofDefinition:[parts objectAtIndex:1]];
+    Word *w = [[Word alloc] initWithWord:[parts objectAtIndex:0] ofDefinition:[parts objectAtIndex:2]];
     [vocabulary addObject:w];
   }
   [MemorizationModel shuffle:vocabulary];

@@ -11,9 +11,11 @@
 		501722401A9814E100F266C3 /* MatchingBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 5017223B1A9814E100F266C3 /* MatchingBlock.m */; };
 		501722441A9816FB00F266C3 /* CombatLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 501722431A9816FB00F266C3 /* CombatLayer.m */; };
 		501722471A9817CD00F266C3 /* MatchingLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 501722461A9817CD00F266C3 /* MatchingLayer.m */; };
-		509335021AB5F2C500884423 /* Vocab.plist in Resources */ = {isa = PBXBuildFile; fileRef = 509335011AB5F2C500884423 /* Vocab.plist */; };
 		509335071AB5FB2C00884423 /* Word.m in Sources */ = {isa = PBXBuildFile; fileRef = 509335061AB5FB2C00884423 /* Word.m */; };
-		509335091AB5FF3800884423 /* vocabulary-toefl.tsv in Resources */ = {isa = PBXBuildFile; fileRef = 509335081AB5FF3800884423 /* vocabulary-toefl.tsv */; };
+		509335131AB622A600884423 /* CHCSVParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 509335121AB622A600884423 /* CHCSVParser.m */; };
+		5093351B1AB6268800884423 /* SAT.csv in Resources */ = {isa = PBXBuildFile; fileRef = 509335181AB6268800884423 /* SAT.csv */; };
+		5093351C1AB6268800884423 /* TOEFL-test.tsv in Resources */ = {isa = PBXBuildFile; fileRef = 509335191AB6268800884423 /* TOEFL-test.tsv */; };
+		5093351D1AB6268800884423 /* TOEFL.csv in Resources */ = {isa = PBXBuildFile; fileRef = 5093351A1AB6268800884423 /* TOEFL.csv */; };
 		50BF5D781A990B5600153DBD /* MatchingLayerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 50BF5D771A990B5600153DBD /* MatchingLayerController.m */; };
 		50BF5D7B1A99163F00153DBD /* MemorizationModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 50BF5D7A1A99163F00153DBD /* MemorizationModel.m */; };
 		50BF5D801A9937F900153DBD /* Enemy.m in Sources */ = {isa = PBXBuildFile; fileRef = 50BF5D7F1A9937F900153DBD /* Enemy.m */; };
@@ -95,10 +97,13 @@
 		501722431A9816FB00F266C3 /* CombatLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CombatLayer.m; path = Source/CombatLayer.m; sourceTree = "<group>"; };
 		501722451A9817CD00F266C3 /* MatchingLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MatchingLayer.h; path = Source/MatchingLayer.h; sourceTree = "<group>"; };
 		501722461A9817CD00F266C3 /* MatchingLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MatchingLayer.m; path = Source/MatchingLayer.m; sourceTree = "<group>"; };
-		509335011AB5F2C500884423 /* Vocab.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Vocab.plist; sourceTree = "<group>"; };
 		509335051AB5FB2C00884423 /* Word.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Word.h; path = Source/Word.h; sourceTree = "<group>"; };
 		509335061AB5FB2C00884423 /* Word.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Word.m; path = Source/Word.m; sourceTree = "<group>"; };
-		509335081AB5FF3800884423 /* vocabulary-toefl.tsv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "vocabulary-toefl.tsv"; sourceTree = "<group>"; };
+		509335111AB622A600884423 /* CHCSVParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHCSVParser.h; sourceTree = "<group>"; };
+		509335121AB622A600884423 /* CHCSVParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHCSVParser.m; sourceTree = "<group>"; };
+		509335181AB6268800884423 /* SAT.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SAT.csv; sourceTree = "<group>"; };
+		509335191AB6268800884423 /* TOEFL-test.tsv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "TOEFL-test.tsv"; sourceTree = "<group>"; };
+		5093351A1AB6268800884423 /* TOEFL.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TOEFL.csv; sourceTree = "<group>"; };
 		50BF5D761A990B5600153DBD /* MatchingLayerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MatchingLayerController.h; path = Source/MatchingLayerController.h; sourceTree = "<group>"; };
 		50BF5D771A990B5600153DBD /* MatchingLayerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MatchingLayerController.m; path = Source/MatchingLayerController.m; sourceTree = "<group>"; };
 		50BF5D791A99163F00153DBD /* MemorizationModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MemorizationModel.h; path = Source/MemorizationModel.h; sourceTree = "<group>"; };
@@ -164,9 +169,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		509335101AB622A600884423 /* CHCSVParser */ = {
+			isa = PBXGroup;
+			children = (
+				509335111AB622A600884423 /* CHCSVParser.h */,
+				509335121AB622A600884423 /* CHCSVParser.m */,
+			);
+			name = CHCSVParser;
+			path = Source/libs/CHCSVParser;
+			sourceTree = "<group>";
+		};
 		9222E2B918734FF800A246C7 /* libs */ = {
 			isa = PBXGroup;
 			children = (
+				509335101AB622A600884423 /* CHCSVParser */,
 				B7378940180761A80076A88C /* cocos2d-ios.xcodeproj */,
 			);
 			name = libs;
@@ -271,8 +287,9 @@
 		B77F1B4617B978D7009739AE /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				509335081AB5FF3800884423 /* vocabulary-toefl.tsv */,
-				509335011AB5F2C500884423 /* Vocab.plist */,
+				509335181AB6268800884423 /* SAT.csv */,
+				509335191AB6268800884423 /* TOEFL-test.tsv */,
+				5093351A1AB6268800884423 /* TOEFL.csv */,
 				B73789911807667A0076A88C /* Icons */,
 				B737893A180761570076A88C /* Published-iOS */,
 			);
@@ -394,16 +411,17 @@
 				B71F5919188484E7003F4D28 /* Settings.png in Resources */,
 				B7378978180762440076A88C /* Default@2x.png in Resources */,
 				B71F5914188484E7003F4D28 /* iPad@2x.png in Resources */,
+				5093351C1AB6268800884423 /* TOEFL-test.tsv in Resources */,
 				B71F5913188484E7003F4D28 /* iPad.png in Resources */,
-				509335091AB5FF3800884423 /* vocabulary-toefl.tsv in Resources */,
 				B71F5912188484E7003F4D28 /* iPad-old@2x.png in Resources */,
 				B71F5916188484E7003F4D28 /* iPhone-old@2x.png in Resources */,
 				B737893B180761570076A88C /* Published-iOS in Resources */,
 				B71F591A188484E7003F4D28 /* Settings@2x.png in Resources */,
-				509335021AB5F2C500884423 /* Vocab.plist in Resources */,
 				B7378976180762440076A88C /* Default-Landscape~ipad.png in Resources */,
+				5093351B1AB6268800884423 /* SAT.csv in Resources */,
 				B71F5915188484E7003F4D28 /* iPhone-old.png in Resources */,
 				B71F5917188484E7003F4D28 /* iPhone.png in Resources */,
+				5093351D1AB6268800884423 /* TOEFL.csv in Resources */,
 				B7378975180762440076A88C /* Default-568h@2x.png in Resources */,
 				B71F5918188484E7003F4D28 /* iPhone@2x.png in Resources */,
 				B7378977180762440076A88C /* Default.png in Resources */,
@@ -443,6 +461,7 @@
 				B73789871807631A0076A88C /* main.m in Sources */,
 				501722401A9814E100F266C3 /* MatchingBlock.m in Sources */,
 				BCF66F7F19563563004691FD /* CombatScene.m in Sources */,
+				509335131AB622A600884423 /* CHCSVParser.m in Sources */,
 				5017223F1A9814E100F266C3 /* Hero.m in Sources */,
 				50BF5D801A9937F900153DBD /* Enemy.m in Sources */,
 				501722441A9816FB00F266C3 /* CombatLayer.m in Sources */,
