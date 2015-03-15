@@ -16,7 +16,7 @@
 
 @interface MatchingLayer : CCNode
 
-- (void)clearPairWithLeftIndex:(int)withLeftIndex
+- (void)clearPairWithLeftIndex:(int)leftIndex
                 withRightIndex:(int)rightIndex
                     withResult:(BOOL)result;
 - (void)redeployBlocks;

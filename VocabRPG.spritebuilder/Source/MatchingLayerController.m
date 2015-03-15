@@ -34,6 +34,11 @@
                  *meanings = [NSMutableArray new];
   for (int i = 0; i < DISPLAY_WORD_NUM; ++i) {
     NSArray *wordPair = [[_model getNextPair] componentsSeparatedByString:@":"];
+    // make sure no duplicate words
+    if ([words containsObject:[wordPair objectAtIndex:0]]) {
+      --i;
+      continue;
+    }
     [words addObject:[wordPair objectAtIndex:0]];
     [meanings addObject:[wordPair objectAtIndex:1]];
   }

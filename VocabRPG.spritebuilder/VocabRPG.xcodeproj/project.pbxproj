@@ -11,8 +11,9 @@
 		501722401A9814E100F266C3 /* MatchingBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 5017223B1A9814E100F266C3 /* MatchingBlock.m */; };
 		501722441A9816FB00F266C3 /* CombatLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 501722431A9816FB00F266C3 /* CombatLayer.m */; };
 		501722471A9817CD00F266C3 /* MatchingLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 501722461A9817CD00F266C3 /* MatchingLayer.m */; };
-		50A247751A985A2900969231 /* font.fnt in Resources */ = {isa = PBXBuildFile; fileRef = 50A247731A985A2900969231 /* font.fnt */; };
-		50A247761A985A2900969231 /* font.png in Resources */ = {isa = PBXBuildFile; fileRef = 50A247741A985A2900969231 /* font.png */; };
+		509335021AB5F2C500884423 /* Vocab.plist in Resources */ = {isa = PBXBuildFile; fileRef = 509335011AB5F2C500884423 /* Vocab.plist */; };
+		509335071AB5FB2C00884423 /* Word.m in Sources */ = {isa = PBXBuildFile; fileRef = 509335061AB5FB2C00884423 /* Word.m */; };
+		509335091AB5FF3800884423 /* vocabulary-toefl.tsv in Resources */ = {isa = PBXBuildFile; fileRef = 509335081AB5FF3800884423 /* vocabulary-toefl.tsv */; };
 		50BF5D781A990B5600153DBD /* MatchingLayerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 50BF5D771A990B5600153DBD /* MatchingLayerController.m */; };
 		50BF5D7B1A99163F00153DBD /* MemorizationModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 50BF5D7A1A99163F00153DBD /* MemorizationModel.m */; };
 		50BF5D801A9937F900153DBD /* Enemy.m in Sources */ = {isa = PBXBuildFile; fileRef = 50BF5D7F1A9937F900153DBD /* Enemy.m */; };
@@ -94,8 +95,10 @@
 		501722431A9816FB00F266C3 /* CombatLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CombatLayer.m; path = Source/CombatLayer.m; sourceTree = "<group>"; };
 		501722451A9817CD00F266C3 /* MatchingLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MatchingLayer.h; path = Source/MatchingLayer.h; sourceTree = "<group>"; };
 		501722461A9817CD00F266C3 /* MatchingLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MatchingLayer.m; path = Source/MatchingLayer.m; sourceTree = "<group>"; };
-		50A247731A985A2900969231 /* font.fnt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = font.fnt; sourceTree = "<group>"; };
-		50A247741A985A2900969231 /* font.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = font.png; sourceTree = "<group>"; };
+		509335011AB5F2C500884423 /* Vocab.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Vocab.plist; sourceTree = "<group>"; };
+		509335051AB5FB2C00884423 /* Word.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Word.h; path = Source/Word.h; sourceTree = "<group>"; };
+		509335061AB5FB2C00884423 /* Word.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Word.m; path = Source/Word.m; sourceTree = "<group>"; };
+		509335081AB5FF3800884423 /* vocabulary-toefl.tsv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "vocabulary-toefl.tsv"; sourceTree = "<group>"; };
 		50BF5D761A990B5600153DBD /* MatchingLayerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MatchingLayerController.h; path = Source/MatchingLayerController.h; sourceTree = "<group>"; };
 		50BF5D771A990B5600153DBD /* MatchingLayerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MatchingLayerController.m; path = Source/MatchingLayerController.m; sourceTree = "<group>"; };
 		50BF5D791A99163F00153DBD /* MemorizationModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MemorizationModel.h; path = Source/MemorizationModel.h; sourceTree = "<group>"; };
@@ -172,6 +175,8 @@
 		B737893C1807616C0076A88C /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				509335051AB5FB2C00884423 /* Word.h */,
+				509335061AB5FB2C00884423 /* Word.m */,
 				50BF5D811A9A6A3C00153DBD /* Character.h */,
 				501722381A9814E100F266C3 /* Hero.h */,
 				501722391A9814E100F266C3 /* Hero.m */,
@@ -266,8 +271,8 @@
 		B77F1B4617B978D7009739AE /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				50A247731A985A2900969231 /* font.fnt */,
-				50A247741A985A2900969231 /* font.png */,
+				509335081AB5FF3800884423 /* vocabulary-toefl.tsv */,
+				509335011AB5F2C500884423 /* Vocab.plist */,
 				B73789911807667A0076A88C /* Icons */,
 				B737893A180761570076A88C /* Published-iOS */,
 			);
@@ -388,14 +393,14 @@
 			files = (
 				B71F5919188484E7003F4D28 /* Settings.png in Resources */,
 				B7378978180762440076A88C /* Default@2x.png in Resources */,
-				50A247761A985A2900969231 /* font.png in Resources */,
 				B71F5914188484E7003F4D28 /* iPad@2x.png in Resources */,
 				B71F5913188484E7003F4D28 /* iPad.png in Resources */,
+				509335091AB5FF3800884423 /* vocabulary-toefl.tsv in Resources */,
 				B71F5912188484E7003F4D28 /* iPad-old@2x.png in Resources */,
-				50A247751A985A2900969231 /* font.fnt in Resources */,
 				B71F5916188484E7003F4D28 /* iPhone-old@2x.png in Resources */,
 				B737893B180761570076A88C /* Published-iOS in Resources */,
 				B71F591A188484E7003F4D28 /* Settings@2x.png in Resources */,
+				509335021AB5F2C500884423 /* Vocab.plist in Resources */,
 				B7378976180762440076A88C /* Default-Landscape~ipad.png in Resources */,
 				B71F5915188484E7003F4D28 /* iPhone-old.png in Resources */,
 				B71F5917188484E7003F4D28 /* iPhone.png in Resources */,
@@ -432,6 +437,7 @@
 			files = (
 				50BF5D781A990B5600153DBD /* MatchingLayerController.m in Sources */,
 				501722471A9817CD00F266C3 /* MatchingLayer.m in Sources */,
+				509335071AB5FB2C00884423 /* Word.m in Sources */,
 				50BF5D7B1A99163F00153DBD /* MemorizationModel.m in Sources */,
 				B737893F1807617C0076A88C /* AppDelegate.m in Sources */,
 				B73789871807631A0076A88C /* main.m in Sources */,

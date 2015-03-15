@@ -7,26 +7,55 @@
 //
 
 #import "MemorizationModel.h"
+#import "Word.h"
 
-static NSArray *predefinedWords, *predefinedMeanings;
+static NSMutableArray *vocabulary;
 
-static long predefinedCounter = 0;
+static NSUInteger predefinedCounter = 0;
 
 @implementation MemorizationModel
 
 - (NSString *)getNextPair {
-  unsigned int index = (predefinedCounter++) % 4;
-  NSString *word = [predefinedWords objectAtIndex:index],
-           *meaning = [predefinedMeanings objectAtIndex:index];
-  return [NSString stringWithFormat:@"%@:%@", word, meaning];
+  NSUInteger index = (++predefinedCounter) % vocabulary.count;
+  if (index == 0) {
+    [MemorizationModel shuffle:vocabulary];
+    predefinedCounter = 0;
+  }
+  Word *word = [vocabulary objectAtIndex:index];
+  return [NSString stringWithFormat:@"%@:%@", word.word, word.definition];
 }
 
 - (void)setWord:(NSString *)word withMatch:(BOOL)matched {
 }
 
+
+#pragma mark Class methods
+
++ (void)shuffle:(NSMutableArray *)array {
+  NSUInteger count = [array count];
+  for (NSUInteger i = 0; i < count; ++i) {
+    NSInteger remainingCount = count - i;
+    NSInteger exchangeIndex = i + arc4random_uniform((u_int32_t)remainingCount);
+    [array exchangeObjectAtIndex:i withObjectAtIndex:exchangeIndex];
+  }
+}
+
 + (void)initialize {
-  predefinedWords = @[ @"Apple", @"Banana", @"Pear", @"Orange" ];
-  predefinedMeanings = @[ @"苹果(A)", @"香蕉(B)", @"梨子(P)", @"橘子(O)" ];
+  NSString *vocabList = [[NSBundle mainBundle] pathForResource: @"vocabulary-toefl" ofType: @"tsv"];
+  NSString *vocabFile = [[NSString alloc] initWithContentsOfFile:vocabList encoding:NSUTF8StringEncoding error:nil];
+  NSArray *allLines = [vocabFile componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]];
+  
+  vocabulary = [NSMutableArray new];
+  for (NSString *line in allLines) {
+    if ([line length] == 0) {
+      break;
+    }
+    
+    NSArray *parts = [line componentsSeparatedByString:@"\t"];
+    Word *w = [[Word alloc] initWithWord:[parts objectAtIndex:0] ofDefinition:[parts objectAtIndex:1]];
+    [vocabulary addObject:w];
+  }
+  [MemorizationModel shuffle:vocabulary];
 }
 
 @end

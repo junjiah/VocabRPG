@@ -45,7 +45,9 @@
     [_parentController updateHealthPointsOn:ENEMY_SIDE
                                  withUpdate:[_enemy healthPoint]];
   }];
-
+  
+  CGPoint p = _background.position;
+  
   [_background
       runAction:[CCActionSequence actions:delay, moveLeft, enemyAppear, nil]];
 }
