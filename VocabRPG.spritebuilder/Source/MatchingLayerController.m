@@ -14,8 +14,9 @@
 
 @implementation MatchingLayerController {
   MemorizationModel *_model;
-  NSMutableArray *correctWordMap;
+  NSMutableArray *_correctWordMap;
   int _pressedRecords[2];
+  NSString *_pressedWord;
 
   __weak MatchingLayer *_view;
 }
@@ -42,15 +43,15 @@
     [words addObject:[wordPair objectAtIndex:0]];
     [meanings addObject:[wordPair objectAtIndex:1]];
   }
-  correctWordMap = [NSMutableArray arrayWithObjects:@0, @1, @2, @3, nil];
-  [MatchingLayerController shuffle:correctWordMap];
+  _correctWordMap = [NSMutableArray arrayWithObjects:@0, @1, @2, @3, nil];
+  [MatchingLayerController shuffle:_correctWordMap];
 
   NSMutableDictionary *toReturn = [NSMutableDictionary dictionary];
   NSMutableArray *shuffledMeanings = [NSMutableArray arrayWithArray:meanings];
   for (int i = 0; i < DISPLAY_WORD_NUM; ++i) {
     [shuffledMeanings
                  setObject:[meanings objectAtIndex:i]
-        atIndexedSubscript:[[correctWordMap objectAtIndex:i] unsignedIntValue]];
+        atIndexedSubscript:[[_correctWordMap objectAtIndex:i] unsignedIntValue]];
   }
   [toReturn setObject:words forKey:@"words"];
   [toReturn setObject:shuffledMeanings forKey:@"meanings"];
@@ -65,22 +66,29 @@
  *  @param sender pressed button
  */
 - (void)blockPressed:(id)sender {
-  NSArray *parts = [((CCButton *)sender).name componentsSeparatedByString:@"_"];
+  CCButton *button = (CCButton *)sender;
+  NSArray *parts = [button.name componentsSeparatedByString:@"_"];
   NSString *side = [parts objectAtIndex:0];
   int buttonIndex = [[parts objectAtIndex:1] intValue];
 
   int column = [side isEqualToString:@"left"] ? 0 : 1;
+  if (!column) {
+    // if pressed left, record the actual word
+    _pressedWord = button.title;
+  }
   _pressedRecords[column] = buttonIndex;
 
   // check answer if both column pressed
   if (_pressedRecords[0] > -1 && _pressedRecords[1] > -1) {
-    BOOL correctMath =
-        [[correctWordMap objectAtIndex:_pressedRecords[0]] intValue] ==
+    BOOL correctMatch =
+        [[_correctWordMap objectAtIndex:_pressedRecords[0]] intValue] ==
         _pressedRecords[1];
+    
+    [_model setWord:_pressedWord withMatch:correctMatch];
     
     [_view clearPairWithLeftIndex:_pressedRecords[0]
                    withRightIndex:_pressedRecords[1]
-                       withResult:correctMath];
+                       withResult:correctMatch];
     // reset pressed records
     _pressedRecords[0] = -1;
     _pressedRecords[1] = -1;

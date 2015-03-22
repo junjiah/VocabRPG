@@ -12,7 +12,6 @@
 
 @property (nonatomic, strong) NSString *word;
 @property (nonatomic, strong) NSString *definition;
-@property (nonatomic, assign) int proficiency;
 
 - (id)initWithWord:(NSString *)word ofDefinition:(NSString *)definition;
 

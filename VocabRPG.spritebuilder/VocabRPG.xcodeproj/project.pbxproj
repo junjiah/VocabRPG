@@ -16,6 +16,8 @@
 		5093351B1AB6268800884423 /* SAT.csv in Resources */ = {isa = PBXBuildFile; fileRef = 509335181AB6268800884423 /* SAT.csv */; };
 		5093351C1AB6268800884423 /* TOEFL-test.tsv in Resources */ = {isa = PBXBuildFile; fileRef = 509335191AB6268800884423 /* TOEFL-test.tsv */; };
 		5093351D1AB6268800884423 /* TOEFL.csv in Resources */ = {isa = PBXBuildFile; fileRef = 5093351A1AB6268800884423 /* TOEFL.csv */; };
+		509441FD1ABE53A800F6EB59 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 509441FC1ABE53A800F6EB59 /* CoreData.framework */; };
+		509442041ABE545E00F6EB59 /* MemoryModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 509442021ABE545E00F6EB59 /* MemoryModel.xcdatamodeld */; };
 		50BF5D781A990B5600153DBD /* MatchingLayerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 50BF5D771A990B5600153DBD /* MatchingLayerController.m */; };
 		50BF5D7B1A99163F00153DBD /* MemorizationModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 50BF5D7A1A99163F00153DBD /* MemorizationModel.m */; };
 		50BF5D801A9937F900153DBD /* Enemy.m in Sources */ = {isa = PBXBuildFile; fileRef = 50BF5D7F1A9937F900153DBD /* Enemy.m */; };
@@ -104,6 +106,8 @@
 		509335181AB6268800884423 /* SAT.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SAT.csv; sourceTree = "<group>"; };
 		509335191AB6268800884423 /* TOEFL-test.tsv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "TOEFL-test.tsv"; sourceTree = "<group>"; };
 		5093351A1AB6268800884423 /* TOEFL.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TOEFL.csv; sourceTree = "<group>"; };
+		509441FC1ABE53A800F6EB59 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		509442031ABE545E00F6EB59 /* MemoryModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MemoryModel.xcdatamodel; sourceTree = "<group>"; };
 		50BF5D761A990B5600153DBD /* MatchingLayerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MatchingLayerController.h; path = Source/MatchingLayerController.h; sourceTree = "<group>"; };
 		50BF5D771A990B5600153DBD /* MatchingLayerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MatchingLayerController.m; path = Source/MatchingLayerController.m; sourceTree = "<group>"; };
 		50BF5D791A99163F00153DBD /* MemorizationModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MemorizationModel.h; path = Source/MemorizationModel.h; sourceTree = "<group>"; };
@@ -152,6 +156,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				509441FD1ABE53A800F6EB59 /* CoreData.framework in Frameworks */,
 				8392007A18EE8E3300B6C429 /* GLKit.framework in Frameworks */,
 				B737898A1807642B0076A88C /* libcocos2d.a in Frameworks */,
 				B77F1B3217B978D7009739AE /* QuartzCore.framework in Frameworks */,
@@ -269,6 +274,7 @@
 		B77F1B3017B978D7009739AE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				509441FC1ABE53A800F6EB59 /* CoreData.framework */,
 				8392007918EE8E3300B6C429 /* GLKit.framework */,
 				B7B3713D180358F1007369CC /* libObjectiveChipmunk.a */,
 				B77F1B3117B978D7009739AE /* QuartzCore.framework */,
@@ -304,6 +310,7 @@
 				B737893E1807617C0076A88C /* AppDelegate.m */,
 				B73789851807631A0076A88C /* main.m */,
 				B73789861807631A0076A88C /* Prefix.pch */,
+				509442021ABE545E00F6EB59 /* MemoryModel.xcdatamodeld */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -453,6 +460,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				509442041ABE545E00F6EB59 /* MemoryModel.xcdatamodeld in Sources */,
 				50BF5D781A990B5600153DBD /* MatchingLayerController.m in Sources */,
 				501722471A9817CD00F266C3 /* MatchingLayer.m in Sources */,
 				509335071AB5FB2C00884423 /* Word.m in Sources */,
@@ -631,6 +639,20 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		509442021ABE545E00F6EB59 /* MemoryModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				509442031ABE545E00F6EB59 /* MemoryModel.xcdatamodel */,
+			);
+			currentVersion = 509442031ABE545E00F6EB59 /* MemoryModel.xcdatamodel */;
+			name = MemoryModel.xcdatamodeld;
+			path = Source/MemoryModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = B77F1B2617B978D7009739AE /* Project object */;
 }

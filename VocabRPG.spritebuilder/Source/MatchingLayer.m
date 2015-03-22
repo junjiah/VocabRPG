@@ -17,20 +17,20 @@ static double const BLOCK_X_MARGIN = 0.2;
   NSMutableArray *_leftBlocks, *_rightBlocks;
   int _blockSize;
 
-  id<VocabularyDataSource> dataSource;
-  __weak CombatScene *scene;
+  id<VocabularyDataSource> _dataSource;
+  __weak CombatScene *_scene;
 }
 
 - (void)didLoadFromCCB {
-  dataSource = [[MatchingLayerController alloc] initWithView:self];
-  scene = (CombatScene *)self.parent;
+  _dataSource = [[MatchingLayerController alloc] initWithView:self];
+  _scene = (CombatScene *)self.parent;
   [self deployBlocks];
 }
 
 #pragma mark Place blocks
 
 - (void)deployBlocks {
-  NSDictionary *wordMeaningPairs = [dataSource generateWordMeaningPairs];
+  NSDictionary *wordMeaningPairs = [_dataSource generateWordMeaningPairs];
   NSMutableArray *words = [wordMeaningPairs objectForKey:@"words"],
                  *shuffledMeanings =
                      [wordMeaningPairs objectForKey:@"meanings"];
@@ -44,7 +44,7 @@ static double const BLOCK_X_MARGIN = 0.2;
 
   for (int i = 0; i < _blockSize; ++i) {
     MatchingBlock *left =
-        (MatchingBlock *)[CCBReader load:@"MatchingBlock" owner:dataSource];
+        (MatchingBlock *)[CCBReader load:@"MatchingBlock" owner:_dataSource];
     left.positionType = CCPositionTypeNormalized;
     left.position = ccp(BLOCK_X_MARGIN, block_ystart + i * block_yspacing);
     left.buttonName = [NSString stringWithFormat:@"left_%d", i];
@@ -53,7 +53,7 @@ static double const BLOCK_X_MARGIN = 0.2;
     [self addChild:left];
 
     MatchingBlock *right =
-        (MatchingBlock *)[CCBReader load:@"MatchingBlock" owner:dataSource];
+        (MatchingBlock *)[CCBReader load:@"MatchingBlock" owner:_dataSource];
     right.positionType = CCPositionTypeNormalized;
     right.position = ccp(1 - BLOCK_X_MARGIN, block_ystart + i * block_yspacing);
     right.buttonName = [NSString stringWithFormat:@"right_%d", i];
@@ -64,7 +64,7 @@ static double const BLOCK_X_MARGIN = 0.2;
 }
 
 - (void)redeployBlocks {
-  NSDictionary *wordMeaningPairs = [dataSource generateWordMeaningPairs];
+  NSDictionary *wordMeaningPairs = [_dataSource generateWordMeaningPairs];
   NSMutableArray *words = [wordMeaningPairs objectForKey:@"words"],
                  *shuffledMeanings =
                      [wordMeaningPairs objectForKey:@"meanings"];
@@ -102,7 +102,7 @@ static double const BLOCK_X_MARGIN = 0.2;
 
     // if all cleared, attack
     if (_blockSize == 0) {
-      [scene attackWithCharacter:HERO_SIDE withType:0];
+      [_scene attackWithCharacter:HERO_SIDE withType:0];
       // redeploy
       [self redeployBlocks];
     }
@@ -113,7 +113,7 @@ static double const BLOCK_X_MARGIN = 0.2;
     [[_leftBlocks objectAtIndex:leftIndex] shakeOnView];
     [[_rightBlocks objectAtIndex:rightIndex] shakeOnView];
     // delay, then it's enemy's turn to attack, and redeploy blocks
-    [scene attackWithCharacter:ENEMY_SIDE withType:0];
+    [_scene attackWithCharacter:ENEMY_SIDE withType:0];
     [self performSelector:@selector(redeployBlocks)
                withObject:nil
                afterDelay:0.5];

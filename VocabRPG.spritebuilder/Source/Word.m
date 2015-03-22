@@ -13,7 +13,6 @@
 - (id)initWithWord:(NSString *)word ofDefinition:(NSString *)definition {
   _word = word;
   _definition = definition;
-  _proficiency = 0;
   return self;
 }
 
