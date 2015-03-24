@@ -43,9 +43,12 @@ static const int COUNT_DOWN_MAX = 10;
   [self unschedule:@selector(tick)];
   
   // add a gray background box
-  CCNodeColor *colorBackground = [CCNodeColor nodeWithColor:[CCColor grayColor]];
-  colorBackground.contentSizeType = CCSizeTypeMake(CCSizeUnitInsetPoints, CCSizeUnitNormalized);
-  colorBackground.contentSize = CGSizeMake(100, 0.8f);
+  CCSprite *colorBackground = [CCSprite spriteWithImageNamed:@"wood.png"];
+  float backgroundScaleX = 300.0f / colorBackground.contentSize.width,
+        backgroundScaleY = 380.0f / colorBackground.contentSize.height;
+  [colorBackground setScaleX:backgroundScaleX];
+  [colorBackground setScaleY:backgroundScaleY];
+  
   colorBackground.userInteractionEnabled = NO;
   colorBackground.positionType = CCPositionTypeNormalized;
   colorBackground.anchorPoint = ccp(0.5f, 0.5f);
@@ -58,7 +61,9 @@ static const int COUNT_DOWN_MAX = 10;
   glossaryTable.positionType = CCPositionTypeNormalized;
   glossaryTable.anchorPoint = ccp(0.5f, 0.5f);
   glossaryTable.position = ccp(0.5f, 0.5f);
-  glossaryTable.contentSize = CGSizeMake(1, 0.85f);
+  glossaryTable.contentSize = CGSizeMake(1, 0.4f);
+  [glossaryTable setScaleX:1/backgroundScaleX];
+  [glossaryTable setScaleY:1/backgroundScaleY];
   
   glossaryTable.dataSource = glossary;
   [colorBackground addChild:glossaryTable];
@@ -67,6 +72,8 @@ static const int COUNT_DOWN_MAX = 10;
   CCButton *backButton = [CCButton buttonWithTitle:@"Back"];
   backButton.positionType = CCPositionTypeNormalized;
   backButton.position = ccp(0.07f, 0.02f);
+  [backButton setScaleX:1/backgroundScaleX];
+  [backButton setScaleY:1/backgroundScaleY];
   backButton.block = ^(id sender) {
     [self removeChild:colorBackground];
     [self schedule:@selector(tick) interval:1];

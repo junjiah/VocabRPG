@@ -27,11 +27,11 @@
 }
 
 - (CCTableViewCell *)tableView:(CCTableView *)tableView nodeForRowAtIndex:(NSUInteger)index {
-  CCTableViewCell* cell = [CCTableViewCell node];
+  CCTableViewCell *cell = [CCTableViewCell node];
   
   cell.contentSizeType = CCSizeTypeMake(CCSizeUnitNormalized, CCSizeUnitPoints);
   cell.contentSize = CGSizeMake(1, 20);
-  
+    
   // label the cell with word
   Word *word = [_words objectAtIndex:index];
   NSString *labelString = [NSString stringWithFormat:@"%@: %@, PROF: %d", word.word, word.definition, word.proficiency];
