@@ -10,11 +10,10 @@
 #import "AppDelegate.h"
 #import "Word.h"
 
-static NSMutableDictionary *vocabulary;
-
 @implementation MemoryModel {
   NSManagedObjectContext *_managedObjectContext;
   NSEntityDescription *_entityDescription;
+  NSMutableDictionary *_vocabulary;
 }
 
 - (id)init {
@@ -28,10 +27,10 @@ static NSMutableDictionary *vocabulary;
 }
 
 - (NSString *)getNextPair {
-  NSArray *allKeys = [vocabulary allKeys];
+  NSArray *allKeys = [_vocabulary allKeys];
   unsigned int randomIndex = arc4random_uniform((unsigned int)[allKeys count]);
   NSString *word = [allKeys objectAtIndex:randomIndex];
-  NSString *definition = [vocabulary objectForKey:word];
+  NSString *definition = [_vocabulary objectForKey:word];
   return [NSString stringWithFormat:@"%@:%@", word, definition];
 }
 
@@ -108,7 +107,7 @@ static NSMutableDictionary *vocabulary;
   NSMutableArray *words = [NSMutableArray array];
   for (NSManagedObject *object in result) {
     NSString *wordString = [object valueForKey:@"word"];
-    NSString *definition = [vocabulary objectForKeyedSubscript:wordString];
+    NSString *definition = [_vocabulary objectForKeyedSubscript:wordString];
     Word *word = [[Word alloc]
          initWithWord:wordString
          ofDefinition:definition
@@ -118,12 +117,12 @@ static NSMutableDictionary *vocabulary;
   return words;
 }
 
-#pragma mark Class methods
+#pragma mark I/O functions
 
 /**
  *  Read vocabulary files for words and corresponding definitions
  */
-+ (void)initialize {
+- (void)readVocabularyFile {
   NSString *vocabList =
       [[NSBundle mainBundle] pathForResource:@"TOEFL-test" ofType:@"tsv"];
   NSString *vocabFile =
@@ -133,17 +132,19 @@ static NSMutableDictionary *vocabulary;
   NSArray *allLines = [vocabFile componentsSeparatedByCharactersInSet:
                                      [NSCharacterSet newlineCharacterSet]];
 
-  vocabulary = [NSMutableDictionary new];
+  _vocabulary = [NSMutableDictionary new];
   for (NSString *line in allLines) {
     if ([line length] == 0) {
       break;
     }
 
     NSArray *parts = [line componentsSeparatedByString:@"\t"];
-    [vocabulary setValue:[parts objectAtIndex:1]
+    [_vocabulary setValue:[parts objectAtIndex:1]
                   forKey:[parts objectAtIndex:0]];
   }
 }
+
+#pragma mark Class methods
 
 + (int)calculateNextReviewTimeFor:(int)currentTime {
   // simulate Fibonacci
@@ -157,6 +158,7 @@ static NSMutableDictionary *vocabulary;
   static MemoryModel *model = nil;
   if (model == nil) {
     model = [[self alloc] init];
+    [model readVocabularyFile];
   }
   return model;
 }

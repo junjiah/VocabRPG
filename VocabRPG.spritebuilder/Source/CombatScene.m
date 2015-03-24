@@ -44,18 +44,34 @@ static const int COUNT_DOWN_MAX = 10;
   
   // add a gray background box
   CCNodeColor *colorBackground = [CCNodeColor nodeWithColor:[CCColor grayColor]];
-  colorBackground.contentSizeType = CCSizeTypeMake(CCSizeUnitInsetPoints, CCSizeUnitInsetPoints);
-  colorBackground.contentSize = CGSizeMake(100, 100);
+  colorBackground.contentSizeType = CCSizeTypeMake(CCSizeUnitInsetPoints, CCSizeUnitNormalized);
+  colorBackground.contentSize = CGSizeMake(100, 0.8f);
   colorBackground.userInteractionEnabled = NO;
   colorBackground.positionType = CCPositionTypeNormalized;
-  colorBackground.anchorPoint = ccp(0.5, 0.5);
-  colorBackground.position = ccp(0.5, 0.5);
+  colorBackground.anchorPoint = ccp(0.5f, 0.5f);
+  colorBackground.position = ccp(0.5f, 0.5f);
   [self addChild:colorBackground];
   
   Glossary *glossary = [Glossary new];
   CCTableView* glossaryTable = [CCTableView new];
+  glossaryTable.bounces = NO;
+  glossaryTable.positionType = CCPositionTypeNormalized;
+  glossaryTable.anchorPoint = ccp(0.5f, 0.5f);
+  glossaryTable.position = ccp(0.5f, 0.5f);
+  glossaryTable.contentSize = CGSizeMake(1, 0.85f);
+  
   glossaryTable.dataSource = glossary;
   [colorBackground addChild:glossaryTable];
+  
+  // add a back button
+  CCButton *backButton = [CCButton buttonWithTitle:@"Back"];
+  backButton.positionType = CCPositionTypeNormalized;
+  backButton.position = ccp(0.07f, 0.02f);
+  backButton.block = ^(id sender) {
+    [self removeChild:colorBackground];
+    [self schedule:@selector(tick) interval:1];
+  };
+  [colorBackground addChild:backButton];
 }
 
 #pragma mark Message coordinate
