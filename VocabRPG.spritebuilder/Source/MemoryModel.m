@@ -1,20 +1,18 @@
 //
-//  VocabularySource.m
+//  MemoryModel.m
 //  VocabRPG
 //
 //  Created by Junjia He on 2/21/15.
 //  Copyright (c) 2015 Apportable. All rights reserved.
 //
 
-#import "MemorizationModel.h"
+#import "MemoryModel.h"
 #import "AppDelegate.h"
 #import "Word.h"
 
-static NSMutableArray *vocabulary;
+static NSMutableDictionary *vocabulary;
 
-static NSUInteger predefinedCounter = 0;
-
-@implementation MemorizationModel {
+@implementation MemoryModel {
   NSManagedObjectContext *_managedObjectContext;
   NSEntityDescription *_entityDescription;
 }
@@ -30,23 +28,18 @@ static NSUInteger predefinedCounter = 0;
 }
 
 - (NSString *)getNextPair {
-  NSUInteger index = (++predefinedCounter) % vocabulary.count;
-  if (index == 0) {
-    [MemorizationModel shuffle:vocabulary];
-    predefinedCounter = 0;
-  }
-  Word *word = [vocabulary objectAtIndex:index];
-  return [NSString stringWithFormat:@"%@:%@", word.word, word.definition];
+  NSArray *allKeys = [vocabulary allKeys];
+  unsigned int randomIndex = arc4random_uniform((unsigned int)[allKeys count]);
+  NSString *word = [allKeys objectAtIndex:randomIndex];
+  NSString *definition = [vocabulary objectForKey:word];
+  return [NSString stringWithFormat:@"%@:%@", word, definition];
 }
 
 - (void)setWord:(NSString *)word withMatch:(BOOL)matched {
   NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-  NSEntityDescription *entity =
-      [NSEntityDescription entityForName:@"Vocabulary"
-                  inManagedObjectContext:_managedObjectContext];
   NSPredicate *predicate =
       [NSPredicate predicateWithFormat:@"%K == %@", @"word", word];
-  [fetchRequest setEntity:entity];
+  [fetchRequest setEntity:_entityDescription];
   [fetchRequest setPredicate:predicate];
 
   NSError *error;
@@ -80,9 +73,8 @@ static NSUInteger predefinedCounter = 0;
     if (matched) {
       // correct
       [storedWord setValue:@(profiency + 1) forKey:@"profiency"];
-      [storedWord
-          setValue:@([MemorizationModel calculateNextReviewTimeFor:priority])
-            forKey:@"priority"];
+      [storedWord setValue:@([MemoryModel calculateNextReviewTimeFor:priority])
+                    forKey:@"priority"];
     } else {
       // wrong match
       [storedWord setValue:@(MAX(0, profiency - 1)) forKey:@"proficiency"];
@@ -96,17 +88,41 @@ static NSUInteger predefinedCounter = 0;
   }
 }
 
-#pragma mark Class methods
+- (NSMutableArray *)retreiveAllWords {
+  NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+  NSSortDescriptor *sortDescriptor =
+      [NSSortDescriptor sortDescriptorWithKey:@"word" ascending:YES];
+  [fetchRequest setEntity:_entityDescription];
+  [fetchRequest setSortDescriptors:@[ sortDescriptor ]];
 
-+ (void)shuffle:(NSMutableArray *)array {
-  NSUInteger count = [array count];
-  for (NSUInteger i = 0; i < count; ++i) {
-    NSInteger remainingCount = count - i;
-    NSInteger exchangeIndex = i + arc4random_uniform((u_int32_t)remainingCount);
-    [array exchangeObjectAtIndex:i withObjectAtIndex:exchangeIndex];
+  NSError *error;
+  NSArray *result =
+      [_managedObjectContext executeFetchRequest:fetchRequest error:&error];
+
+  if (error) {
+    NSLog(@"Error fetching data.");
+    NSLog(@"%@, %@", error, error.localizedDescription);
+    return [NSMutableArray array];
   }
+
+  NSMutableArray *words = [NSMutableArray array];
+  for (NSManagedObject *object in result) {
+    NSString *wordString = [object valueForKey:@"word"];
+    NSString *definition = [vocabulary objectForKeyedSubscript:wordString];
+    Word *word = [[Word alloc]
+         initWithWord:wordString
+         ofDefinition:definition
+        ofProficiency:[[object valueForKey:@"proficiency"] intValue]];
+    [words addObject:word];
+  }
+  return words;
 }
 
+#pragma mark Class methods
+
+/**
+ *  Read vocabulary files for words and corresponding definitions
+ */
 + (void)initialize {
   NSString *vocabList =
       [[NSBundle mainBundle] pathForResource:@"TOEFL-test" ofType:@"tsv"];
@@ -117,18 +133,16 @@ static NSUInteger predefinedCounter = 0;
   NSArray *allLines = [vocabFile componentsSeparatedByCharactersInSet:
                                      [NSCharacterSet newlineCharacterSet]];
 
-  vocabulary = [NSMutableArray new];
+  vocabulary = [NSMutableDictionary new];
   for (NSString *line in allLines) {
     if ([line length] == 0) {
       break;
     }
 
     NSArray *parts = [line componentsSeparatedByString:@"\t"];
-    Word *w = [[Word alloc] initWithWord:[parts objectAtIndex:0]
-                            ofDefinition:[parts objectAtIndex:1]];
-    [vocabulary addObject:w];
+    [vocabulary setValue:[parts objectAtIndex:1]
+                  forKey:[parts objectAtIndex:0]];
   }
-  [MemorizationModel shuffle:vocabulary];
 }
 
 + (int)calculateNextReviewTimeFor:(int)currentTime {
@@ -137,5 +151,13 @@ static NSUInteger predefinedCounter = 0;
     return 2;
   else
     return currentTime + (currentTime / 2);
+}
+
++ (MemoryModel *)sharedMemoryModel {
+  static MemoryModel *model = nil;
+  if (model == nil) {
+    model = [[self alloc] init];
+  }
+  return model;
 }
 @end

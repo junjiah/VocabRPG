@@ -1,6 +1,7 @@
 #import "CombatScene.h"
 #import "CombatLayer.h"
 #import "MatchingLayer.h"
+#import "Glossary.h"
 
 static NSString *const CHARACTER_DIED_NOTIFICATION =
     @"CharacterDidDieNotification";
@@ -18,7 +19,7 @@ static const int COUNT_DOWN_MAX = 10;
   int _countDownTime;
 }
 
-#pragma mark Set up
+#pragma mark Set up or button callback
 
 - (void)didLoadFromCCB {
   [[NSNotificationCenter defaultCenter] addObserver:self
@@ -35,6 +36,26 @@ static const int COUNT_DOWN_MAX = 10;
   CCScene *scene = [CCBReader loadAsScene:@"CombatScene"];
   [[CCDirector sharedDirector] replaceScene:scene];
   [_matchingLayer redeployBlocks];
+}
+
+- (void)displayGlossary {
+  // stop ticking
+  [self unschedule:@selector(tick)];
+  
+  // add a gray background box
+  CCNodeColor *colorBackground = [CCNodeColor nodeWithColor:[CCColor grayColor]];
+  colorBackground.contentSizeType = CCSizeTypeMake(CCSizeUnitInsetPoints, CCSizeUnitInsetPoints);
+  colorBackground.contentSize = CGSizeMake(100, 100);
+  colorBackground.userInteractionEnabled = NO;
+  colorBackground.positionType = CCPositionTypeNormalized;
+  colorBackground.anchorPoint = ccp(0.5, 0.5);
+  colorBackground.position = ccp(0.5, 0.5);
+  [self addChild:colorBackground];
+  
+  Glossary *glossary = [Glossary new];
+  CCTableView* glossaryTable = [CCTableView new];
+  glossaryTable.dataSource = glossary;
+  [colorBackground addChild:glossaryTable];
 }
 
 #pragma mark Message coordinate

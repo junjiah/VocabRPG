@@ -11,6 +11,7 @@
 		501722401A9814E100F266C3 /* MatchingBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 5017223B1A9814E100F266C3 /* MatchingBlock.m */; };
 		501722441A9816FB00F266C3 /* CombatLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 501722431A9816FB00F266C3 /* CombatLayer.m */; };
 		501722471A9817CD00F266C3 /* MatchingLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 501722461A9817CD00F266C3 /* MatchingLayer.m */; };
+		504DE1DF1ABF700400C67379 /* Glossary.m in Sources */ = {isa = PBXBuildFile; fileRef = 504DE1DE1ABF700400C67379 /* Glossary.m */; };
 		509335071AB5FB2C00884423 /* Word.m in Sources */ = {isa = PBXBuildFile; fileRef = 509335061AB5FB2C00884423 /* Word.m */; };
 		509335131AB622A600884423 /* CHCSVParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 509335121AB622A600884423 /* CHCSVParser.m */; };
 		5093351B1AB6268800884423 /* SAT.csv in Resources */ = {isa = PBXBuildFile; fileRef = 509335181AB6268800884423 /* SAT.csv */; };
@@ -19,7 +20,7 @@
 		509441FD1ABE53A800F6EB59 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 509441FC1ABE53A800F6EB59 /* CoreData.framework */; };
 		509442041ABE545E00F6EB59 /* MemoryModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 509442021ABE545E00F6EB59 /* MemoryModel.xcdatamodeld */; };
 		50BF5D781A990B5600153DBD /* MatchingLayerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 50BF5D771A990B5600153DBD /* MatchingLayerController.m */; };
-		50BF5D7B1A99163F00153DBD /* MemorizationModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 50BF5D7A1A99163F00153DBD /* MemorizationModel.m */; };
+		50BF5D7B1A99163F00153DBD /* MemoryModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 50BF5D7A1A99163F00153DBD /* MemoryModel.m */; };
 		50BF5D801A9937F900153DBD /* Enemy.m in Sources */ = {isa = PBXBuildFile; fileRef = 50BF5D7F1A9937F900153DBD /* Enemy.m */; };
 		8392007A18EE8E3300B6C429 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8392007918EE8E3300B6C429 /* GLKit.framework */; };
 		B71F5911188484E7003F4D28 /* iPad-old.png in Resources */ = {isa = PBXBuildFile; fileRef = B71F5907188484E7003F4D28 /* iPad-old.png */; };
@@ -99,6 +100,8 @@
 		501722431A9816FB00F266C3 /* CombatLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CombatLayer.m; path = Source/CombatLayer.m; sourceTree = "<group>"; };
 		501722451A9817CD00F266C3 /* MatchingLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MatchingLayer.h; path = Source/MatchingLayer.h; sourceTree = "<group>"; };
 		501722461A9817CD00F266C3 /* MatchingLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MatchingLayer.m; path = Source/MatchingLayer.m; sourceTree = "<group>"; };
+		504DE1DD1ABF700400C67379 /* Glossary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Glossary.h; path = Source/Glossary.h; sourceTree = "<group>"; };
+		504DE1DE1ABF700400C67379 /* Glossary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Glossary.m; path = Source/Glossary.m; sourceTree = "<group>"; };
 		509335051AB5FB2C00884423 /* Word.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Word.h; path = Source/Word.h; sourceTree = "<group>"; };
 		509335061AB5FB2C00884423 /* Word.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Word.m; path = Source/Word.m; sourceTree = "<group>"; };
 		509335111AB622A600884423 /* CHCSVParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHCSVParser.h; sourceTree = "<group>"; };
@@ -110,8 +113,8 @@
 		509442031ABE545E00F6EB59 /* MemoryModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MemoryModel.xcdatamodel; sourceTree = "<group>"; };
 		50BF5D761A990B5600153DBD /* MatchingLayerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MatchingLayerController.h; path = Source/MatchingLayerController.h; sourceTree = "<group>"; };
 		50BF5D771A990B5600153DBD /* MatchingLayerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MatchingLayerController.m; path = Source/MatchingLayerController.m; sourceTree = "<group>"; };
-		50BF5D791A99163F00153DBD /* MemorizationModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MemorizationModel.h; path = Source/MemorizationModel.h; sourceTree = "<group>"; };
-		50BF5D7A1A99163F00153DBD /* MemorizationModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MemorizationModel.m; path = Source/MemorizationModel.m; sourceTree = "<group>"; };
+		50BF5D791A99163F00153DBD /* MemoryModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MemoryModel.h; path = Source/MemoryModel.h; sourceTree = "<group>"; };
+		50BF5D7A1A99163F00153DBD /* MemoryModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MemoryModel.m; path = Source/MemoryModel.m; sourceTree = "<group>"; };
 		50BF5D7E1A9937F900153DBD /* Enemy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Enemy.h; path = Source/Enemy.h; sourceTree = "<group>"; };
 		50BF5D7F1A9937F900153DBD /* Enemy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Enemy.m; path = Source/Enemy.m; sourceTree = "<group>"; };
 		50BF5D811A9A6A3C00153DBD /* Character.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Character.h; path = Source/Character.h; sourceTree = "<group>"; };
@@ -213,8 +216,10 @@
 				501722461A9817CD00F266C3 /* MatchingLayer.m */,
 				50BF5D761A990B5600153DBD /* MatchingLayerController.h */,
 				50BF5D771A990B5600153DBD /* MatchingLayerController.m */,
-				50BF5D791A99163F00153DBD /* MemorizationModel.h */,
-				50BF5D7A1A99163F00153DBD /* MemorizationModel.m */,
+				50BF5D791A99163F00153DBD /* MemoryModel.h */,
+				50BF5D7A1A99163F00153DBD /* MemoryModel.m */,
+				504DE1DD1ABF700400C67379 /* Glossary.h */,
+				504DE1DE1ABF700400C67379 /* Glossary.m */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -464,13 +469,14 @@
 				50BF5D781A990B5600153DBD /* MatchingLayerController.m in Sources */,
 				501722471A9817CD00F266C3 /* MatchingLayer.m in Sources */,
 				509335071AB5FB2C00884423 /* Word.m in Sources */,
-				50BF5D7B1A99163F00153DBD /* MemorizationModel.m in Sources */,
+				50BF5D7B1A99163F00153DBD /* MemoryModel.m in Sources */,
 				B737893F1807617C0076A88C /* AppDelegate.m in Sources */,
 				B73789871807631A0076A88C /* main.m in Sources */,
 				501722401A9814E100F266C3 /* MatchingBlock.m in Sources */,
 				BCF66F7F19563563004691FD /* CombatScene.m in Sources */,
 				509335131AB622A600884423 /* CHCSVParser.m in Sources */,
 				5017223F1A9814E100F266C3 /* Hero.m in Sources */,
+				504DE1DF1ABF700400C67379 /* Glossary.m in Sources */,
 				50BF5D801A9937F900153DBD /* Enemy.m in Sources */,
 				501722441A9816FB00F266C3 /* CombatLayer.m in Sources */,
 			);

@@ -10,9 +10,12 @@
 
 @implementation Word
 
-- (id)initWithWord:(NSString *)word ofDefinition:(NSString *)definition {
+- (id)initWithWord:(NSString *)word
+      ofDefinition:(NSString *)definition
+     ofProficiency:(int)proficiency {
   _word = word;
   _definition = definition;
+  _proficiency = proficiency;
   return self;
 }
 

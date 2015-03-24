@@ -9,11 +9,11 @@
 #import "MatchingLayerController.h"
 #import "MatchingLayer.h"
 #import "MatchingBlock.h"
-#import "MemorizationModel.h"
+#import "MemoryModel.h"
 #import "CombatLayer.h"
 
 @implementation MatchingLayerController {
-  MemorizationModel *_model;
+  MemoryModel *_model;
   NSMutableArray *_correctWordMap;
   int _pressedRecords[2];
   NSString *_pressedWord;
@@ -23,7 +23,7 @@
 
 - (id)initWithView:(MatchingLayer *)view {
   _view = view;
-  _model = [MemorizationModel new];
+  _model = [MemoryModel sharedMemoryModel];
   _pressedRecords[0] = -1;
   _pressedRecords[1] = -1;
   return self;

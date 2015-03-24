@@ -1,5 +1,5 @@
 //
-//  VocabularySource.h
+//  MemoryModel.m
 //  VocabRPG
 //
 //  Created by Junjia He on 2/21/15.
@@ -8,9 +8,12 @@
 
 #import <Foundation/Foundation.h>
 
-@interface MemorizationModel : NSObject
+@interface MemoryModel : NSObject
 
 - (NSString *)getNextPair;
 - (void)setWord:(NSString *)word withMatch:(BOOL)matched;
+- (NSMutableArray *)retreiveAllWords;
+
++ (MemoryModel *)sharedMemoryModel;
 
 @end
