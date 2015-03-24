@@ -67,16 +67,16 @@
     }
   } else {
     NSManagedObject *storedWord = (NSManagedObject *)[result objectAtIndex:0];
-    int profiency = [[storedWord valueForKey:@"profiency"] intValue],
+    int proficiency = [[storedWord valueForKey:@"proficiency"] intValue],
         priority = [[storedWord valueForKey:@"priority"] intValue];
     if (matched) {
       // correct
-      [storedWord setValue:@(profiency + 1) forKey:@"profiency"];
+      [storedWord setValue:@(proficiency + 1) forKey:@"proficiency"];
       [storedWord setValue:@([MemoryModel calculateNextReviewTimeFor:priority])
                     forKey:@"priority"];
     } else {
       // wrong match
-      [storedWord setValue:@(MAX(0, profiency - 1)) forKey:@"proficiency"];
+      [storedWord setValue:@(MAX(0, proficiency - 1)) forKey:@"proficiency"];
       [storedWord setValue:@(1) forKey:@"priority"];
     }
     // save

@@ -1368,7 +1368,7 @@
 				<key>displayName</key>
 				<string>glossary</string>
 				<key>memberVarAssignmentName</key>
-				<string></string>
+				<string>_glossary</string>
 				<key>memberVarAssignmentType</key>
 				<integer>1</integer>
 				<key>properties</key>

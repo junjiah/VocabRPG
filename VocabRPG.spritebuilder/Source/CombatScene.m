@@ -16,7 +16,10 @@ static const int COUNT_DOWN_MAX = 10;
   CCLabelTTF *_winLabel, *_loseLabel;
   CCLabelTTF *_countDown;
 
+  CCButton *_glossary;
+  
   int _countDownTime;
+  BOOL _gameProceeding;
 }
 
 #pragma mark Set up or button callback
@@ -30,6 +33,7 @@ static const int COUNT_DOWN_MAX = 10;
   [_countDown setString:[@(_countDownTime) stringValue]];
   _countDown.visible = YES;
   [self schedule:@selector(tick) interval:1];
+  _gameProceeding = YES;
 }
 
 - (void)replay {
@@ -40,7 +44,8 @@ static const int COUNT_DOWN_MAX = 10;
 
 - (void)displayGlossary {
   // stop ticking
-  [self unschedule:@selector(tick)];
+  if (_gameProceeding)
+    [self unschedule:@selector(tick)];
   
   // add a gray background box
   CCSprite *colorBackground = [CCSprite spriteWithImageNamed:@"wood.png"];
@@ -76,7 +81,8 @@ static const int COUNT_DOWN_MAX = 10;
   [backButton setScaleY:1/backgroundScaleY];
   backButton.block = ^(id sender) {
     [self removeChild:colorBackground];
-    [self schedule:@selector(tick) interval:1];
+    if (_gameProceeding)
+      [self schedule:@selector(tick) interval:1];
   };
   [colorBackground addChild:backButton];
 }
@@ -100,6 +106,7 @@ static const int COUNT_DOWN_MAX = 10;
 
 - (void)gameOverForSide:(NSNotification *)notification {
   // stop interaction
+  _gameProceeding = NO;
   [self unschedule:@selector(tick)];
   _countDown.visible = NO;
   [_matchingLayer clearAllButtons];
@@ -110,6 +117,7 @@ static const int COUNT_DOWN_MAX = 10;
   if (winSide == HERO_SIDE) {
     // player wins
     NSLog(@"GameOver! You win!");
+    _glossary.userInteractionEnabled = NO;
     CCNodeColor *layer = [CCNodeColor
         nodeWithColor:[CCColor colorWithRed:100 green:100 blue:100 alpha:1]];
     [self addChild:layer z:-1];
@@ -124,10 +132,11 @@ static const int COUNT_DOWN_MAX = 10;
       [self removeChild:layer];
       [_matchingLayer redeployBlocks];
       [self schedule:@selector(tick) interval:1];
+      _gameProceeding = YES;
       _countDown.visible = YES;
+      _glossary.userInteractionEnabled = YES;
     }];
     [self runAction:[CCActionSequence actions:delay, cleanLayer, nil]];
-    
   } else if (winSide == ENEMY_SIDE) {
     // player loses
     NSLog(@"GameOver! You lose");
