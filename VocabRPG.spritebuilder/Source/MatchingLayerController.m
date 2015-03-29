@@ -11,6 +11,7 @@
 #import "MatchingBlock.h"
 #import "MemoryModel.h"
 #import "CombatLayer.h"
+#import "Word.h"
 
 @implementation MatchingLayerController {
   MemoryModel *_model;
@@ -30,19 +31,16 @@
 }
 
 - (NSDictionary *)generateWordMeaningPairs {
-  // get next 4 word-meaning pairs
+  // get next word-meaning pairs
+  NSArray *retrievedWords = [_model getWordsWith:DISPLAY_WORD_NUM];
   NSMutableArray *words = [NSMutableArray new],
                  *meanings = [NSMutableArray new];
-  for (int i = 0; i < DISPLAY_WORD_NUM; ++i) {
-    NSArray *wordPair = [[_model getNextPair] componentsSeparatedByString:@":"];
-    // make sure no duplicate words
-    if ([words containsObject:[wordPair objectAtIndex:0]]) {
-      --i;
-      continue;
-    }
-    [words addObject:[wordPair objectAtIndex:0]];
-    [meanings addObject:[wordPair objectAtIndex:1]];
+  
+  for (Word *word in retrievedWords) {
+    [words addObject:word.word];
+    [meanings addObject:word.definition];
   }
+
   _correctWordMap = [NSMutableArray arrayWithObjects:@0, @1, @2, @3, nil];
   [MatchingLayerController shuffle:_correctWordMap];
 

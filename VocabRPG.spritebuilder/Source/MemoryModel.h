@@ -10,7 +10,7 @@
 
 @interface MemoryModel : NSObject
 
-- (NSString *)getNextPair;
+- (NSArray *)getWordsWith:(int)count;
 - (void)setWord:(NSString *)word withMatch:(BOOL)matched;
 - (NSMutableArray *)retreiveAllWords;
 

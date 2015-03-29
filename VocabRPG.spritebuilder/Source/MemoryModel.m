@@ -26,20 +26,78 @@
   return self;
 }
 
-- (NSString *)getNextPair {
+/**
+ *  Get next @p count words.
+ *  Current strategy is to retrieve @a 2/3 * @p count of words to be reviewed,
+ *  and the remaining words are randomly chosen (not necessarily new).
+ *
+ *  @param count Total number of words to retrieve.
+ *
+ *  @return An array of words, mixed with ones to be reviewed and others
+ *  chosen randomly.
+ */
+- (NSArray *)getWordsWith:(int)count {
+  NSAssert(count <= 10, @"required too many pairs");
+  
+  NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+  // only retrieve words which should be reviewed today or earlier
+  NSPredicate *priorityPredicate = [NSPredicate predicateWithFormat:@"%K <= %@", @"priority", @(0)];
+  NSSortDescriptor *prioritySortDescriptor =
+      [NSSortDescriptor sortDescriptorWithKey:@"priority" ascending:YES];
+  NSSortDescriptor *proficiencySortDescriptor =
+      [NSSortDescriptor sortDescriptorWithKey:@"proficiency" ascending:YES];
+  [fetchRequest setEntity:_entityDescription];
+  [fetchRequest setPredicate:priorityPredicate];
+  [fetchRequest setSortDescriptors:@[prioritySortDescriptor, proficiencySortDescriptor]];
+  [fetchRequest setFetchLimit:count];
+  
+  NSError *error;
+  NSArray *result = [_managedObjectContext executeFetchRequest:fetchRequest error:&error];
+  
+  if (error) {
+    NSLog(@"Error fetching data.");
+    NSLog(@"%@, %@", error, error.localizedDescription);
+    // TODO: fallback to random selection
+    return NULL;
+  }
+  
+  NSMutableArray *words = [NSMutableArray array];
+  // 2/3 of count pairs should be reviewed
+  int reviewWordLimit = MIN((int)result.count, count * 2 / 3);
+  for (int i = 0; i < reviewWordLimit; ++i) {
+    NSManagedObject *storedWord = (NSManagedObject *)[result objectAtIndex:i];
+    NSString *wordString = [storedWord valueForKey:@"word"];
+    NSString *definition = [_vocabulary objectForKeyedSubscript:wordString];
+    Word *word = [[Word alloc]
+                  initWithWord:wordString
+                  ofDefinition:definition
+                  ofProficiency:-1]; // proficiency does't matter
+    
+    // TODO: what if duplicate words are there?
+    [words addObject:word];
+  }
+  
+  // random for the rest
+  // TODO: should be new words?
   NSArray *allKeys = [_vocabulary allKeys];
-  unsigned int randomIndex = arc4random_uniform((unsigned int)[allKeys count]);
-  NSString *word = [allKeys objectAtIndex:randomIndex];
-  NSString *definition = [_vocabulary objectForKey:word];
-  return [NSString stringWithFormat:@"%@:%@", word, definition];
+  for (int i = reviewWordLimit; i <count; ++i) {
+    unsigned int randomIndex = arc4random_uniform((unsigned int)[allKeys count]);
+    NSString *wordString = [allKeys objectAtIndex:randomIndex];
+    NSString *definition = [_vocabulary objectForKey:wordString];
+    Word *word = [[Word alloc]
+                  initWithWord:wordString ofDefinition:definition ofProficiency:-1];
+    [words addObject:word];
+  }
+  NSAssert(words.count == count, @"retrieved word number doesn't match");
+  return words;
 }
 
 - (void)setWord:(NSString *)word withMatch:(BOOL)matched {
   NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-  NSPredicate *predicate =
+  NSPredicate *wordPredicate =
       [NSPredicate predicateWithFormat:@"%K == %@", @"word", word];
   [fetchRequest setEntity:_entityDescription];
-  [fetchRequest setPredicate:predicate];
+  [fetchRequest setPredicate:wordPredicate];
 
   NSError *error;
   NSArray *result =
@@ -58,7 +116,7 @@
           [[NSManagedObject alloc] initWithEntity:_entityDescription
                    insertIntoManagedObjectContext:_managedObjectContext];
       [newWord setValue:word forKey:@"word"];
-      [newWord setValue:(matched ? @(1) : @(0))forKey:@"proficiency"];
+      [newWord setValue:@(1) forKey:@"proficiency"];
       [newWord setValue:@(1) forKey:@"priority"];
       if (![newWord.managedObjectContext save:&error]) {
         NSLog(@"Unable to save managed object context.");
@@ -67,16 +125,16 @@
     }
   } else {
     NSManagedObject *storedWord = (NSManagedObject *)[result objectAtIndex:0];
-    int proficiency = [[storedWord valueForKey:@"proficiency"] intValue],
-        priority = [[storedWord valueForKey:@"priority"] intValue];
+    int proficiency = [[storedWord valueForKey:@"proficiency"] intValue];
     if (matched) {
       // correct
       [storedWord setValue:@(proficiency + 1) forKey:@"proficiency"];
-      [storedWord setValue:@([MemoryModel calculateNextReviewTimeFor:priority])
+      [storedWord setValue:@([MemoryModel calculateNextReviewTimeFor:proficiency])
                     forKey:@"priority"];
     } else {
-      // wrong match
-      [storedWord setValue:@(MAX(0, proficiency - 1)) forKey:@"proficiency"];
+      // wrong match, TODO: better way to punish?
+      [storedWord setValue:@(MAX(1, proficiency - 1)) forKey:@"proficiency"];
+      // review immediately
       [storedWord setValue:@(1) forKey:@"priority"];
     }
     // save
@@ -146,12 +204,12 @@
 
 #pragma mark Class methods
 
-+ (int)calculateNextReviewTimeFor:(int)currentTime {
++ (int)calculateNextReviewTimeFor:(int)currentProficiency {
   // simulate Fibonacci
-  if (currentTime == 1)
-    return 2;
+  if (currentProficiency <= 1)
+    return currentProficiency + 1;
   else
-    return currentTime + (currentTime / 2);
+    return currentProficiency + (currentProficiency / 2);
 }
 
 + (MemoryModel *)sharedMemoryModel {
