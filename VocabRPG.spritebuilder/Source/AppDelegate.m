@@ -79,13 +79,13 @@
   NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
   NSDate *firstPlayedTime = [defaults objectForKey:@"Day0"],
          *now = [NSDate date];
+
   if (!firstPlayedTime) {
     // THIS IS THE FIRST PLAY!
     [defaults setObject:now forKey:@"Day0"];
     [defaults synchronize];
     memoryModel.playedDays = 0;
-  }
-  {
+  } else {
     NSInteger daysInBetween =
         [AppController daysBetweenDate:firstPlayedTime andDate:now];
     memoryModel.playedDays = daysInBetween;
