@@ -10,6 +10,8 @@
 
 @interface MemoryModel : NSObject
 
+@property (nonatomic, assign) NSInteger playedDays;
+
 - (NSArray *)getWordsWith:(int)count;
 - (void)setWord:(NSString *)word withMatch:(BOOL)matched;
 - (NSMutableArray *)retreiveAllWords;

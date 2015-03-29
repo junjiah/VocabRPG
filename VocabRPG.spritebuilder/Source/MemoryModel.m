@@ -41,7 +41,7 @@
   
   NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
   // only retrieve words which should be reviewed today or earlier
-  NSPredicate *priorityPredicate = [NSPredicate predicateWithFormat:@"%K <= %@", @"priority", @(0)];
+  NSPredicate *priorityPredicate = [NSPredicate predicateWithFormat:@"%K <= %@", @"priority", @(_playedDays)];
   NSSortDescriptor *prioritySortDescriptor =
       [NSSortDescriptor sortDescriptorWithKey:@"priority" ascending:YES];
   NSSortDescriptor *proficiencySortDescriptor =
@@ -117,7 +117,7 @@
                    insertIntoManagedObjectContext:_managedObjectContext];
       [newWord setValue:word forKey:@"word"];
       [newWord setValue:@(1) forKey:@"proficiency"];
-      [newWord setValue:@(1) forKey:@"priority"];
+      [newWord setValue:@(_playedDays + 1) forKey:@"priority"];
       if (![newWord.managedObjectContext save:&error]) {
         NSLog(@"Unable to save managed object context.");
         NSLog(@"%@, %@", error, error.localizedDescription);
@@ -129,13 +129,13 @@
     if (matched) {
       // correct
       [storedWord setValue:@(proficiency + 1) forKey:@"proficiency"];
-      [storedWord setValue:@([MemoryModel calculateNextReviewTimeFor:proficiency])
+      [storedWord setValue:@(_playedDays + [MemoryModel calculateNextReviewTimeFor:proficiency])
                     forKey:@"priority"];
     } else {
       // wrong match, TODO: better way to punish?
       [storedWord setValue:@(MAX(1, proficiency - 1)) forKey:@"proficiency"];
       // review immediately
-      [storedWord setValue:@(1) forKey:@"priority"];
+      [storedWord setValue:@(_playedDays + 1) forKey:@"priority"];
     }
     // save
     if (![storedWord.managedObjectContext save:&error]) {
@@ -206,7 +206,7 @@
 
 + (int)calculateNextReviewTimeFor:(int)currentProficiency {
   // simulate Fibonacci
-  if (currentProficiency <= 1)
+  if (currentProficiency <= 3)
     return currentProficiency + 1;
   else
     return currentProficiency + (currentProficiency / 2);
@@ -220,4 +220,5 @@
   }
   return model;
 }
+
 @end
