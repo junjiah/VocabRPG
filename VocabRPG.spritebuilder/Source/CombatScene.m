@@ -43,14 +43,14 @@ static const int COUNT_DOWN_MAX = 10;
 }
 
 - (void)displayGlossary {
-  // stop ticking
-  if (_gameProceeding)
-    [self unschedule:@selector(tick)];
+  CCScene *glossaryScene = [CCScene new];
   
-  // add a gray background box
+  // add a background
+  int width = [self boundingBox].size.width;
+  int height = [self boundingBox].size.height;
   CCSprite *colorBackground = [CCSprite spriteWithImageNamed:@"wood.png"];
-  float backgroundScaleX = 300.0f / colorBackground.contentSize.width,
-        backgroundScaleY = 380.0f / colorBackground.contentSize.height;
+  float backgroundScaleX = width / colorBackground.contentSize.width,
+        backgroundScaleY = height / colorBackground.contentSize.height;
   [colorBackground setScaleX:backgroundScaleX];
   [colorBackground setScaleY:backgroundScaleY];
   
@@ -58,33 +58,29 @@ static const int COUNT_DOWN_MAX = 10;
   colorBackground.positionType = CCPositionTypeNormalized;
   colorBackground.anchorPoint = ccp(0.5f, 0.5f);
   colorBackground.position = ccp(0.5f, 0.5f);
-  [self addChild:colorBackground];
+
+  [glossaryScene addChild:colorBackground];
   
   Glossary *glossary = [Glossary new];
   CCTableView* glossaryTable = [CCTableView new];
-  glossaryTable.bounces = NO;
+  glossaryTable.bounces = YES;
   glossaryTable.positionType = CCPositionTypeNormalized;
   glossaryTable.anchorPoint = ccp(0.5f, 0.5f);
   glossaryTable.position = ccp(0.5f, 0.5f);
-  glossaryTable.contentSize = CGSizeMake(1, 0.4f);
-  [glossaryTable setScaleX:1/backgroundScaleX];
-  [glossaryTable setScaleY:1/backgroundScaleY];
+  glossaryTable.contentSize = CGSizeMake(1, 0.9f);
   
   glossaryTable.dataSource = glossary;
-  [colorBackground addChild:glossaryTable];
+  [glossaryScene addChild:glossaryTable];
   
-  // add a back button
   CCButton *backButton = [CCButton buttonWithTitle:@"Back"];
   backButton.positionType = CCPositionTypeNormalized;
-  backButton.position = ccp(0.07f, 0.02f);
-  [backButton setScaleX:1/backgroundScaleX];
-  [backButton setScaleY:1/backgroundScaleY];
+  backButton.position = ccp(0.05f, 0.02f);
   backButton.block = ^(id sender) {
-    [self removeChild:colorBackground];
-    if (_gameProceeding)
-      [self schedule:@selector(tick) interval:1];
+    [[CCDirector sharedDirector] popSceneWithTransition:[CCTransition transitionFadeWithColor:[CCColor blackColor] duration:0.5]];
   };
-  [colorBackground addChild:backButton];
+  [glossaryScene addChild:backButton];
+  
+  [[CCDirector sharedDirector] pushScene:glossaryScene withTransition:[CCTransition transitionCrossFadeWithDuration:0.5]];
 }
 
 #pragma mark Message coordinate

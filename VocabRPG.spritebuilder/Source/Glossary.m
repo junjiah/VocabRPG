@@ -26,21 +26,41 @@
   return self;
 }
 
-- (CCTableViewCell *)tableView:(CCTableView *)tableView nodeForRowAtIndex:(NSUInteger)index {
+- (CCTableViewCell *)tableView:(CCTableView *)tableView
+             nodeForRowAtIndex:(NSUInteger)index {
   CCTableViewCell *cell = [CCTableViewCell node];
-  
+  Word *word = [_words objectAtIndex:index];
+
   cell.contentSizeType = CCSizeTypeMake(CCSizeUnitNormalized, CCSizeUnitPoints);
   cell.contentSize = CGSizeMake(1, 20);
-    
-  // label the cell with word
-  Word *word = [_words objectAtIndex:index];
-  NSString *labelString = [NSString stringWithFormat:@"%@: %@, PROF: %d", word.word, word.definition, word.proficiency];
-  CCLabelTTF* label = [CCLabelTTF labelWithString:labelString fontName:@"HelveticaNeue" fontSize:12];
-  label.positionType = CCPositionTypeNormalized;
-  label.position = ccp(0.5f, 0.5f);
+
+  CCNode *wordNode = [CCNode node], *definitionNode = [CCNode node],
+         *proficiencyNode = [CCNode node];
+  CCLabelTTF *
+      wordLabel = [CCLabelTTF labelWithString:word.word
+                                     fontName:@"HelveticaNeue"
+                                     fontSize:12],
+     *definitionLabel = [CCLabelTTF labelWithString:word.definition
+                                           fontName:@"HelveticaNeue"
+                                           fontSize:12],
+     *proficiencyLabel = [CCLabelTTF
+         labelWithString:[NSString stringWithFormat:@"%d", word.proficiency]
+                fontName:@"HelveticaNeue"
+                fontSize:12];
+
+  [wordNode addChild:wordLabel];
+  [definitionNode addChild:definitionLabel];
+  [proficiencyNode addChild:proficiencyLabel];
   
-  [cell addChild:label];
-  
+  // I know this is ugly...
+  float positions[3] = {0.2, 0.6, 0.9};
+  int i = 0;
+  for (CCNode *node in [NSArray arrayWithObjects:wordNode, definitionNode, proficiencyNode, nil]) {
+    node.positionType = CCPositionTypeNormalized;
+    node.position = ccp(positions[i++], 0.5f);
+    [cell addChild:node];
+  }
+
   return cell;
 }
 
