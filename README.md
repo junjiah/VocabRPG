@@ -11,7 +11,7 @@ In essence, the model has following functionalities:
     3. *priority* of the word to be displayed during the game
 - Provide a reasonable mixture of words for players during the combat scene
     1. some of those words are to be reviewed
-    2. some should be new words
+    2. some should be randomly chosen words (not necessarily to be new)
 - Update the words' priorities based on the passage of time
 
 ##  1. Model

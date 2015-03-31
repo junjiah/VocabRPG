@@ -38,55 +38,71 @@
  */
 - (NSArray *)getWordsWith:(int)count {
   NSAssert(count <= 10, @"required too many pairs");
-  
+
   NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
   // only retrieve words which should be reviewed today or earlier
-  NSPredicate *priorityPredicate = [NSPredicate predicateWithFormat:@"%K <= %@", @"priority", @(_playedDays)];
+  NSPredicate *priorityPredicate = [NSPredicate
+      predicateWithFormat:@"%K <= %@", @"priority", @(_playedDays)];
   NSSortDescriptor *prioritySortDescriptor =
       [NSSortDescriptor sortDescriptorWithKey:@"priority" ascending:YES];
   NSSortDescriptor *proficiencySortDescriptor =
       [NSSortDescriptor sortDescriptorWithKey:@"proficiency" ascending:YES];
   [fetchRequest setEntity:_entityDescription];
   [fetchRequest setPredicate:priorityPredicate];
-  [fetchRequest setSortDescriptors:@[prioritySortDescriptor, proficiencySortDescriptor]];
+  [fetchRequest setSortDescriptors:
+                    @[ prioritySortDescriptor, proficiencySortDescriptor ]];
   [fetchRequest setFetchLimit:count];
-  
+
   NSError *error;
-  NSArray *result = [_managedObjectContext executeFetchRequest:fetchRequest error:&error];
-  
+  NSArray *result =
+      [_managedObjectContext executeFetchRequest:fetchRequest error:&error];
+
   if (error) {
     NSLog(@"Error fetching data.");
     NSLog(@"%@, %@", error, error.localizedDescription);
-    // TODO: fallback to random selection
-    return NULL;
+    // make empty result, fallback to random selection
+    result = [NSArray array];
   }
-  
+
   NSMutableArray *words = [NSMutableArray array];
   // 2/3 of count pairs should be reviewed
   int reviewWordLimit = MIN((int)result.count, count * 2 / 3);
-  for (int i = 0; i < reviewWordLimit; ++i) {
-    NSManagedObject *storedWord = (NSManagedObject *)[result objectAtIndex:i];
+  for (NSManagedObject *storedWord in result) {
     NSString *wordString = [storedWord valueForKey:@"word"];
     NSString *definition = [_vocabulary objectForKeyedSubscript:wordString];
-    Word *word = [[Word alloc]
-                  initWithWord:wordString
-                  ofDefinition:definition
-                  ofProficiency:-1]; // proficiency does't matter
-    
-    // TODO: what if duplicate words are there?
-    [words addObject:word];
+    Word *word = [[Word alloc] initWithWord:wordString
+                               ofDefinition:definition
+                              ofProficiency:-1]; // proficiency does't matter
+
+    if (![words containsObject:word]) {
+      // make sure no duplicate words are selected,
+      // since same words may have different meanings
+      [words addObject:word];
+    }
+
+    if (words.count == reviewWordLimit) {
+      // enough words
+      break;
+    }
   }
-  
-  // random for the rest
-  // TODO: should be new words?
+
+  // randomly chosen for the rest
   NSArray *allKeys = [_vocabulary allKeys];
-  for (int i = reviewWordLimit; i <count; ++i) {
-    unsigned int randomIndex = arc4random_uniform((unsigned int)[allKeys count]);
+  for (int i = (int)words.count; i < count; ++i) {
+    unsigned int randomIndex =
+        arc4random_uniform((unsigned int)[allKeys count]);
     NSString *wordString = [allKeys objectAtIndex:randomIndex];
     NSString *definition = [_vocabulary objectForKey:wordString];
-    Word *word = [[Word alloc]
-                  initWithWord:wordString ofDefinition:definition ofProficiency:-1];
-    [words addObject:word];
+    Word *word = [[Word alloc] initWithWord:wordString
+                               ofDefinition:definition
+                              ofProficiency:-1];
+
+    // again, make sure no duplicates
+    if ([words containsObject:word]) {
+      --i;
+    } else {
+      [words addObject:word];
+    }
   }
   NSAssert(words.count == count, @"retrieved word number doesn't match");
   return words;
@@ -129,10 +145,12 @@
     if (matched) {
       // correct
       [storedWord setValue:@(proficiency + 1) forKey:@"proficiency"];
-      [storedWord setValue:@(_playedDays + [MemoryModel calculateNextReviewTimeFor:proficiency])
-                    forKey:@"priority"];
+      [storedWord
+          setValue:@(_playedDays +
+                     [MemoryModel calculateNextReviewTimeFor:proficiency])
+            forKey:@"priority"];
     } else {
-      // wrong match, TODO: better way to punish?
+      // wrong match, TODO: maybe better way to punish?
       [storedWord setValue:@(MAX(1, proficiency - 1)) forKey:@"proficiency"];
       // review immediately
       [storedWord setValue:@(_playedDays + 1) forKey:@"priority"];
@@ -198,7 +216,7 @@
 
     NSArray *parts = [line componentsSeparatedByString:@"\t"];
     [_vocabulary setValue:[parts objectAtIndex:1]
-                  forKey:[parts objectAtIndex:0]];
+                   forKey:[parts objectAtIndex:0]];
   }
 }
 

@@ -19,7 +19,6 @@ static const int COUNT_DOWN_MAX = 10;
   CCButton *_glossary;
   
   int _countDownTime;
-  BOOL _gameProceeding;
 }
 
 #pragma mark Set up or button callback
@@ -33,7 +32,6 @@ static const int COUNT_DOWN_MAX = 10;
   [_countDown setString:[@(_countDownTime) stringValue]];
   _countDown.visible = YES;
   [self schedule:@selector(tick) interval:1];
-  _gameProceeding = YES;
 }
 
 - (void)replay {
@@ -102,7 +100,6 @@ static const int COUNT_DOWN_MAX = 10;
 
 - (void)gameOverForSide:(NSNotification *)notification {
   // stop interaction
-  _gameProceeding = NO;
   [self unschedule:@selector(tick)];
   _countDown.visible = NO;
   [_matchingLayer clearAllButtons];
@@ -128,7 +125,6 @@ static const int COUNT_DOWN_MAX = 10;
       [self removeChild:layer];
       [_matchingLayer redeployBlocks];
       [self schedule:@selector(tick) interval:1];
-      _gameProceeding = YES;
       _countDown.visible = YES;
       _glossary.userInteractionEnabled = YES;
     }];
