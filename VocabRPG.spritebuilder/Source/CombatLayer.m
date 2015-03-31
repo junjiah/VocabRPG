@@ -13,14 +13,22 @@
 #import "Hero.h"
 #import "Enemy.h"
 
+/**
+ *  Number of rounds per game.
+ */
+static const double NUMBER_OF_ROUND = 1;
+
 @implementation CombatLayer {
   CCPhysicsNode *_physicsNode;
-  CCNode *_background;
+  CCSprite *_background;
   Hero *_hero;
   Enemy *_enemy;
   __weak CombatScene *_parentController;
 
   int _attackStrength;
+  int _currentLevel, _currentRound;
+  
+  CGPoint _initBackgroundPosition;
 }
 
 #pragma mark Set up
@@ -33,23 +41,53 @@
                                withUpdate:[_hero healthPoint]];
   [_parentController updateHealthPointsOn:ENEMY_SIDE
                                withUpdate:[_enemy healthPoint]];
+  // init level/round info
+  _currentLevel = 0;
+  _currentRound = 0;
+  
+  _initBackgroundPosition = _background.positionInPoints;
 }
 
 - (void)goToNextLevel {
+  // calculate how long should move
+  int backgroundWidth = _background.contentSizeInPoints.width;
+  int windowWidth = [[CCDirector sharedDirector] viewSize].width;
+  double moveRatio =
+      (backgroundWidth - windowWidth) / (NUMBER_OF_ROUND - 1) / backgroundWidth;
+
+  // if reaching the maximum round, change the
+  // background instead of moving forward
+  ++_currentRound;
   _enemy.visible = NO;
   id delay = [CCActionDelay actionWithDuration:2];
-  id moveLeft = [CCActionMoveBy actionWithDuration:2 position:ccp(-0.2f, 0)];
   id enemyAppear = [CCActionCallBlock actionWithBlock:^(void) {
     _enemy.visible = YES;
     [_enemy reset];
     [_parentController updateHealthPointsOn:ENEMY_SIDE
                                  withUpdate:[_enemy healthPoint]];
   }];
+
+  // TODO: potential async with count down?
   
-  CGPoint p = _background.position;
-  
-  [_background
-      runAction:[CCActionSequence actions:delay, moveLeft, enemyAppear, nil]];
+  if (_currentRound == NUMBER_OF_ROUND) {
+    id fadeOut = [CCActionFadeOut actionWithDuration:1];
+    id switchBackground = [CCActionCallBlock actionWithBlock:^(void) {
+      // switch the background and enemy
+      CCSpriteFrame *newBackgroundFrame = [CCSpriteFrame frameWithImageNamed:@"dungeon-2.jpg"];
+      [_background setSpriteFrame:newBackgroundFrame];
+      [_enemy evolve];
+    }];
+    id fadeIn = [CCActionFadeIn actionWithDuration:1];
+    [_background
+        runAction:[CCActionSequence actions:delay, fadeOut, switchBackground,
+                                            fadeIn, enemyAppear, nil]];
+  } else {
+    id moveLeft =
+        [CCActionMoveBy actionWithDuration:2 position:ccp(-moveRatio, 0)];
+
+    [_background
+        runAction:[CCActionSequence actions:delay, moveLeft, enemyAppear, nil]];
+  }
 }
 
 #pragma mark Message to characters

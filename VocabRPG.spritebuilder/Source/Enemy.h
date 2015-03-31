@@ -16,5 +16,6 @@
 @property (nonatomic, readonly) CGPoint initPosition;
 
 - (void)reset;
+- (void)evolve;
 
 @end

@@ -41,7 +41,10 @@
     [meanings addObject:word.definition];
   }
 
-  _correctWordMap = [NSMutableArray arrayWithObjects:@0, @1, @2, @3, nil];
+  _correctWordMap = [NSMutableArray new];
+  for (int i = 0; i < DISPLAY_WORD_NUM; ++i)
+    [_correctWordMap addObject:@(i)];
+    
   [MatchingLayerController shuffle:_correctWordMap];
 
   NSMutableDictionary *toReturn = [NSMutableDictionary dictionary];

@@ -50,6 +50,12 @@ static const int startHealth = 20;
   _healthPoint = startHealth;
 }
 
+- (void)evolve {
+  [self setSpriteFrame:[CCSpriteFrame frameWithImageNamed:@"pig.png"]];
+  self.scale = 0.2;
+  self.position = _initPosition;
+}
+
 + (void)initialize {
   actionRotateRight = [CCActionRotateBy actionWithDuration:0.2f angle:30.f];
   actionRotateLeft = [CCActionRotateBy actionWithDuration:0.4f angle:-30.f];

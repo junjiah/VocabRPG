@@ -9,7 +9,7 @@
 #import "Hero.h"
 
 static id actionRotateLeft, actionRotateRight;
-static const int startHealth = 60;
+static const int startHealth = 600;
 
 @implementation Hero
 

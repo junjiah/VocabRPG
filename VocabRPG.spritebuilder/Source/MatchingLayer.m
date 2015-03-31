@@ -35,8 +35,8 @@ static double const BLOCK_X_MARGIN = 0.2;
                  *shuffledMeanings =
                      [wordMeaningPairs objectForKey:@"meanings"];
   // init blocks
-  _leftBlocks = [NSMutableArray arrayWithCapacity:4];
-  _rightBlocks = [NSMutableArray arrayWithCapacity:4];
+  _leftBlocks = [NSMutableArray arrayWithCapacity:DISPLAY_WORD_NUM];
+  _rightBlocks = [NSMutableArray arrayWithCapacity:DISPLAY_WORD_NUM];
 
   _blockSize = DISPLAY_WORD_NUM;
 
