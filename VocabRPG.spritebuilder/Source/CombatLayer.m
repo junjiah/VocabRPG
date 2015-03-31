@@ -16,7 +16,7 @@
 /**
  *  Number of rounds per game.
  */
-static const double NUMBER_OF_ROUND = 1;
+static const double NUMBER_OF_ROUND = 2;
 
 @implementation CombatLayer {
   CCPhysicsNode *_physicsNode;
@@ -49,6 +49,9 @@ static const double NUMBER_OF_ROUND = 1;
 }
 
 - (void)goToNextLevel {
+  // make moveBy action in % units
+  _background.positionType = CCPositionTypeNormalized;
+  
   // calculate how long should move
   int backgroundWidth = _background.contentSizeInPoints.width;
   int windowWidth = [[CCDirector sharedDirector] viewSize].width;
