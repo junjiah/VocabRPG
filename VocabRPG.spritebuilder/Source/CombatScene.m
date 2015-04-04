@@ -117,7 +117,7 @@ static const int COUNT_DOWN_MAX = 10;
 
     _winLabel.visible = YES;
     // to next level
-    [_combatLayer goToNextLevel];
+    [_combatLayer goToNextRound];
     // wait 4 seconds then reset game
     id delay = [CCActionDelay actionWithDuration:4];
     id cleanLayer = [CCActionCallBlock actionWithBlock:^(void) {

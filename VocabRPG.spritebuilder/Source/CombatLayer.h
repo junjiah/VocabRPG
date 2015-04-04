@@ -13,6 +13,6 @@
 - (void)attackWithCharacter:(int)character
                    withType:(int)type;
 
-- (void)goToNextLevel;
+- (void)goToNextRound;
 
 @end

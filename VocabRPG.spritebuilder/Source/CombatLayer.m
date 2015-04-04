@@ -18,6 +18,8 @@
  */
 static const double NUMBER_OF_ROUND = 2;
 
+static const double BACKGROUND_WIDTH = 512, BACKGROUND_HEIGHT = 312;
+
 @implementation CombatLayer {
   CCPhysicsNode *_physicsNode;
   CCSprite *_background;
@@ -26,8 +28,8 @@ static const double NUMBER_OF_ROUND = 2;
   __weak CombatScene *_parentController;
 
   int _currentLevel, _currentRound;
-  
-  CGPoint _initBackgroundPosition;
+
+  CCNodeColor* _whiteBackground;
 }
 
 #pragma mark Set up
@@ -35,6 +37,12 @@ static const double NUMBER_OF_ROUND = 2;
 - (void)didLoadFromCCB {
   _physicsNode.collisionDelegate = self;
   _parentController = (CombatScene *)self.parent;
+  
+  // add a white background for transition
+  _whiteBackground = [CCNodeColor nodeWithColor:[CCColor whiteColor]];
+  _whiteBackground.opacity = 0;
+  [self addChild:_whiteBackground z:10];
+  
   // display both sides' health points
   [_parentController updateHealthPointsOn:HERO_SIDE
                                withUpdate:[_hero healthPoint]];
@@ -43,22 +51,13 @@ static const double NUMBER_OF_ROUND = 2;
   // init level/round info
   _currentLevel = 0;
   _currentRound = 0;
-  
-  _initBackgroundPosition = _background.positionInPoints;
+
+  // load the first level
+  [self loadSceneInLevel:_currentLevel++];
 }
 
-- (void)goToNextLevel {
-  // make moveBy action in % units
-  _background.positionType = CCPositionTypeNormalized;
-  
-  // calculate how long should move
-  int backgroundWidth = _background.contentSizeInPoints.width;
-  int windowWidth = [[CCDirector sharedDirector] viewSize].width;
-  double moveRatio =
-      (backgroundWidth - windowWidth) / (NUMBER_OF_ROUND - 1) / backgroundWidth;
+- (void)goToNextRound {
 
-  // if reaching the maximum round, change the
-  // background instead of moving forward
   ++_currentRound;
   _enemy.visible = NO;
   id delay = [CCActionDelay actionWithDuration:2];
@@ -70,35 +69,56 @@ static const double NUMBER_OF_ROUND = 2;
   }];
 
   // TODO: potential async with count down?
-  
+
+  // if reaching the maximum round, change the
+  // background instead of moving forward
   if (_currentRound == NUMBER_OF_ROUND) {
-    id fadeOut = [CCActionFadeOut actionWithDuration:1];
+    // reset round counter
+    _currentRound = 0;
+    id fadeIn = [CCActionFadeIn actionWithDuration:0.7];
     id switchBackground = [CCActionCallBlock actionWithBlock:^(void) {
       // switch the background and enemy
-      CCSpriteFrame *newBackgroundFrame = [CCSpriteFrame frameWithImageNamed:@"dungeon-2.jpg"];
-      [_background setSpriteFrame:newBackgroundFrame];
+      [_background removeFromParent];
+      [self loadSceneInLevel:_currentLevel++];
       [_enemy evolve];
     }];
-    id fadeIn = [CCActionFadeIn actionWithDuration:1];
-    [_background
-        runAction:[CCActionSequence actions:delay, fadeOut, switchBackground,
-                                            fadeIn, enemyAppear, nil]];
+    id fadeOut = [CCActionFadeOut actionWithDuration:0.7];
+    [_whiteBackground
+        runAction:[CCActionSequence actions:delay, fadeIn, switchBackground,
+                                            fadeOut, enemyAppear, nil]];
   } else {
+    // calculate how long should move
+    int windowWidth = [[CCDirector sharedDirector] viewSize].width;
+    double movePoints = (BACKGROUND_WIDTH - windowWidth) / (NUMBER_OF_ROUND - 1);
+
     id moveLeft =
-        [CCActionMoveBy actionWithDuration:2 position:ccp(-moveRatio, 0)];
+        [CCActionMoveBy actionWithDuration:2 position:ccp(-movePoints, 0)];
 
     [_background
         runAction:[CCActionSequence actions:delay, moveLeft, enemyAppear, nil]];
   }
-  
+
   // rebuild hero data (HP, strength)
   [_hero buildCharacter];
 }
 
+- (void)loadSceneInLevel:(int)level {
+  NSString *sceneName = [NSString stringWithFormat:@"scene-l%d.png", level];
+  _background = [CCSprite spriteWithImageNamed:sceneName];
+  _background.anchorPoint = CGPointZero;
+  
+  // hard coded y-axis offset
+  _background.position = ccp(0, -40);
+  
+  _background.scaleX = BACKGROUND_WIDTH / _background.contentSize.width;
+  _background.scaleY = BACKGROUND_HEIGHT / _background.contentSize.height;
+  
+  [self addChild:_background z:-1];
+}
+
 #pragma mark Message to characters
 
-- (void)attackWithCharacter:(int)character
-                   withType:(int)type {
+- (void)attackWithCharacter:(int)character withType:(int)type {
   NSLog(@"ATTACK!");
   switch (character) {
   case 1:

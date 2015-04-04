@@ -144,7 +144,7 @@
     int proficiency = [[storedWord valueForKey:@"proficiency"] intValue];
     if (matched) {
       // correct
-      [storedWord setValue:@(proficiency + 1) forKey:@"proficiency"];
+      [storedWord setValue:@(MIN(20, proficiency + 1)) forKey:@"proficiency"];
       [storedWord
           setValue:@(_playedDays +
                      [MemoryModel calculateNextReviewTimeFor:proficiency])

@@ -10,7 +10,6 @@
 #import "MemoryModel.h"
 
 static id actionRotateLeft, actionRotateRight;
-static const int START_HEALTH = 600;
 
 @implementation Hero
 
