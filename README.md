@@ -1,3 +1,9 @@
+<head>
+    <script type="text/javascript"
+            src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
+</head>
+
 # VocabRPG
 VocabRPG is A mobile game for memorizing English words.
 
@@ -18,7 +24,7 @@ In essence, the model has following functionalities:
 
 The model has only one table, with three columns: *word*, *proficiency*, *priority*. The first is of string type and the other two should be integers.
 
-**Proficiency** is simply the times of reviews with regard to a particular word. If the player gives a right match in the combat, *proficiency* will increase by 1, otherwise it should decrease by 1. This attribute determines the character's strengths. 
+**Proficiency** is simply the times of reviews with regard to a particular word, ranging from 1 to 20. If the player gives a right match in the combat, *proficiency* will increase by 1, otherwise it should decrease by 1. This attribute determines the character's strengths. 
 
 **Priority** dictates which word to be presented to the player. The rule will be explained in following sections.
 
@@ -35,6 +41,31 @@ Suppose the first day for the player to play this game is called *Day 0*. The ga
 Now if the player encounters a new word and has a right match, the game will put the word into the model and give it a priority of `playedDays + 1` indicating the player should review this word tomorrow. 
 
 For already reviewed words the priority should be `playedDays + calculateNextReviewTimeFor(proficiency)` which `calculateNextReviewTimeFor` is a self-explanatory function. On the other hand if the player provides a wrong match, the priority should again be `playedDays + 1`, regardless of its proficiency.
+
+## 4. Relation with Character Development
+
+### Health Point
+
+Currently the hero's HP is solely based on the number of memorized vocabulary size:
+
+$$ HP = 0.4 \times \left(\frac{V}{100}\right)^2 + 20$$ 
+
+*V* denotes the size of memorized vocabulary size.
+
+To give a sense of this function, here provides some example values:
+
+$$ HP(100) \approx 20, ~ HP(1000) = 60, ~ HP(10000) = 4020 $$
+
+The upper bound of *HP* is 9999.
+
+### Strength
+
+I didn't do a very thorough calculation on this formula, but the temporary strategy is to divide the memorized vocabulary into 4 parts based on their values of proficiency: (1, 5], (6, 10], (11, 15] and (16, 20]. Use \\(G_i, i \in \\{1,2,3,4\\}\\) to denote these groups respectively, and *S* to denote the strength:
+
+
+$$ S = 1\times G\_2 + 5\times G\_3 + 100 \times G\_4 + 10 $$
+
+Again, its upper bound is 9999.
 
 ******
 
