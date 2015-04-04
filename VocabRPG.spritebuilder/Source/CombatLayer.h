@@ -11,8 +11,7 @@
 @interface CombatLayer : CCNode <CCPhysicsCollisionDelegate>
 
 - (void)attackWithCharacter:(int)character
-                   withType:(int)type
-               withStrength:(int)strength;
+                   withType:(int)type;
 
 - (void)goToNextLevel;
 

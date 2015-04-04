@@ -15,6 +15,8 @@
 - (NSArray *)getWordsWith:(int)count;
 - (void)setWord:(NSString *)word withMatch:(BOOL)matched;
 - (NSMutableArray *)retreiveAllWords;
+- (NSUInteger)getMemorizedVocabularySize;
+- (NSArray *)getMemorizedVocabularyCounts;
 
 + (MemoryModel *)sharedMemoryModel;
 

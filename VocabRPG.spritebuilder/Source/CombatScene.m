@@ -84,7 +84,7 @@ static const int COUNT_DOWN_MAX = 10;
 #pragma mark Message coordinate
 
 - (void)attackWithCharacter:(int)character withType:(int)type {
-  [_combatLayer attackWithCharacter:character withType:type withStrength:20];
+  [_combatLayer attackWithCharacter:character withType:type];
   _countDownTime = COUNT_DOWN_MAX + 1;
 }
 

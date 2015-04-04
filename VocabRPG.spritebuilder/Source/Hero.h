@@ -13,6 +13,9 @@
 
 @property (nonatomic, readonly) int healthPoint;
 @property (nonatomic, readonly) int side;
+@property (nonatomic, readonly) int strength;
 @property (nonatomic, readonly) CGPoint initPosition;
+
+- (void)buildCharacter;
 
 @end

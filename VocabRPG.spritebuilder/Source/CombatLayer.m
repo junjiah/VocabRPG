@@ -25,7 +25,6 @@ static const double NUMBER_OF_ROUND = 2;
   Enemy *_enemy;
   __weak CombatScene *_parentController;
 
-  int _attackStrength;
   int _currentLevel, _currentRound;
   
   CGPoint _initBackgroundPosition;
@@ -91,15 +90,16 @@ static const double NUMBER_OF_ROUND = 2;
     [_background
         runAction:[CCActionSequence actions:delay, moveLeft, enemyAppear, nil]];
   }
+  
+  // rebuild hero data (HP, strength)
+  [_hero buildCharacter];
 }
 
 #pragma mark Message to characters
 
 - (void)attackWithCharacter:(int)character
-                   withType:(int)type
-               withStrength:(int)strength {
+                   withType:(int)type {
   NSLog(@"ATTACK!");
-  _attackStrength = strength;
   switch (character) {
   case 1:
     [_enemy moveForward];
@@ -127,7 +127,7 @@ static const double NUMBER_OF_ROUND = 2;
   }
 
   [collider moveBack];
-  [collidee takeDamageBy:_attackStrength];
+  [collidee takeDamageBy:collider.strength];
   // update HP labels in parent view
   [_parentController updateHealthPointsOn:collidee.side
                                withUpdate:[collidee healthPoint]];

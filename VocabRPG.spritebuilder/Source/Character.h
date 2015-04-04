@@ -15,6 +15,7 @@ static NSString * const CHARACTER_DIED_NOTIFICATION = @"CharacterDidDieNotificat
 
 @property (nonatomic, readonly) int healthPoint;
 @property (nonatomic, readonly) int side;
+@property (nonatomic, readonly) int strength;
 @property (nonatomic, readonly) CGPoint initPosition;
 
 - (void)takeDamageBy:(int)damage;

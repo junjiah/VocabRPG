@@ -16,12 +16,13 @@ static const int startHealth = 20;
 - (void)didLoadFromCCB {
   self.physicsBody.collisionType = @"character";
   _healthPoint = startHealth;
+  _strength = 10;
   _initPosition = self.position;
   _side = 1;
 }
 
 - (void)takeDamageBy:(int)damage {
-  _healthPoint -= damage;
+  _healthPoint = MAX(_healthPoint - damage, 0);
   id notify = [CCActionCallBlock actionWithBlock:^(void) {
     if (_healthPoint <= 0) {
       // send winning notification

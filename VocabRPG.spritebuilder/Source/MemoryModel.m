@@ -46,7 +46,7 @@
   NSSortDescriptor *prioritySortDescriptor =
       [NSSortDescriptor sortDescriptorWithKey:@"priority" ascending:YES];
   NSSortDescriptor *proficiencySortDescriptor =
-      [NSSortDescriptor sortDescriptorWithKey:@"proficiency" ascending:YES];
+      [NSSortDescriptor sortDescriptorWithKey:@"proficiency" ascending:NO];
   [fetchRequest setEntity:_entityDescription];
   [fetchRequest setPredicate:priorityPredicate];
   [fetchRequest setSortDescriptors:
@@ -191,6 +191,62 @@
     [words addObject:word];
   }
   return words;
+}
+
+- (NSUInteger)getMemorizedVocabularySize {
+  NSFetchRequest *request = [[NSFetchRequest alloc] init];
+  [request setEntity:_entityDescription];
+  [request setIncludesSubentities:NO];
+
+  NSError *error;
+  NSUInteger count =
+      [_managedObjectContext countForFetchRequest:request error:&error];
+  if (count == NSNotFound) {
+    NSLog(@"Error fetching memorized vocabulary size.");
+    NSLog(@"%@, %@", error, error.localizedDescription);
+    return 0;
+  }
+  return count;
+}
+
+/**
+ *  Return counts of memorized words in different proficiency level.
+ *  The first element in returned array is the count of words with proficiency
+ *  between 1 and 5, the second between 6 and 10, and so on, until 16 ~ 20.
+ *
+ *  @return An array of word counts in different proficiency level.
+ */
+- (NSArray *)getMemorizedVocabularyCounts {
+
+  NSMutableArray *counts = [NSMutableArray array];
+
+  for (int i = 1; i <= 20; i += 5) {
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    [request setEntity:_entityDescription];
+    [request setIncludesSubentities:NO];
+
+    NSPredicate *countLowerBoundPredicate = [NSPredicate
+                    predicateWithFormat:@"%K >= %@", @"proficiency", @(i)],
+                *countUpperBoundPredicate = [NSPredicate
+                    predicateWithFormat:@"%K < %@", @"proficiency", @(i + 5)];
+    NSPredicate *limitProficiencyLevelPredicate = [NSCompoundPredicate
+        andPredicateWithSubpredicates:
+            @[ countLowerBoundPredicate, countUpperBoundPredicate ]];
+    
+    [request setPredicate:limitProficiencyLevelPredicate];
+
+    NSError *error;
+    NSUInteger count =
+        [_managedObjectContext countForFetchRequest:request error:&error];
+    if (count == NSNotFound) {
+      NSLog(@"Error fetching memorized vocabulary size.");
+      NSLog(@"%@, %@", error, error.localizedDescription);
+      return [NSArray array];
+    }
+
+    [counts addObject:@(count)];
+  }
+  return counts;
 }
 
 #pragma mark I/O functions
