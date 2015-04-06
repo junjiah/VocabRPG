@@ -63,7 +63,7 @@ static const double BACKGROUND_WIDTH = 512, BACKGROUND_HEIGHT = 312;
   id delay = [CCActionDelay actionWithDuration:2];
   id enemyAppear = [CCActionCallBlock actionWithBlock:^(void) {
     _enemy.visible = YES;
-    [_enemy reset];
+    [_enemy evolve];
     [_parentController updateHealthPointsOn:ENEMY_SIDE
                                  withUpdate:[_enemy healthPoint]];
   }];
@@ -80,7 +80,6 @@ static const double BACKGROUND_WIDTH = 512, BACKGROUND_HEIGHT = 312;
       // switch the background and enemy
       [_background removeFromParent];
       [self loadSceneInLevel:_currentLevel++];
-      [_enemy evolve];
     }];
     id fadeOut = [CCActionFadeOut actionWithDuration:0.7];
     [_whiteBackground

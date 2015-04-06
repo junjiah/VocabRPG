@@ -9,16 +9,26 @@
 #import "Enemy.h"
 
 static id actionRotateLeft, actionRotateRight;
-static const int startHealth = 20;
+static const int START_HEALTH = 20;
 
-@implementation Enemy
+// predefined list for orders of monster appearances
+static NSMutableArray *MONSTER_LIST;
+
+@implementation Enemy {
+  double _initHeight;
+  // indicating the order of current monster
+  int _currentMonster;
+}
 
 - (void)didLoadFromCCB {
   self.physicsBody.collisionType = @"character";
-  _healthPoint = startHealth;
+  _healthPoint = START_HEALTH;
   _strength = 10;
   _initPosition = self.position;
   _side = 1;
+
+  _initHeight = self.contentSizeInPoints.height * self.scaleY;
+  _currentMonster = 0;
 }
 
 - (void)takeDamageBy:(int)damage {
@@ -47,19 +57,24 @@ static const int startHealth = 20;
   [self.physicsBody applyImpulse:ccp(-1 * FORWARD_IMPULSE, 0)];
 }
 
-- (void)reset {
-  _healthPoint = startHealth;
-}
-
 - (void)evolve {
-  [self setSpriteFrame:[CCSpriteFrame frameWithImageNamed:@"pig.png"]];
-  self.scale = 0.2;
+  NSString *monsterName =
+      [MONSTER_LIST objectAtIndex:(_currentMonster++) % MONSTER_LIST.count];
+  [self setSpriteFrame:[CCSpriteFrame
+                           frameWithImageNamed:
+                               [monsterName stringByAppendingString:@".png"]]];
+
   self.position = _initPosition;
+  _healthPoint = START_HEALTH;
 }
 
 + (void)initialize {
   actionRotateRight = [CCActionRotateBy actionWithDuration:0.2f angle:30.f];
   actionRotateLeft = [CCActionRotateBy actionWithDuration:0.4f angle:-30.f];
+
+  MONSTER_LIST =
+      [NSMutableArray arrayWithObjects:@"archon-ice", @"minotaur",
+                                       @"archon-fire", @"archon-3", nil];
 }
 
 @end

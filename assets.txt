@@ -4,3 +4,6 @@ Wood Plank,background,OpenStockProject,https://www.makeschool.com/academy/art/ba
 dungeon background 2,background,ZenithQuinn,http://zenithquinn.newgrounds.com/news/post/879592
 dorver-monster,monster,Manveru,http://opengameart.org/content/dorver-monster
 Minotaur,monster,Manveru,http://opengameart.org/content/minotaur-0
+Harlequin Epicycle Mod,monster,Redshrike,http://opengameart.org/content/harlequin-epicycle-mod
+scene-l3,background,FFIV,http://finalfantasy.wikia.com/wiki/File:FFIV_PSP_Tower_Exterior_Background.png
+scene-l0,background,FFIV,http://finalfantasy.wikia.com/wiki/Damcyan?file=FFIV_PSP_Castle_Battle.png

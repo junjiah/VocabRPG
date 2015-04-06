@@ -16,7 +16,6 @@
 @property (nonatomic, readonly) int strength;
 @property (nonatomic, readonly) CGPoint initPosition;
 
-- (void)reset;
 - (void)evolve;
 
 @end

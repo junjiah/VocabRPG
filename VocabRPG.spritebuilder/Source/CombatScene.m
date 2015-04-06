@@ -112,8 +112,8 @@ static const int COUNT_DOWN_MAX = 10;
     NSLog(@"GameOver! You win!");
     _glossary.userInteractionEnabled = NO;
     CCNodeColor *layer = [CCNodeColor
-        nodeWithColor:[CCColor colorWithRed:100 green:100 blue:100 alpha:1]];
-    [self addChild:layer z:-1];
+        nodeWithColor:[CCColor colorWithRed:100 green:100 blue:100 alpha:0.001]];
+    [self addChild:layer];
 
     _winLabel.visible = YES;
     // to next level
@@ -133,8 +133,8 @@ static const int COUNT_DOWN_MAX = 10;
     // player loses
     NSLog(@"GameOver! You lose");
     CCNodeColor *layer = [CCNodeColor
-        nodeWithColor:[CCColor colorWithRed:255 green:0 blue:0 alpha:1]];
-    [self addChild:layer z:-1];
+        nodeWithColor:[CCColor colorWithRed:255 green:0 blue:0 alpha:0.001]];
+    [self addChild:layer];
     _loseLabel.visible = YES;
   }
 }

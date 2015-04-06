@@ -29,6 +29,9 @@
 		50BF5D7B1A99163F00153DBD /* MemoryModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 50BF5D7A1A99163F00153DBD /* MemoryModel.m */; };
 		50BF5D801A9937F900153DBD /* Enemy.m in Sources */ = {isa = PBXBuildFile; fileRef = 50BF5D7F1A9937F900153DBD /* Enemy.m */; };
 		50C787C31AC201AE00E62D82 /* wood.png in Resources */ = {isa = PBXBuildFile; fileRef = 50C787C21AC201AE00E62D82 /* wood.png */; };
+		50CB9EF31AD241D9002ACCF9 /* archon-3.png in Resources */ = {isa = PBXBuildFile; fileRef = 50CB9EF01AD241D9002ACCF9 /* archon-3.png */; };
+		50CB9EF41AD241D9002ACCF9 /* archon-fire.png in Resources */ = {isa = PBXBuildFile; fileRef = 50CB9EF11AD241D9002ACCF9 /* archon-fire.png */; };
+		50CB9EF51AD241D9002ACCF9 /* archon-ice.png in Resources */ = {isa = PBXBuildFile; fileRef = 50CB9EF21AD241D9002ACCF9 /* archon-ice.png */; };
 		8392007A18EE8E3300B6C429 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8392007918EE8E3300B6C429 /* GLKit.framework */; };
 		B71F5911188484E7003F4D28 /* iPad-old.png in Resources */ = {isa = PBXBuildFile; fileRef = B71F5907188484E7003F4D28 /* iPad-old.png */; };
 		B71F5912188484E7003F4D28 /* iPad-old@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B71F5908188484E7003F4D28 /* iPad-old@2x.png */; };
@@ -132,6 +135,9 @@
 		50BF5D7F1A9937F900153DBD /* Enemy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Enemy.m; path = Source/Enemy.m; sourceTree = "<group>"; };
 		50BF5D811A9A6A3C00153DBD /* Character.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Character.h; path = Source/Character.h; sourceTree = "<group>"; };
 		50C787C21AC201AE00E62D82 /* wood.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wood.png; sourceTree = "<group>"; };
+		50CB9EF01AD241D9002ACCF9 /* archon-3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "archon-3.png"; sourceTree = "<group>"; };
+		50CB9EF11AD241D9002ACCF9 /* archon-fire.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "archon-fire.png"; sourceTree = "<group>"; };
+		50CB9EF21AD241D9002ACCF9 /* archon-ice.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "archon-ice.png"; sourceTree = "<group>"; };
 		8392007918EE8E3300B6C429 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
 		B71F5907188484E7003F4D28 /* iPad-old.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "iPad-old.png"; path = "Icons/iPad-old.png"; sourceTree = "<group>"; };
 		B71F5908188484E7003F4D28 /* iPad-old@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "iPad-old@2x.png"; path = "Icons/iPad-old@2x.png"; sourceTree = "<group>"; };
@@ -194,6 +200,9 @@
 		5025C50F1AD07DD300BE8B04 /* Levels */ = {
 			isa = PBXGroup;
 			children = (
+				50CB9EF01AD241D9002ACCF9 /* archon-3.png */,
+				50CB9EF11AD241D9002ACCF9 /* archon-fire.png */,
+				50CB9EF21AD241D9002ACCF9 /* archon-ice.png */,
 				5025C5101AD07DD300BE8B04 /* dorver.png */,
 				5025C5111AD07DD300BE8B04 /* minotaur.png */,
 				5025C5121AD07DD300BE8B04 /* scene-l0.png */,
@@ -449,6 +458,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				50CB9EF31AD241D9002ACCF9 /* archon-3.png in Resources */,
 				B71F5919188484E7003F4D28 /* Settings.png in Resources */,
 				B7378978180762440076A88C /* Default@2x.png in Resources */,
 				B71F5914188484E7003F4D28 /* iPad@2x.png in Resources */,
@@ -468,11 +478,13 @@
 				B71F5917188484E7003F4D28 /* iPhone.png in Resources */,
 				5025C51A1AD07DD300BE8B04 /* scene-l2.png in Resources */,
 				5093351D1AB6268800884423 /* TOEFL.csv in Resources */,
+				50CB9EF41AD241D9002ACCF9 /* archon-fire.png in Resources */,
 				B7378975180762440076A88C /* Default-568h@2x.png in Resources */,
 				B71F5918188484E7003F4D28 /* iPhone@2x.png in Resources */,
 				B7378977180762440076A88C /* Default.png in Resources */,
 				B71F5911188484E7003F4D28 /* iPad-old.png in Resources */,
 				5025C5181AD07DD300BE8B04 /* scene-l0.png in Resources */,
+				50CB9EF51AD241D9002ACCF9 /* archon-ice.png in Resources */,
 				5025C5161AD07DD300BE8B04 /* dorver.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
