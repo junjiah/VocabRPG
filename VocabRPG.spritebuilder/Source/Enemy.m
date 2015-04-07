@@ -10,7 +10,7 @@
 #import "Hero.h"
 
 static id actionRotateLeft, actionRotateRight;
-static const int START_HEALTH = 15;
+static const int START_HEALTH = 20;
 
 // predefined list for orders of monster appearances
 static NSMutableArray *MONSTER_LIST;

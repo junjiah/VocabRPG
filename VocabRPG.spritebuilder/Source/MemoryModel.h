@@ -17,6 +17,7 @@
 - (NSMutableArray *)retreiveAllWords;
 - (NSUInteger)getMemorizedVocabularySize;
 - (NSArray *)getMemorizedVocabularyCounts;
+- (NSArray *)getMemorizedVocabularyCountsInAllProficiencyLevels;
 
 + (MemoryModel *)sharedMemoryModel;
 

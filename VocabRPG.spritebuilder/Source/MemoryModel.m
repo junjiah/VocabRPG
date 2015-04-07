@@ -249,6 +249,29 @@
   return counts;
 }
 
+/**
+ *  Return an array of 20 integers, each of which represents the number 
+ *  of words in that proficiency level
+ *
+ *  @return Counts of words in all proficiency levels.
+ */
+- (NSArray *)getMemorizedVocabularyCountsInAllProficiencyLevels {
+  int rawCounts[20];
+  for (int i = 0; i < 20; ++i)
+    rawCounts[i] = 0;
+  
+  NSMutableArray *counts = [NSMutableArray array];
+  
+  for (Word *word in [self retreiveAllWords]) {
+    ++rawCounts[word.proficiency];
+  }
+  
+  for (int i = 0; i < 20; ++i)
+    [counts addObject:@(rawCounts[i])];
+  
+  return counts;
+}
+
 #pragma mark I/O functions
 
 /**

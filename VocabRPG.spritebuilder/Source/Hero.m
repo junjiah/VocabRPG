@@ -52,7 +52,8 @@ static struct Stats stats;
   [self.physicsBody applyImpulse:ccp(FORWARD_IMPULSE, 0)];
 }
 
-- (void)buildCharacter {
+// OLD strategy, refer to README.md
+- (void)buildCharacterLegacy {
   MemoryModel *memoryModel = [MemoryModel sharedMemoryModel];
   int memorizedVocabularySize = (int)[memoryModel getMemorizedVocabularySize];
 
@@ -68,6 +69,33 @@ static struct Stats stats;
               [[memorizedVocabularyCounts objectAtIndex:2] intValue] * 5 +
               [[memorizedVocabularyCounts objectAtIndex:3] intValue] * 100;
   _strength = MIN(_strength, 9999);
+
+  // record status
+  stats.healthPoint = _healthPoint;
+  stats.strength = _strength;
+}
+
+- (void)buildCharacter {
+  MemoryModel *memoryModel = [MemoryModel sharedMemoryModel];
+  int memorizedVocabularySize = (int)[memoryModel getMemorizedVocabularySize];
+
+  // a reasonable relationship between HP and vocabulary size
+  _healthPoint = memorizedVocabularySize / 100 * memorizedVocabularySize / 100;
+  _healthPoint = _healthPoint * 0.4 + 20;
+  _healthPoint = MIN(_healthPoint, 9999);
+
+  // array of size 20
+  NSArray *memorizedVocabularyCounts =
+      [memoryModel getMemorizedVocabularyCountsInAllProficiencyLevels];
+  
+  double p = 0, pMax = 1 - pow(0.95, 20);
+  for (int i = 1; i <= 20; ++i) {
+    p += (1.0 - pow(0.95, i)) * [[memorizedVocabularyCounts objectAtIndex:i-1] doubleValue];
+  }
+  // take the average
+  p /= memorizedVocabularySize;
+  
+  _strength = MAX(100 * (p / pMax), 1);
   
   // record status
   stats.healthPoint = _healthPoint;

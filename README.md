@@ -60,6 +60,30 @@ $$ S = 1\times G_2 + 5\times G_3 + 100 \times G_4 + 10 $$
 
 Again, its upper bound is 9999.
 
+**UPDATE**: Inspired by my friend [yuetaoxu](https://github.com/yuetaoxu) I have a better idea. First model the proficiency as a fraction (let's call it $P$).
+
+$$ P_n = 1 - 0.95\^n $$
+
+Where $n$ denotes the proficiency ranging from 1 to 20. Then do average, and we could get the average $P_{avg}$.
+
+We also know $P_{20} \approx 0.64$, and the strength could be represented as: 
+
+$$ S = 100 \times \frac{P\_{avg}}{P\_{MAX}} $$
+
+Also for reference, here provides a table indicating the relationship between *proficiency* and *learning time* (in days, where *Int* means interval and *Acc* means accumulated time).
+
+| Prof | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 |
+| ------ | -- | -- | -- | -- | -- | -- | -- | -- | -- | -- | 
+| Int   | 0 | 1 | 1 | 1 | 2 | 2 | 3 | 3 | 4 | 4 |
+|  Acc | - | 1 | 2 | 3 | 5 | 7 | 10 | 13 | 17 | 21 |
+
+| Prof | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20 |
+| ------ | -- | -- | -- | -- | -- | -- | -- | -- | -- | -- | 
+| Int | 5 | 5 | 6 | 6 | 7 | 7 | 8 | 8 | 9 | 9 |
+| Acc | 26 | 31 | 37 | 43 | 50 | 57 | 65 | 73 | 82 | 91 |
+
+In this way, a new word can only contribute value of 0.05 while a month later it became 0.46 (with proficiency 12), and the word of maximum proficiency could contribute 0.64, which seems fair.
+
 ## 5. Enemy Development
 
 Currently the *evolution* of enemy is purely based on heuristics, and my next step is to develop a numerical test system to emulate the battle between the hero and the monster such that given a desired numeric property (say, *word matching correctness*) the system could generate the appropriate properties - HP and strength - of the enemy.
