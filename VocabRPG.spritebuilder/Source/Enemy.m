@@ -7,9 +7,10 @@
 //
 
 #import "Enemy.h"
+#import "Hero.h"
 
 static id actionRotateLeft, actionRotateRight;
-static const int START_HEALTH = 20;
+static const int START_HEALTH = 15;
 
 // predefined list for orders of monster appearances
 static NSMutableArray *MONSTER_LIST;
@@ -65,7 +66,11 @@ static NSMutableArray *MONSTER_LIST;
                                [monsterName stringByAppendingString:@".png"]]];
 
   self.position = _initPosition;
-  _healthPoint = START_HEALTH;
+  
+  // get hero's status, use a heuristic to calculate the moster's ability
+  struct Stats heroStats = [Hero getHeroStatus];
+  _healthPoint = START_HEALTH + _currentMonster * (3.2 * heroStats.strength);
+  _strength += heroStats.healthPoint / 5;
 }
 
 + (void)initialize {

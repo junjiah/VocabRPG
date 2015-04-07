@@ -11,6 +11,12 @@
 static const double FORWARD_IMPULSE = 1000;
 static NSString * const CHARACTER_DIED_NOTIFICATION = @"CharacterDidDieNotification";
 
+struct Stats
+{
+  int healthPoint;
+  int strength;
+};
+
 @protocol Character <NSObject>
 
 @property (nonatomic, readonly) int healthPoint;

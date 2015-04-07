@@ -99,6 +99,8 @@ static const double BACKGROUND_WIDTH = 512, BACKGROUND_HEIGHT = 312;
 
   // rebuild hero data (HP, strength)
   [_hero buildCharacter];
+  [_parentController updateHealthPointsOn:HERO_SIDE
+                               withUpdate:[_hero healthPoint]];
 }
 
 - (void)loadSceneInLevel:(int)level {

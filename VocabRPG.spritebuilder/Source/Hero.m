@@ -11,6 +11,12 @@
 
 static id actionRotateLeft, actionRotateRight;
 
+/**
+ *  A structure to record hero's numerical status,
+ *  which could be used by the enemy's adaptive evolution.
+ */
+static struct Stats stats;
+
 @implementation Hero
 
 - (void)didLoadFromCCB {
@@ -62,11 +68,19 @@ static id actionRotateLeft, actionRotateRight;
               [[memorizedVocabularyCounts objectAtIndex:2] intValue] * 5 +
               [[memorizedVocabularyCounts objectAtIndex:3] intValue] * 100;
   _strength = MIN(_strength, 9999);
+  
+  // record status
+  stats.healthPoint = _healthPoint;
+  stats.strength = _strength;
 }
 
 + (void)initialize {
   actionRotateLeft = [CCActionRotateBy actionWithDuration:0.2f angle:-30.f];
   actionRotateRight = [CCActionRotateBy actionWithDuration:0.4f angle:30.f];
+}
+
++ (struct Stats)getHeroStatus {
+  return stats;
 }
 
 @end

@@ -1,9 +1,3 @@
-<head>
-    <script type="text/javascript"
-            src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-    </script>
-</head>
-
 # VocabRPG
 VocabRPG is A mobile game for memorizing English words.
 
@@ -60,13 +54,26 @@ The upper bound of *HP* is 9999.
 
 ### Strength
 
-I didn't do a very thorough calculation on this formula, but the temporary strategy is to divide the memorized vocabulary into 4 parts based on their values of proficiency: (1, 5], (6, 10], (11, 15] and (16, 20]. Use \\(G_i, i \in \\{1,2,3,4\\}\\) to denote these groups respectively, and *S* to denote the strength:
+I didn't do a very thorough calculation on this formula, but the temporary strategy is to divide the memorized vocabulary into 4 parts based on their values of proficiency: (1, 5], (6, 10], (11, 15] and (16, 20]. Use $G_i$ to denote these groups respectively where $i \in \{1,2,3,4\}$, and *S* to denote the strength:
 
-
-$$ S = 1\times G\_2 + 5\times G\_3 + 100 \times G\_4 + 10 $$
+$$ S = 1\times G_2 + 5\times G_3 + 100 \times G_4 + 10 $$
 
 Again, its upper bound is 9999.
 
+## 5. Enemy Development
+
+Currently the *evolution* of enemy is purely based on heuristics, and my next step is to develop a numerical test system to emulate the battle between the hero and the monster such that given a desired numeric property (say, *word matching correctness*) the system could generate the appropriate properties - HP and strength - of the enemy.
+
+As for now, the enemy's evolution is linear
+
+$$ \mbox{Enemy HP} = s_{HP} + \mbox{level} \times (3.2 \times \mbox{Hero Strength}) $$
+
+Where $s_{HP}$ denotes the starting HP for the enemy (15 or 20, for example).
+
+$$ \mbox{Enemy Strength} = s_{str} + \mbox{level} \times \frac{\mbox{Hero HP}}{5} $$
+
+Similarly $s_{str}$ denotes the starting strength of the enemy.
+
 ******
 
-Hopefully I would not forget this.
+Hopefully I would not forget those stuff.

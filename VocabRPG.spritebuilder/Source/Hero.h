@@ -18,4 +18,6 @@
 
 - (void)buildCharacter;
 
++ (struct Stats)getHeroStatus;
+
 @end
