@@ -80,6 +80,11 @@
 		</dict>
 		<key>Sprites</key>
 		<dict/>
+		<key>VocabArtPack/paper-button/paper-button-off.png</key>
+		<dict>
+			<key>isDirty</key>
+			<true/>
+		</dict>
 		<key>ccbResources</key>
 		<dict>
 			<key>previewFolderHidden</key>

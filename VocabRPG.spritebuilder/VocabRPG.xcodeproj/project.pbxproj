@@ -18,6 +18,7 @@
 		5025C51A1AD07DD300BE8B04 /* scene-l2.png in Resources */ = {isa = PBXBuildFile; fileRef = 5025C5141AD07DD300BE8B04 /* scene-l2.png */; };
 		5025C51B1AD07DD300BE8B04 /* scene-l3.png in Resources */ = {isa = PBXBuildFile; fileRef = 5025C5151AD07DD300BE8B04 /* scene-l3.png */; };
 		504DE1DF1ABF700400C67379 /* Glossary.m in Sources */ = {isa = PBXBuildFile; fileRef = 504DE1DE1ABF700400C67379 /* Glossary.m */; };
+		505DAD161ADDA39B003AD308 /* TitleScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 505DAD151ADDA39B003AD308 /* TitleScene.m */; };
 		509335071AB5FB2C00884423 /* Word.m in Sources */ = {isa = PBXBuildFile; fileRef = 509335061AB5FB2C00884423 /* Word.m */; };
 		509335131AB622A600884423 /* CHCSVParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 509335121AB622A600884423 /* CHCSVParser.m */; };
 		5093351B1AB6268800884423 /* SAT.csv in Resources */ = {isa = PBXBuildFile; fileRef = 509335181AB6268800884423 /* SAT.csv */; };
@@ -118,6 +119,8 @@
 		5025C5151AD07DD300BE8B04 /* scene-l3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "scene-l3.png"; sourceTree = "<group>"; };
 		504DE1DD1ABF700400C67379 /* Glossary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Glossary.h; path = Source/Glossary.h; sourceTree = "<group>"; };
 		504DE1DE1ABF700400C67379 /* Glossary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Glossary.m; path = Source/Glossary.m; sourceTree = "<group>"; };
+		505DAD141ADDA39B003AD308 /* TitleScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TitleScene.h; path = Source/TitleScene.h; sourceTree = "<group>"; };
+		505DAD151ADDA39B003AD308 /* TitleScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TitleScene.m; path = Source/TitleScene.m; sourceTree = "<group>"; };
 		509335051AB5FB2C00884423 /* Word.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Word.h; path = Source/Word.h; sourceTree = "<group>"; };
 		509335061AB5FB2C00884423 /* Word.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Word.m; path = Source/Word.m; sourceTree = "<group>"; };
 		509335111AB622A600884423 /* CHCSVParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHCSVParser.h; sourceTree = "<group>"; };
@@ -256,6 +259,8 @@
 				50BF5D7A1A99163F00153DBD /* MemoryModel.m */,
 				504DE1DD1ABF700400C67379 /* Glossary.h */,
 				504DE1DE1ABF700400C67379 /* Glossary.m */,
+				505DAD141ADDA39B003AD308 /* TitleScene.h */,
+				505DAD151ADDA39B003AD308 /* TitleScene.m */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -513,6 +518,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				505DAD161ADDA39B003AD308 /* TitleScene.m in Sources */,
 				509442041ABE545E00F6EB59 /* MemoryModel.xcdatamodeld in Sources */,
 				50BF5D781A990B5600153DBD /* MatchingLayerController.m in Sources */,
 				501722471A9817CD00F266C3 /* MatchingLayer.m in Sources */,
