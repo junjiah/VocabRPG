@@ -168,6 +168,14 @@
 					</dict>
 					<dict>
 						<key>name</key>
+						<string>zoomWhenHighlighted</string>
+						<key>type</key>
+						<string>Check</string>
+						<key>value</key>
+						<true/>
+					</dict>
+					<dict>
+						<key>name</key>
 						<string>togglesSelectedState</string>
 						<key>type</key>
 						<string>Check</string>
@@ -182,7 +190,7 @@
 						<key>value</key>
 						<array>
 							<string></string>
-							<string>ccbResources/ccbButtonNormal.png</string>
+							<string>VocabArtPack/paper-button/paper-button-on.png</string>
 						</array>
 					</dict>
 					<dict>
@@ -193,7 +201,7 @@
 						<key>value</key>
 						<array>
 							<string></string>
-							<string>ccbResources/ccbButtonHighlighted.png</string>
+							<string>VocabArtPack/paper-button/paper-button-on.png</string>
 						</array>
 					</dict>
 					<dict>
@@ -236,7 +244,7 @@
 						<key>value</key>
 						<array>
 							<string></string>
-							<string>ccbResources/ccbButtonNormal.png</string>
+							<string>VocabArtPack/paper-button/paper-button-on.png</string>
 						</array>
 					</dict>
 					<dict>
@@ -380,6 +388,8 @@
 						</array>
 					</dict>
 				</array>
+				<key>selected</key>
+				<true/>
 			</dict>
 		</array>
 		<key>customClass</key>
@@ -452,8 +462,6 @@
 				</array>
 			</dict>
 		</array>
-		<key>selected</key>
-		<true/>
 	</dict>
 	<key>notes</key>
 	<array/>
