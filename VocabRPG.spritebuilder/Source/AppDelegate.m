@@ -91,7 +91,7 @@
     memoryModel.playedDays = daysInBetween;
   }
 
-  return [CCBReader loadAsScene:@"CombatScene"];
+  return [CCBReader loadAsScene:@"Title"];
 }
 
 - (void)saveContext {

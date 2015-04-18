@@ -10,4 +10,13 @@
 
 @implementation TitleScene
 
+- (void)startNewGame {
+  CCScene *scene = [CCBReader loadAsScene:@"CombatScene"];
+  [[CCDirector sharedDirector] replaceScene:scene withTransition:[CCTransition transitionCrossFadeWithDuration:1]];
+}
+
+- (void)continueGame {
+  
+}
+
 @end
