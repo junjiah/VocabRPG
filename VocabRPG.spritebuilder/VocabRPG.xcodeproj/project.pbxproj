@@ -79,12 +79,12 @@
 			remoteGlobalIDString = 7A4037A819E37038007B6E8F;
 			remoteInfo = "cocos2d-mac";
 		};
-		5017221C1A96F0D400F266C3 /* PBXContainerItemProxy */ = {
+		507FB3BC1AE9A11700F270CE /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = B7378940180761A80076A88C /* cocos2d-ios.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = B7E7DE341A76DB7D004234B7;
-			remoteInfo = cocos2dMacFramework;
+			remoteGlobalIDString = 5BF3267A195F8D8800D9A51A;
+			remoteInfo = cocos2dJava;
 		};
 		B737894A180761A90076A88C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -121,6 +121,8 @@
 		504DE1DE1ABF700400C67379 /* Glossary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Glossary.m; path = Source/Glossary.m; sourceTree = "<group>"; };
 		505DAD141ADDA39B003AD308 /* TitleScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TitleScene.h; path = Source/TitleScene.h; sourceTree = "<group>"; };
 		505DAD151ADDA39B003AD308 /* TitleScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TitleScene.m; path = Source/TitleScene.m; sourceTree = "<group>"; };
+		507FB3BE1AE9AFDE00F270CE /* simulate_combat.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = simulate_combat.cpp; path = Source/Test/simulate_combat.cpp; sourceTree = "<group>"; };
+		507FB3BF1AE9AFDE00F270CE /* simulate_combat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = simulate_combat.h; path = Source/Test/simulate_combat.h; sourceTree = "<group>"; };
 		509335051AB5FB2C00884423 /* Word.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Word.h; path = Source/Word.h; sourceTree = "<group>"; };
 		509335061AB5FB2C00884423 /* Word.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Word.m; path = Source/Word.m; sourceTree = "<group>"; };
 		509335111AB622A600884423 /* CHCSVParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHCSVParser.h; sourceTree = "<group>"; };
@@ -216,6 +218,15 @@
 			path = Levels;
 			sourceTree = "<group>";
 		};
+		507FB3B71AE9A11700F270CE /* Test */ = {
+			isa = PBXGroup;
+			children = (
+				507FB3BE1AE9AFDE00F270CE /* simulate_combat.cpp */,
+				507FB3BF1AE9AFDE00F270CE /* simulate_combat.h */,
+			);
+			name = Test;
+			sourceTree = "<group>";
+		};
 		509335101AB622A600884423 /* CHCSVParser */ = {
 			isa = PBXGroup;
 			children = (
@@ -270,8 +281,8 @@
 			children = (
 				B737894B180761A90076A88C /* libcocos2d.a */,
 				501722191A96F0D400F266C3 /* libcocos2dAndroid.a */,
+				507FB3BD1AE9A11700F270CE /* cocos2dJava.jar */,
 				5017221B1A96F0D400F266C3 /* libcocos2d-mac.a */,
-				5017221D1A96F0D400F266C3 /* cocos2dMacFramework.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -300,6 +311,7 @@
 		B77F1B2517B978D7009739AE = {
 			isa = PBXGroup;
 			children = (
+				507FB3B71AE9A11700F270CE /* Test */,
 				B737893C1807616C0076A88C /* Source */,
 				B77F1B4617B978D7009739AE /* Resources */,
 				9222E2B918734FF800A246C7 /* libs */,
@@ -442,11 +454,11 @@
 			remoteRef = 5017221A1A96F0D400F266C3 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		5017221D1A96F0D400F266C3 /* cocos2dMacFramework.framework */ = {
+		507FB3BD1AE9A11700F270CE /* cocos2dJava.jar */ = {
 			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = cocos2dMacFramework.framework;
-			remoteRef = 5017221C1A96F0D400F266C3 /* PBXContainerItemProxy */;
+			fileType = archive.jar;
+			path = cocos2dJava.jar;
+			remoteRef = 507FB3BC1AE9A11700F270CE /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		B737894B180761A90076A88C /* libcocos2d.a */ = {
@@ -614,6 +626,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
+				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -648,6 +662,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
+				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";

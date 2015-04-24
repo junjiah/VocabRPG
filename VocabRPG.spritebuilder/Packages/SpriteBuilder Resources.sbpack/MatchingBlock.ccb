@@ -319,10 +319,10 @@
 						<string>Color4</string>
 						<key>value</key>
 						<array>
-							<real>255</real>
-							<real>255</real>
-							<real>255</real>
-							<real>255</real>
+							<real>0</real>
+							<real>0</real>
+							<real>0</real>
+							<real>1</real>
 						</array>
 					</dict>
 					<dict>
@@ -359,7 +359,7 @@
 							<real>0.0</real>
 							<real>0.0</real>
 							<real>0.0</real>
-							<real>127</real>
+							<real>0</real>
 						</array>
 					</dict>
 					<dict>
