@@ -31,7 +31,7 @@ static int sStartLevel = 0;
 
   int _currentLevel, _currentRound;
 
-  CCNodeColor* _whiteBackground;
+  CCNodeColor *_whiteBackground;
 }
 
 #pragma mark Set up
@@ -39,22 +39,22 @@ static int sStartLevel = 0;
 - (void)didLoadFromCCB {
   _physicsNode.collisionDelegate = self;
   _parentController = (CombatScene *)self.parent;
-  
+
   // add a white background for transition
   _whiteBackground = [CCNodeColor nodeWithColor:[CCColor whiteColor]];
   _whiteBackground.opacity = 0;
   [self addChild:_whiteBackground z:10];
-  
+
   // init level/round info
   _currentLevel = sStartLevel;
   _currentRound = 0;
 
   // load the first level
   [self loadSceneInLevel:_currentLevel++];
-  
+
   // build the enemy
   [_enemy buildEnemyAtLevel:sStartLevel];
-  
+
   // display both sides' health points
   [_parentController updateHealthPointsOn:HERO_SIDE
                                withUpdate:[_hero healthPoint]];
@@ -65,18 +65,18 @@ static int sStartLevel = 0;
 - (void)goToNextRound {
 
   __block bool levelChanged = false;
-  
+
   ++_currentRound;
   _enemy.visible = NO;
   id delay = [CCActionDelay actionWithDuration:2];
   id enemyAppear = [CCActionCallBlock actionWithBlock:^(void) {
     _enemy.visible = YES;
-    
+
     if (!levelChanged)
       [_enemy evolve];
     else
       levelChanged = false;
-    
+
     [_parentController updateHealthPointsOn:ENEMY_SIDE
                                  withUpdate:[_enemy healthPoint]];
   }];
@@ -86,7 +86,10 @@ static int sStartLevel = 0;
   // if reaching the maximum round, change the
   // background instead of moving forward
   if (_currentRound == NUMBER_OF_ROUND) {
+    // indicate level change
     levelChanged = true;
+    [self saveProgress];
+
     // reset round counter
     _currentRound = 0;
     id fadeIn = [CCActionFadeIn actionWithDuration:0.7];
@@ -103,7 +106,8 @@ static int sStartLevel = 0;
   } else {
     // calculate how long should move
     int windowWidth = [[CCDirector sharedDirector] viewSize].width;
-    double movePoints = (BACKGROUND_WIDTH - windowWidth) / (NUMBER_OF_ROUND - 1);
+    double movePoints =
+        (BACKGROUND_WIDTH - windowWidth) / (NUMBER_OF_ROUND - 1);
 
     id moveLeft =
         [CCActionMoveBy actionWithDuration:2 position:ccp(-movePoints, 0)];
@@ -122,14 +126,36 @@ static int sStartLevel = 0;
   NSString *sceneName = [NSString stringWithFormat:@"scene-l%d.png", level];
   _background = [CCSprite spriteWithImageNamed:sceneName];
   _background.anchorPoint = CGPointZero;
-  
+
   // hard coded y-axis offset
   _background.position = ccp(0, -40);
-  
+
   _background.scaleX = BACKGROUND_WIDTH / _background.contentSize.width;
   _background.scaleY = BACKGROUND_HEIGHT / _background.contentSize.height;
-  
+
   [self addChild:_background z:-1];
+}
+
+- (void)saveProgress {
+  NSString *currentSaveSlot =
+      [[NSUserDefaults standardUserDefaults] stringForKey:@"currentSaveSlot"];
+  NSMutableArray *saves =
+      [[NSUserDefaults standardUserDefaults] mutableArrayValueForKey:@"saves"];
+  NSMutableDictionary *savedDataCopy = [NSMutableDictionary
+      dictionaryWithDictionary:saves[[currentSaveSlot intValue]]];
+  NSString *progress = [savedDataCopy objectForKey:@"progress"];
+
+  int level = [[progress componentsSeparatedByString:@" "][1] intValue];
+  NSString *newProgress = [NSString stringWithFormat:@"LEVEL %d", level + 1];
+  [savedDataCopy setValue:newProgress forKey:@"progress"];
+
+  saves[currentSaveSlot.intValue] = savedDataCopy;
+  [[NSUserDefaults standardUserDefaults] synchronize];
+
+  // DEBUG: retrieve the progress
+  NSDictionary *savedData = [[[NSUserDefaults standardUserDefaults] arrayForKey:@"saves"]
+      objectAtIndex:[currentSaveSlot intValue]];
+  progress = [savedData objectForKey:@"progress"];
 }
 
 #pragma mark Message to characters

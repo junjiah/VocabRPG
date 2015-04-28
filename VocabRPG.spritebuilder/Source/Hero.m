@@ -53,7 +53,7 @@ static struct Stats stats;
 }
 
 // OLD strategy, refer to README.md
-- (void)buildCharacterLegacy {
+- (void)buildCharacterDeprecated {
   MemoryModel *memoryModel = [MemoryModel sharedMemoryModel];
   int memorizedVocabularySize = (int)[memoryModel getMemorizedVocabularySize];
 
