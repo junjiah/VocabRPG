@@ -294,7 +294,7 @@
     }
 
     NSArray *parts = [line componentsSeparatedByString:@"\t"];
-    [_vocabulary setValue:[parts objectAtIndex:1]
+    [_vocabulary setValue:[parts objectAtIndex:2]
                    forKey:[parts objectAtIndex:0]];
   }
 }
