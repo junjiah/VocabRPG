@@ -15,4 +15,6 @@
 
 - (void)goToNextRound;
 
++ (void)setStartLevel:(int)level;
+
 @end

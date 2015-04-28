@@ -17,5 +17,6 @@
 @property (nonatomic, readonly) CGPoint initPosition;
 
 - (void)evolve;
+- (void)buildEnemyAtLevel:(int)level;
 
 @end

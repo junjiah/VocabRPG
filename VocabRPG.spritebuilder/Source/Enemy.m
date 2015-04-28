@@ -10,7 +10,7 @@
 #import "Hero.h"
 
 static id actionRotateLeft, actionRotateRight;
-static const int START_HEALTH = 20;
+static int sLevelStartHealth = 0;
 
 // predefined list for orders of monster appearances
 static NSMutableArray *MONSTER_LIST;
@@ -23,13 +23,22 @@ static NSMutableArray *MONSTER_LIST;
 
 - (void)didLoadFromCCB {
   self.physicsBody.collisionType = @"character";
-  _healthPoint = START_HEALTH;
-  _strength = 10;
+
   _initPosition = self.position;
   _side = 1;
 
   _initHeight = self.contentSizeInPoints.height * self.scaleY;
   _currentMonster = 0;
+}
+
+- (void)buildEnemyAtLevel:(int)level {
+  // TODO: currently only four levels
+  static int HP[] = {100, 200, 300, 500};
+  static int STR[] = {10, 20, 30, 40};
+  static const int LEVEL_NUMBER = 4;
+  sLevelStartHealth = HP[level % LEVEL_NUMBER];
+  _healthPoint = sLevelStartHealth;
+  _strength = STR[level % LEVEL_NUMBER];
 }
 
 - (void)takeDamageBy:(int)damage {
@@ -69,7 +78,7 @@ static NSMutableArray *MONSTER_LIST;
   
   // get hero's status, use a heuristic to calculate the moster's ability
   struct Stats heroStats = [Hero getHeroStatus];
-  _healthPoint = START_HEALTH + _currentMonster * (3.2 * heroStats.strength);
+  _healthPoint = sLevelStartHealth + _currentMonster * (3.2 * heroStats.strength);
   _strength += heroStats.healthPoint / 5;
 }
 

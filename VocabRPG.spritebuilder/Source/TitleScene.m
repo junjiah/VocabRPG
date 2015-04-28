@@ -8,6 +8,7 @@
 
 #import "TitleScene.h"
 #import "AppDelegate.h"
+#import "CombatLayer.h"
 
 @implementation TitleScene {
   CCNode *_slotContainer;
@@ -26,14 +27,14 @@
   // disable 'continue' button if no recorded data
   if (![[NSUserDefaults standardUserDefaults] objectForKey:@"currentSaveSlot"])
     _continueButton.enabled = NO;
-  
+
   // make them have roughly the same size
   _continueButton.preferredSize = _newGameButton.contentSize;
   _loadButton.preferredSize = _newGameButton.contentSize;
 }
 
 - (void)startNewGame {
-  
+
   [self toggleButtonVisibility];
 
   // when button pressed, start new game!
@@ -53,10 +54,10 @@
     NSMutableDictionary *savedData = saves[[slotString intValue]];
     [savedData setValue:@"LEVEL 1" forKey:@"progress"];
     [savedData setValue:@(0) forKey:@"played_time"];
-    
+
     [[NSUserDefaults standardUserDefaults] setValue:saves forKey:@"saves"];
     [[NSUserDefaults standardUserDefaults] synchronize];
-    
+
     // nullify coredata-relevant data for reloading
     AppController *appDelegate =
         (AppController *)[[UIApplication sharedApplication] delegate];
@@ -64,10 +65,7 @@
     appDelegate.managedObjectContext = nil;
 
     // play!
-    CCScene *scene = [CCBReader loadAsScene:@"CombatScene"];
-    [[CCDirector sharedDirector]
-          replaceScene:scene
-        withTransition:[CCTransition transitionCrossFadeWithDuration:1]];
+    [self proceedGame:@"LEVEL 1"];
   };
 
   CCNode *slots = [self prepareSlotAt:_newGameButton.positionInPoints
@@ -96,7 +94,7 @@
         [[[NSUserDefaults standardUserDefaults] arrayForKey:@"saves"]
             objectAtIndex:[slotString intValue]];
     NSString *progress = [savedData objectForKey:@"progress"];
-    
+
     // nullify coredata-relevant data for reloading
     AppController *appDelegate =
         (AppController *)[[UIApplication sharedApplication] delegate];
@@ -104,10 +102,7 @@
     appDelegate.managedObjectContext = nil;
 
     // play!
-    CCScene *scene = [CCBReader loadAsScene:@"CombatScene"];
-    [[CCDirector sharedDirector]
-          replaceScene:scene
-        withTransition:[CCTransition transitionCrossFadeWithDuration:1]];
+    [self proceedGame:progress];
   };
 
   CCNode *slots =
@@ -123,14 +118,23 @@
       [[[NSUserDefaults standardUserDefaults] arrayForKey:@"saves"]
           objectAtIndex:[currentSaveSlot intValue]];
   NSString *progress = [savedData objectForKey:@"progress"];
-  
-  CCScene *scene = [CCBReader loadAsScene:@"CombatScene"];
-  [[CCDirector sharedDirector]
-   replaceScene:scene
-   withTransition:[CCTransition transitionCrossFadeWithDuration:1]];
+  [self proceedGame:progress];
 }
 
-- (void)proceedGame:(int)level {
+/**
+ *  A helper function to go directly into a specified level.
+ *
+ *  @param progress A string indicating the desired level, starting from 'LEVEL 1'
+ */
+- (void)proceedGame:(NSString *)progress {
+  // parse the progress string, since only the last part indicates the level
+  int level = [[progress componentsSeparatedByString:@" "][1] intValue] - 1;
+  [CombatLayer setStartLevel:level];
+
+  CCScene *scene = [CCBReader loadAsScene:@"CombatScene"];
+  [[CCDirector sharedDirector]
+        replaceScene:scene
+      withTransition:[CCTransition transitionCrossFadeWithDuration:1]];
 }
 
 - (CCNode *)prepareSlotAt:(CGPoint)position withAction:(void (^)(id))action {
@@ -190,9 +194,9 @@
 }
 
 - (void)touchBegan:(UITouch *)touch withEvent:(UIEvent *)event {
-  CCLOG(@"touch tracked");
   [_slotContainer removeFromParent];
-  [self toggleButtonVisibility];
+  if (!_newGameButton.visible)
+    [self toggleButtonVisibility];
 }
 
 - (void)toggleButtonVisibility {

@@ -20,6 +20,8 @@ static const double NUMBER_OF_ROUND = 2;
 
 static const double BACKGROUND_WIDTH = 512, BACKGROUND_HEIGHT = 312;
 
+static int sStartLevel = 0;
+
 @implementation CombatLayer {
   CCPhysicsNode *_physicsNode;
   CCSprite *_background;
@@ -43,27 +45,38 @@ static const double BACKGROUND_WIDTH = 512, BACKGROUND_HEIGHT = 312;
   _whiteBackground.opacity = 0;
   [self addChild:_whiteBackground z:10];
   
+  // init level/round info
+  _currentLevel = sStartLevel;
+  _currentRound = 0;
+
+  // load the first level
+  [self loadSceneInLevel:_currentLevel++];
+  
+  // build the enemy
+  [_enemy buildEnemyAtLevel:sStartLevel];
+  
   // display both sides' health points
   [_parentController updateHealthPointsOn:HERO_SIDE
                                withUpdate:[_hero healthPoint]];
   [_parentController updateHealthPointsOn:ENEMY_SIDE
                                withUpdate:[_enemy healthPoint]];
-  // init level/round info
-  _currentLevel = 0;
-  _currentRound = 0;
-
-  // load the first level
-  [self loadSceneInLevel:_currentLevel++];
 }
 
 - (void)goToNextRound {
 
+  __block bool levelChanged = false;
+  
   ++_currentRound;
   _enemy.visible = NO;
   id delay = [CCActionDelay actionWithDuration:2];
   id enemyAppear = [CCActionCallBlock actionWithBlock:^(void) {
     _enemy.visible = YES;
-    [_enemy evolve];
+    
+    if (!levelChanged)
+      [_enemy evolve];
+    else
+      levelChanged = false;
+    
     [_parentController updateHealthPointsOn:ENEMY_SIDE
                                  withUpdate:[_enemy healthPoint]];
   }];
@@ -73,11 +86,13 @@ static const double BACKGROUND_WIDTH = 512, BACKGROUND_HEIGHT = 312;
   // if reaching the maximum round, change the
   // background instead of moving forward
   if (_currentRound == NUMBER_OF_ROUND) {
+    levelChanged = true;
     // reset round counter
     _currentRound = 0;
     id fadeIn = [CCActionFadeIn actionWithDuration:0.7];
     id switchBackground = [CCActionCallBlock actionWithBlock:^(void) {
       // switch the background and enemy
+      [_enemy buildEnemyAtLevel:_currentLevel];
       [_background removeFromParent];
       [self loadSceneInLevel:_currentLevel++];
     }];
@@ -164,6 +179,10 @@ static const double BACKGROUND_WIDTH = 512, BACKGROUND_HEIGHT = 312;
                                           position:((id<Character>)character)
                                                        .initPosition]];
   return NO;
+}
+
++ (void)setStartLevel:(int)level {
+  sStartLevel = level;
 }
 
 @end

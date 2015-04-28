@@ -81,10 +81,10 @@ static struct Stats stats;
 
   // a reasonable relationship between HP and vocabulary size
   _healthPoint = memorizedVocabularySize / 100 * memorizedVocabularySize / 100;
-  _healthPoint = _healthPoint * 0.4 + 20;
+  _healthPoint = _healthPoint * 0.4 + 100;
   _healthPoint = MIN(_healthPoint, 9999);
 
-  // array of size 20
+  // array of size 20, for different proficiency levels
   NSArray *memorizedVocabularyCounts =
       [memoryModel getMemorizedVocabularyCountsInAllProficiencyLevels];
   
