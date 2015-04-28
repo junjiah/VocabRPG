@@ -1,6 +1,8 @@
 # VocabRPG
 VocabRPG is A mobile game for memorizing English words.
 
+<img src="https://raw.githubusercontent.com/EDFward/VocabRPG/master/screenshot.png" width="400" />
+
 Here documents the underlying model for vocabulary and memorization.
 
 In essence, the model has following functionalities:
