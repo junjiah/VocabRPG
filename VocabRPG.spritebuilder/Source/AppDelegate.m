@@ -151,8 +151,12 @@
     return _persistentStoreCoordinator;
   }
 
+  NSString *currentSaveSlot =
+      [[NSUserDefaults standardUserDefaults] stringForKey:@"currentSaveSlot"];
+
   NSURL *storeURL = [[self applicationDocumentsDirectory]
-      URLByAppendingPathComponent:@"VocabRPG.sqlite"];
+      URLByAppendingPathComponent:
+          [NSString stringWithFormat:@"%@_VocabRPG.sqlite", currentSaveSlot]];
 
   NSError *error = nil;
   _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc]

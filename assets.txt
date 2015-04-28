@@ -7,3 +7,4 @@ Minotaur,monster,Manveru,http://opengameart.org/content/minotaur-0
 Harlequin Epicycle Mod,monster,Redshrike,http://opengameart.org/content/harlequin-epicycle-mod
 scene-l3,background,FFIV,http://finalfantasy.wikia.com/wiki/File:FFIV_PSP_Tower_Exterior_Background.png
 scene-l0,background,FFIV,http://finalfantasy.wikia.com/wiki/Damcyan?file=FFIV_PSP_Castle_Battle.png
+Golden UI,UI,Buch,http://opengameart.org/content/golden-ui

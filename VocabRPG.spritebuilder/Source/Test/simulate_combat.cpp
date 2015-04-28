@@ -14,7 +14,7 @@ const int kSimulationNumber = 10000;
 
 std::pair<int, int> GenerateEnemyProperty(int hero_hp, int hero_strength,
                                           double accuracy, double desired_pass_rate,
-                                          double epsilon=0.02)
+                                          double epsilon=0.03)
 {
   // random number generator
   std::uniform_int_distribution<int> uni_hp(0, hero_strength * 2);
@@ -28,7 +28,7 @@ std::pair<int, int> GenerateEnemyProperty(int hero_hp, int hero_strength,
   int iter = 0;
   do {
     winning_rate = SimulateWinningRate(hero_hp, hero_strength, accuracy,
-                                              enemy_hp, enemy_strength);
+                                       enemy_hp, enemy_strength);
     if (winning_rate >= desired_pass_rate - epsilon &&
         winning_rate <= desired_pass_rate + epsilon) {
       printf("Reasonable enemy: (hp: %d, str: %d) with winning rate %.4f\n",
@@ -42,15 +42,15 @@ std::pair<int, int> GenerateEnemyProperty(int hero_hp, int hero_strength,
     int hp_delta = uni_hp(random_engine);
     int strength_delta = uni_strength(random_engine) * enemy_strength;
     
-    if (winning_rate > desired_pass_rate) {
+    if (winning_rate < desired_pass_rate) {
       // in case reduced to negative
-      enemy_hp += (hp_delta >= enemy_hp ? 0 : hp_delta);
-      enemy_strength += (strength_delta >= enemy_strength ? 0 : strength_delta);
+      enemy_hp -= (hp_delta >= enemy_hp ? 0 : hp_delta);
+      enemy_strength -= (strength_delta >= enemy_strength ? 0 : strength_delta);
     } else {
-      enemy_hp -= hp_delta;
-      enemy_strength -= strength_delta;
+      enemy_hp += hp_delta;
+      enemy_strength += strength_delta;
     }
-  } while (iter++ < 100);
+  } while (iter++ < 1000);
   
   // failed to find a reasonable setting
   return std::make_pair(-1, -1);

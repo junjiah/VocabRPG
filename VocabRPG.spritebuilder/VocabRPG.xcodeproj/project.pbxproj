@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		50003B501AEEB430007B6379 /* slot.png in Resources */ = {isa = PBXBuildFile; fileRef = 50003B4F1AEEB430007B6379 /* slot.png */; };
 		5017223F1A9814E100F266C3 /* Hero.m in Sources */ = {isa = PBXBuildFile; fileRef = 501722391A9814E100F266C3 /* Hero.m */; };
 		501722401A9814E100F266C3 /* MatchingBlock.m in Sources */ = {isa = PBXBuildFile; fileRef = 5017223B1A9814E100F266C3 /* MatchingBlock.m */; };
 		501722441A9816FB00F266C3 /* CombatLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 501722431A9816FB00F266C3 /* CombatLayer.m */; };
@@ -103,6 +104,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		50003B4F1AEEB430007B6379 /* slot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = slot.png; sourceTree = "<group>"; };
 		501722381A9814E100F266C3 /* Hero.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Hero.h; path = Source/Hero.h; sourceTree = "<group>"; };
 		501722391A9814E100F266C3 /* Hero.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Hero.m; path = Source/Hero.m; sourceTree = "<group>"; };
 		5017223A1A9814E100F266C3 /* MatchingBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MatchingBlock.h; path = Source/MatchingBlock.h; sourceTree = "<group>"; };
@@ -353,6 +355,7 @@
 			children = (
 				5025C50F1AD07DD300BE8B04 /* Levels */,
 				50C787C21AC201AE00E62D82 /* wood.png */,
+				50003B4F1AEEB430007B6379 /* slot.png */,
 				509335181AB6268800884423 /* SAT.csv */,
 				509335191AB6268800884423 /* TOEFL-test.tsv */,
 				5093351A1AB6268800884423 /* TOEFL.csv */,
@@ -494,6 +497,7 @@
 				B71F5915188484E7003F4D28 /* iPhone-old.png in Resources */,
 				B71F5917188484E7003F4D28 /* iPhone.png in Resources */,
 				5025C51A1AD07DD300BE8B04 /* scene-l2.png in Resources */,
+				50003B501AEEB430007B6379 /* slot.png in Resources */,
 				5093351D1AB6268800884423 /* TOEFL.csv in Resources */,
 				50CB9EF41AD241D9002ACCF9 /* archon-fire.png in Resources */,
 				B7378975180762440076A88C /* Default-568h@2x.png in Resources */,
