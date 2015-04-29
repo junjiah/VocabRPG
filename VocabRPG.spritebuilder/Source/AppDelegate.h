@@ -35,6 +35,7 @@
 @property (readwrite, strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 
 - (void)saveContext;
+- (void)clearStore:(NSString *)slot;
 - (NSURL *)applicationDocumentsDirectory;
 
 @end

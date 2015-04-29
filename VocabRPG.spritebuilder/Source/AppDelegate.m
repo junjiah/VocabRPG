@@ -208,6 +208,13 @@
   return _persistentStoreCoordinator;
 }
 
+- (void)clearStore:(NSString *)slot {
+  NSURL *storeURL = [[self applicationDocumentsDirectory]
+      URLByAppendingPathComponent:
+          [NSString stringWithFormat:@"%@_VocabRPG.sqlite", slot]];
+  [[NSFileManager defaultManager] removeItemAtURL:storeURL error:nil];
+}
+
 #pragma mark - Application's Documents directory
 
 // Returns the URL to the application's Documents directory.

@@ -44,18 +44,25 @@
     // overwrite current slot
     [[NSUserDefaults standardUserDefaults] setValue:slotString
                                              forKey:@"currentSaveSlot"];
-    NSArray *saves =
-        [[NSUserDefaults standardUserDefaults] objectForKey:@"saves"];
-    if (!saves) {
-      saves = [NSArray arrayWithObjects:[NSMutableDictionary dictionary],
-                                        [NSMutableDictionary dictionary],
-                                        [NSMutableDictionary dictionary], nil];
+    // handle saves
+    NSMutableArray *saves;
+    if (![[NSUserDefaults standardUserDefaults] objectForKey:@"saves"]) {
+      saves = [NSMutableArray arrayWithObjects:[NSMutableDictionary dictionary],
+                                               [NSMutableDictionary dictionary],
+                                               [NSMutableDictionary dictionary],
+                                               nil];
+      [[NSUserDefaults standardUserDefaults] setValue:saves forKey:@"saves"];
     }
-    NSMutableDictionary *savedData = saves[[slotString intValue]];
-    [savedData setValue:@"LEVEL 1" forKey:@"progress"];
-    [savedData setValue:@(0) forKey:@"played_time"];
 
-    [[NSUserDefaults standardUserDefaults] setValue:saves forKey:@"saves"];
+    // get the writable proxy
+    saves = [[NSUserDefaults standardUserDefaults] mutableArrayValueForKey:@"saves"];
+
+    NSMutableDictionary *savedDataCopy = [NSMutableDictionary
+                                          dictionaryWithDictionary:saves[slotString.intValue]];
+    [savedDataCopy setValue:@"LEVEL 1" forKey:@"progress"];
+    [savedDataCopy setValue:@(0) forKey:@"played_time"];
+    
+    saves[slotString.intValue] = savedDataCopy;
     [[NSUserDefaults standardUserDefaults] synchronize];
 
     // nullify coredata-relevant data for reloading
@@ -63,6 +70,9 @@
         (AppController *)[[UIApplication sharedApplication] delegate];
     appDelegate.persistentStoreCoordinator = nil;
     appDelegate.managedObjectContext = nil;
+    
+    // clear the core data `table`
+    [appDelegate clearStore:slotString];
 
     // play!
     [self proceedGame:@"LEVEL 1"];
@@ -124,7 +134,8 @@
 /**
  *  A helper function to go directly into a specified level.
  *
- *  @param progress A string indicating the desired level, starting from 'LEVEL 1'
+ *  @param progress A string indicating the desired level, starting from 'LEVEL
+ *1'
  */
 - (void)proceedGame:(NSString *)progress {
   // parse the progress string, since only the last part indicates the level
