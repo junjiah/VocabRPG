@@ -153,6 +153,9 @@
 
   NSString *currentSaveSlot =
       [[NSUserDefaults standardUserDefaults] stringForKey:@"currentSaveSlot"];
+  // in case of first start
+  if (!currentSaveSlot)
+    currentSaveSlot = @"0";
 
   NSURL *storeURL = [[self applicationDocumentsDirectory]
       URLByAppendingPathComponent:

@@ -11,18 +11,12 @@
 #import "Word.h"
 
 @implementation MemoryModel {
-  NSManagedObjectContext *_managedObjectContext;
-  NSEntityDescription *_entityDescription;
+  AppController *_appDelegate;
   NSMutableDictionary *_vocabulary;
 }
 
 - (id)init {
-  AppController *appDelegate =
-      (AppController *)[[UIApplication sharedApplication] delegate];
-  _managedObjectContext = appDelegate.managedObjectContext;
-  _entityDescription =
-      [NSEntityDescription entityForName:@"Vocabulary"
-                  inManagedObjectContext:_managedObjectContext];
+  _appDelegate = (AppController *)[[UIApplication sharedApplication] delegate];
   return self;
 }
 
@@ -38,6 +32,12 @@
  */
 - (NSArray *)getWordsWith:(int)count {
   NSAssert(count <= 10, @"required too many pairs");
+
+  NSManagedObjectContext *_managedObjectContext =
+      _appDelegate.managedObjectContext;
+  NSEntityDescription *_entityDescription =
+      [NSEntityDescription entityForName:@"Vocabulary"
+                  inManagedObjectContext:_managedObjectContext];
 
   NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
   // only retrieve words which should be reviewed today or earlier
@@ -109,6 +109,12 @@
 }
 
 - (void)setWord:(NSString *)word withMatch:(BOOL)matched {
+  NSManagedObjectContext *_managedObjectContext =
+  _appDelegate.managedObjectContext;
+  NSEntityDescription *_entityDescription =
+  [NSEntityDescription entityForName:@"Vocabulary"
+              inManagedObjectContext:_managedObjectContext];
+  
   NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
   NSPredicate *wordPredicate =
       [NSPredicate predicateWithFormat:@"%K == %@", @"word", word];
@@ -164,6 +170,12 @@
 }
 
 - (NSMutableArray *)retreiveAllWords {
+  NSManagedObjectContext *_managedObjectContext =
+  _appDelegate.managedObjectContext;
+  NSEntityDescription *_entityDescription =
+  [NSEntityDescription entityForName:@"Vocabulary"
+              inManagedObjectContext:_managedObjectContext];
+  
   NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
   NSSortDescriptor *sortDescriptor =
       [NSSortDescriptor sortDescriptorWithKey:@"word" ascending:YES];
@@ -194,6 +206,12 @@
 }
 
 - (NSUInteger)getMemorizedVocabularySize {
+  NSManagedObjectContext *_managedObjectContext =
+  _appDelegate.managedObjectContext;
+  NSEntityDescription *_entityDescription =
+  [NSEntityDescription entityForName:@"Vocabulary"
+              inManagedObjectContext:_managedObjectContext];
+  
   NSFetchRequest *request = [[NSFetchRequest alloc] init];
   [request setEntity:_entityDescription];
   [request setIncludesSubentities:NO];
@@ -217,7 +235,12 @@
  *  @return An array of word counts in different proficiency level.
  */
 - (NSArray *)getMemorizedVocabularyCounts {
-
+  NSManagedObjectContext *_managedObjectContext =
+  _appDelegate.managedObjectContext;
+  NSEntityDescription *_entityDescription =
+  [NSEntityDescription entityForName:@"Vocabulary"
+              inManagedObjectContext:_managedObjectContext];
+  
   NSMutableArray *counts = [NSMutableArray array];
 
   for (int i = 1; i <= 20; i += 5) {
@@ -232,7 +255,7 @@
     NSPredicate *limitProficiencyLevelPredicate = [NSCompoundPredicate
         andPredicateWithSubpredicates:
             @[ countLowerBoundPredicate, countUpperBoundPredicate ]];
-    
+
     [request setPredicate:limitProficiencyLevelPredicate];
 
     NSError *error;
@@ -250,7 +273,7 @@
 }
 
 /**
- *  Return an array of 20 integers, each of which represents the number 
+ *  Return an array of 20 integers, each of which represents the number
  *  of words in that proficiency level
  *
  *  @return Counts of words in all proficiency levels.
@@ -259,16 +282,16 @@
   int rawCounts[20];
   for (int i = 0; i < 20; ++i)
     rawCounts[i] = 0;
-  
+
   NSMutableArray *counts = [NSMutableArray array];
-  
+
   for (Word *word in [self retreiveAllWords]) {
     ++rawCounts[word.proficiency];
   }
-  
+
   for (int i = 0; i < 20; ++i)
     [counts addObject:@(rawCounts[i])];
-  
+
   return counts;
 }
 
