@@ -87,16 +87,21 @@ static struct Stats stats;
   // array of size 20, for different proficiency levels
   NSArray *memorizedVocabularyCounts =
       [memoryModel getMemorizedVocabularyCountsInAllProficiencyLevels];
-  
-  double p = 0, pMax = 1 - pow(0.95, 20);
-  for (int i = 1; i <= 20; ++i) {
-    p += (1.0 - pow(0.95, i)) * [[memorizedVocabularyCounts objectAtIndex:i-1] doubleValue];
+
+  if (memorizedVocabularySize == 0) {
+    // hard-coded strength when no memorized vocabulary
+    _strength = 15;
+  } else {
+    double p = 0, pMax = 1 - pow(0.95, 20);
+    for (int i = 1; i <= 20; ++i) {
+      p += (1.0 - pow(0.95, i)) *
+           [[memorizedVocabularyCounts objectAtIndex:i - 1] doubleValue];
+    }
+    // take the average
+    p /= memorizedVocabularySize;
+    _strength = MAX(100 * (p / pMax), 1);
   }
-  // take the average
-  p /= memorizedVocabularySize;
-  
-  _strength = MAX(100 * (p / pMax), 1);
-  
+
   // record status
   stats.healthPoint = _healthPoint;
   stats.strength = _strength;
