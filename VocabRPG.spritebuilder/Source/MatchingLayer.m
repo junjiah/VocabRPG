@@ -35,10 +35,10 @@ static double const BLOCK_X_MARGIN = 0.2;
                  *shuffledMeanings =
                      [wordMeaningPairs objectForKey:@"meanings"];
   // init blocks
-  _leftBlocks = [NSMutableArray arrayWithCapacity:DISPLAY_WORD_NUM];
-  _rightBlocks = [NSMutableArray arrayWithCapacity:DISPLAY_WORD_NUM];
+  _leftBlocks = [NSMutableArray arrayWithCapacity:kDisplayWordNumber];
+  _rightBlocks = [NSMutableArray arrayWithCapacity:kDisplayWordNumber];
 
-  _blockSize = DISPLAY_WORD_NUM;
+  _blockSize = kDisplayWordNumber;
 
   double block_yspacing = 0.2f, block_ystart = 0.2;
 
@@ -68,7 +68,7 @@ static double const BLOCK_X_MARGIN = 0.2;
   NSMutableArray *words = [wordMeaningPairs objectForKey:@"words"],
                  *shuffledMeanings =
                      [wordMeaningPairs objectForKey:@"meanings"];
-  _blockSize = DISPLAY_WORD_NUM;
+  _blockSize = kDisplayWordNumber;
   // first clear all blocks
   for (int i = 0; i < _blockSize; ++i) {
     [[_leftBlocks objectAtIndex:i] clear];

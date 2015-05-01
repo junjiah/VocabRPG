@@ -32,7 +32,7 @@
 
 - (NSDictionary *)generateWordMeaningPairs {
   // get next word-meaning pairs
-  NSArray *retrievedWords = [_model getWordsWith:DISPLAY_WORD_NUM];
+  NSArray *retrievedWords = [_model getWordsWith:kDisplayWordNumber];
   NSMutableArray *words = [NSMutableArray new],
                  *meanings = [NSMutableArray new];
   
@@ -42,14 +42,14 @@
   }
 
   _correctWordMap = [NSMutableArray new];
-  for (int i = 0; i < DISPLAY_WORD_NUM; ++i)
+  for (int i = 0; i < kDisplayWordNumber; ++i)
     [_correctWordMap addObject:@(i)];
     
   [MatchingLayerController shuffle:_correctWordMap];
 
   NSMutableDictionary *toReturn = [NSMutableDictionary dictionary];
   NSMutableArray *shuffledMeanings = [NSMutableArray arrayWithArray:meanings];
-  for (int i = 0; i < DISPLAY_WORD_NUM; ++i) {
+  for (int i = 0; i < kDisplayWordNumber; ++i) {
     [shuffledMeanings
                  setObject:[meanings objectAtIndex:i]
         atIndexedSubscript:[[_correctWordMap objectAtIndex:i] unsignedIntValue]];

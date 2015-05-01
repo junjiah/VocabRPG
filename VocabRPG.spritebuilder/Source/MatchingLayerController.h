@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "MatchingLayer.h"
 
-static const int DISPLAY_WORD_NUM = 4;
+static const int kDisplayWordNumber = 3;
 
 @interface MatchingLayerController : NSObject <VocabularyDataSource>
 

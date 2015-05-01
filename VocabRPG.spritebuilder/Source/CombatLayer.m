@@ -16,11 +16,19 @@
 /**
  *  Number of rounds per game.
  */
-static const double NUMBER_OF_ROUND = 2;
+static const double kRoundNumber = 2;
 
-static const double BACKGROUND_WIDTH = 512, BACKGROUND_HEIGHT = 312;
+static const double kBackgroundWidth = 512, kBackgroundHeight = 312;
 
 static int sStartLevel = 0;
+
+typedef enum ComboState {
+  kNoCombo = 0,
+  kFirstCombo,
+  kSecondCombo,
+  kLastCombo } ComboState;
+
+static const int kComboStateNum = 3;
 
 @implementation CombatLayer {
   CCPhysicsNode *_physicsNode;
@@ -30,6 +38,8 @@ static int sStartLevel = 0;
   __weak CombatScene *_parentController;
 
   int _currentLevel, _currentRound;
+
+  ComboState _comboState;
 
   CCNodeColor *_whiteBackground;
 }
@@ -45,9 +55,10 @@ static int sStartLevel = 0;
   _whiteBackground.opacity = 0;
   [self addChild:_whiteBackground z:10];
 
-  // init level/round info
+  // init level/round/combo info
   _currentLevel = sStartLevel;
   _currentRound = 0;
+  _comboState = kNoCombo;
 
   // load the first level
   [self loadSceneInLevel:_currentLevel++];
@@ -72,6 +83,8 @@ static int sStartLevel = 0;
   id enemyAppear = [CCActionCallBlock actionWithBlock:^(void) {
     _enemy.visible = YES;
 
+    // if level changed, build enemy from pre-configured data
+    // otherwise, evolve it
     if (!levelChanged)
       [_enemy evolve];
     else
@@ -85,7 +98,7 @@ static int sStartLevel = 0;
 
   // if reaching the maximum round, change the
   // background instead of moving forward
-  if (_currentRound == NUMBER_OF_ROUND) {
+  if (_currentRound == kRoundNumber) {
     // indicate level change
     levelChanged = true;
     [self saveProgress];
@@ -98,6 +111,8 @@ static int sStartLevel = 0;
       [_enemy buildEnemyAtLevel:_currentLevel];
       [_background removeFromParent];
       [self loadSceneInLevel:_currentLevel++];
+      // clear combo state
+      _comboState = kNoCombo;
     }];
     id fadeOut = [CCActionFadeOut actionWithDuration:0.7];
     [_whiteBackground
@@ -106,8 +121,7 @@ static int sStartLevel = 0;
   } else {
     // calculate how long should move
     int windowWidth = [[CCDirector sharedDirector] viewSize].width;
-    double movePoints =
-        (BACKGROUND_WIDTH - windowWidth) / (NUMBER_OF_ROUND - 1);
+    double movePoints = (kBackgroundWidth - windowWidth) / (kRoundNumber - 1);
 
     id moveLeft =
         [CCActionMoveBy actionWithDuration:2 position:ccp(-movePoints, 0)];
@@ -130,8 +144,8 @@ static int sStartLevel = 0;
   // hard coded y-axis offset
   _background.position = ccp(0, -40);
 
-  _background.scaleX = BACKGROUND_WIDTH / _background.contentSize.width;
-  _background.scaleY = BACKGROUND_HEIGHT / _background.contentSize.height;
+  _background.scaleX = kBackgroundWidth / _background.contentSize.width;
+  _background.scaleY = kBackgroundHeight / _background.contentSize.height;
 
   [self addChild:_background z:-1];
 }
@@ -153,21 +167,24 @@ static int sStartLevel = 0;
   [[NSUserDefaults standardUserDefaults] synchronize];
 
   // DEBUG: retrieve the progress
-  NSDictionary *savedData = [[[NSUserDefaults standardUserDefaults] arrayForKey:@"saves"]
-      objectAtIndex:[currentSaveSlot intValue]];
+  NSDictionary *savedData =
+      [[[NSUserDefaults standardUserDefaults] arrayForKey:@"saves"]
+          objectAtIndex:[currentSaveSlot intValue]];
   progress = [savedData objectForKey:@"progress"];
 }
 
 #pragma mark Message to characters
 
 - (void)attackWithCharacter:(int)character withType:(int)type {
-  NSLog(@"ATTACK!");
   switch (character) {
   case 1:
     [_enemy moveForward];
+    _comboState = kNoCombo;
     break;
   case -1:
     [_hero moveForward];
+    if (_comboState != kLastCombo)
+      ++_comboState;
   default:
     break;
   }
@@ -189,7 +206,13 @@ static int sStartLevel = 0;
   }
 
   [collider moveBack];
-  [collidee takeDamageBy:collider.strength];
+  // if attacker is hero, take combo into consideration
+  int attackStrength = collider.strength;
+  if (collider.side == -1) {
+    // note combo state here, ranges from 1 to 3 inclusive
+    attackStrength *= (int)_comboState;
+  }
+  [collidee takeDamageBy:attackStrength];
   // update HP labels in parent view
   [_parentController updateHealthPointsOn:collidee.side
                                withUpdate:[collidee healthPoint]];
