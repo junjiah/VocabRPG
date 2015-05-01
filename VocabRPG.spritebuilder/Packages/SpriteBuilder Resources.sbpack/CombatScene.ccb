@@ -1149,7 +1149,7 @@
 						<key>value</key>
 						<array>
 							<string></string>
-							<string>ccbResources/ccbButtonNormal.png</string>
+							<string>VocabArtPack/buttonLong_brown.png</string>
 						</array>
 					</dict>
 					<dict>
@@ -1158,7 +1158,7 @@
 						<key>type</key>
 						<string>Float</string>
 						<key>value</key>
-						<real>0.69999998807907104</real>
+						<real>1</real>
 					</dict>
 					<dict>
 						<key>name</key>
@@ -1168,7 +1168,7 @@
 						<key>value</key>
 						<array>
 							<string></string>
-							<string>ccbResources/ccbButtonHighlighted.png</string>
+							<string>VocabArtPack/buttonLong_brown.png</string>
 						</array>
 					</dict>
 					<dict>
@@ -1483,7 +1483,7 @@
 						<key>value</key>
 						<array>
 							<string></string>
-							<string>ccbResources/ccbButtonNormal.png</string>
+							<string>VocabArtPack/buttonLong_brown.png</string>
 						</array>
 					</dict>
 					<dict>
@@ -1492,7 +1492,7 @@
 						<key>type</key>
 						<string>Float</string>
 						<key>value</key>
-						<real>0.79999998807907104</real>
+						<real>1</real>
 					</dict>
 					<dict>
 						<key>name</key>
@@ -1502,7 +1502,7 @@
 						<key>value</key>
 						<array>
 							<string></string>
-							<string>ccbResources/ccbButtonHighlighted.png</string>
+							<string>VocabArtPack/buttonLong_brown.png</string>
 						</array>
 					</dict>
 					<dict>

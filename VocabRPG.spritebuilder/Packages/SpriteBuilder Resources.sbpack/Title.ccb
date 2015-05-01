@@ -409,7 +409,7 @@
 						<key>value</key>
 						<array>
 							<string></string>
-							<string>ccbResources/ccbButtonHighlighted.png</string>
+							<string>VocabArtPack/paper-button/paper-button-on.png</string>
 						</array>
 					</dict>
 					<dict>
@@ -751,7 +751,7 @@
 						<key>value</key>
 						<array>
 							<string></string>
-							<string>ccbResources/ccbButtonHighlighted.png</string>
+							<string>VocabArtPack/paper-button/paper-button-on.png</string>
 						</array>
 					</dict>
 					<dict>
@@ -1095,7 +1095,7 @@
 						<key>value</key>
 						<array>
 							<string></string>
-							<string>ccbResources/ccbButtonHighlighted.png</string>
+							<string>VocabArtPack/paper-button/paper-button-on.png</string>
 						</array>
 					</dict>
 					<dict>
