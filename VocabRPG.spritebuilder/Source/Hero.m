@@ -9,7 +9,15 @@
 #import "Hero.h"
 #import "MemoryModel.h"
 
-static id actionRotateLeft, actionRotateRight;
+enum ComboState {
+  kNoCombo = 1,
+  kFirstCombo,
+  kLastCombo
+};
+
+static id sActionRotateLeft, sActionRotateRight;
+
+static CCParticleSystem *sComboParticle1, *sComboParticle2;
 
 /**
  *  A structure to record hero's numerical status,
@@ -19,14 +27,29 @@ static struct Stats stats;
 
 @implementation Hero
 
+@synthesize strength = _strength;
+
 - (void)didLoadFromCCB {
   self.physicsBody.collisionType = @"character";
   [self buildCharacter];
   _initPosition = self.position;
   _side = -1;
+  _comboState = kNoCombo;
+}
+
+- (int)strength {
+  return _strength * _comboState;
+}
+
+- (void)clearComboState {
+  _comboState = kNoCombo;
+  [self setParticleEffects];
 }
 
 - (void)takeDamageBy:(int)damage {
+  _comboState = kNoCombo;
+  [self setParticleEffects];
+  
   _healthPoint = MAX(_healthPoint - damage, 0);
   id notify = [CCActionCallBlock actionWithBlock:^(void) {
     if (_healthPoint <= 0) {
@@ -40,16 +63,36 @@ static struct Stats stats;
                       userInfo:resultDict];
     }
   }];
-  [self runAction:[CCActionSequence actions:actionRotateLeft, actionRotateRight,
+  [self runAction:[CCActionSequence actions:sActionRotateLeft, sActionRotateRight,
                                             notify, nil]];
 }
 
 - (void)moveBack {
+  // after attcking, add combo
+  if (_comboState != kLastCombo)
+    ++_comboState;
   [self.physicsBody applyImpulse:ccp(-2 * FORWARD_IMPULSE, 0)];
 }
 
 - (void)moveForward {
   [self.physicsBody applyImpulse:ccp(FORWARD_IMPULSE, 0)];
+}
+
+- (void)setParticleEffects {
+  switch (_comboState) {
+    case kNoCombo:
+      [sComboParticle1 removeFromParent];
+      [sComboParticle2 removeFromParent];
+      break;
+    case kFirstCombo:
+      [self addChild:sComboParticle1];
+      break;
+    case kLastCombo:
+      if (![self getChildByName:@"combo2" recursively:NO]) {
+        [sComboParticle1 removeFromParent];
+        [self addChild:sComboParticle2];
+      }
+  }
 }
 
 // OLD strategy, refer to README.md
@@ -108,8 +151,17 @@ static struct Stats stats;
 }
 
 + (void)initialize {
-  actionRotateLeft = [CCActionRotateBy actionWithDuration:0.2f angle:-30.f];
-  actionRotateRight = [CCActionRotateBy actionWithDuration:0.4f angle:30.f];
+  sActionRotateLeft = [CCActionRotateBy actionWithDuration:0.2f angle:-30.f];
+  sActionRotateRight = [CCActionRotateBy actionWithDuration:0.4f angle:30.f];
+  sComboParticle1 = (CCParticleSystem *)[CCBReader load:@"HeroCombo1"];
+  sComboParticle2 = (CCParticleSystem *)[CCBReader load:@"HeroCombo2"];
+  sComboParticle1.positionType = sComboParticle2.positionType = CCPositionTypeNormalized;
+  sComboParticle1.anchorPoint = sComboParticle2.anchorPoint = ccp(0.5f, 0.5f);
+  sComboParticle1.position = sComboParticle2.position = ccp(0.5f, 0.5f);
+  sComboParticle1.scale = sComboParticle2.scale = 0.5;
+  
+  sComboParticle1.name = @"combo1";
+  sComboParticle2.name = @"combo2";
 }
 
 + (struct Stats)getHeroStatus {

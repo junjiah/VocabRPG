@@ -9,7 +9,7 @@
 #import "Enemy.h"
 #import "Hero.h"
 
-static id actionRotateLeft, actionRotateRight;
+static id sActionRotateLeft, sActionRotateRight;
 static int sLevelStartHealth = 0;
 
 // predefined list for orders of monster appearances
@@ -55,7 +55,7 @@ static NSMutableArray *MONSTER_LIST;
                       userInfo:resultDict];
     }
   }];
-  [self runAction:[CCActionSequence actions:actionRotateRight, actionRotateLeft,
+  [self runAction:[CCActionSequence actions:sActionRotateRight, sActionRotateLeft,
                                             notify, nil]];
 }
 
@@ -83,8 +83,8 @@ static NSMutableArray *MONSTER_LIST;
 }
 
 + (void)initialize {
-  actionRotateRight = [CCActionRotateBy actionWithDuration:0.2f angle:30.f];
-  actionRotateLeft = [CCActionRotateBy actionWithDuration:0.4f angle:-30.f];
+  sActionRotateRight = [CCActionRotateBy actionWithDuration:0.2f angle:30.f];
+  sActionRotateLeft = [CCActionRotateBy actionWithDuration:0.4f angle:-30.f];
 
   MONSTER_LIST =
       [NSMutableArray arrayWithObjects:@"archon-ice", @"minotaur",

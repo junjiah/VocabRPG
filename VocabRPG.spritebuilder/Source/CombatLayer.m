@@ -22,14 +22,6 @@ static const double kBackgroundWidth = 512, kBackgroundHeight = 312;
 
 static int sStartLevel = 0;
 
-typedef enum ComboState {
-  kNoCombo = 0,
-  kFirstCombo,
-  kSecondCombo,
-  kLastCombo } ComboState;
-
-static const int kComboStateNum = 3;
-
 @implementation CombatLayer {
   CCPhysicsNode *_physicsNode;
   CCSprite *_background;
@@ -38,8 +30,6 @@ static const int kComboStateNum = 3;
   __weak CombatScene *_parentController;
 
   int _currentLevel, _currentRound;
-
-  ComboState _comboState;
 
   CCNodeColor *_whiteBackground;
 }
@@ -55,10 +45,9 @@ static const int kComboStateNum = 3;
   _whiteBackground.opacity = 0;
   [self addChild:_whiteBackground z:10];
 
-  // init level/round/combo info
+  // init level/round info
   _currentLevel = sStartLevel;
   _currentRound = 0;
-  _comboState = kNoCombo;
 
   // load the first level
   [self loadSceneInLevel:_currentLevel++];
@@ -112,7 +101,7 @@ static const int kComboStateNum = 3;
       [_background removeFromParent];
       [self loadSceneInLevel:_currentLevel++];
       // clear combo state
-      _comboState = kNoCombo;
+      [_hero clearComboState];
     }];
     id fadeOut = [CCActionFadeOut actionWithDuration:0.7];
     [_whiteBackground
@@ -179,12 +168,9 @@ static const int kComboStateNum = 3;
   switch (character) {
   case 1:
     [_enemy moveForward];
-    _comboState = kNoCombo;
     break;
   case -1:
     [_hero moveForward];
-    if (_comboState != kLastCombo)
-      ++_comboState;
   default:
     break;
   }
@@ -205,23 +191,24 @@ static const int kComboStateNum = 3;
     collidee = (id<Character>)character2;
   }
 
+  [collidee takeDamageBy:collider.strength];
   [collider moveBack];
-  // if attacker is hero, take combo into consideration
-  int attackStrength = collider.strength;
-  if (collider.side == -1) {
-    // note combo state here, ranges from 1 to 3 inclusive
-    attackStrength *= (int)_comboState;
-  }
-  [collidee takeDamageBy:attackStrength];
   // update HP labels in parent view
   [_parentController updateHealthPointsOn:collidee.side
                                withUpdate:[collidee healthPoint]];
   return NO;
 }
 
+// this callback is called when the character is to get back to
+// its original position
 - (BOOL)ccPhysicsCollisionBegin:(CCPhysicsCollisionPair *)pair
                       character:(CCNode *)character
                         barrier:(CCNode *)barrier {
+  if (character.physicsBody.velocity.x != 0 &&
+      ((id<Character>)character).side == -1) {
+    // is hero and get back from attacking
+    [_hero setParticleEffects];
+  }
   character.physicsBody.velocity = ccp(0, 0);
   [character
       runAction:[CCActionMoveTo actionWithDuration:0.5f
