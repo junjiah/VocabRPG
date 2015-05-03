@@ -89,6 +89,13 @@ static double const BLOCK_X_MARGIN = 0.2;
   [self setAllButtonTouchableAs:YES];
 }
 
+- (NSArray *)getOneRightPairBlock {
+  NSArray *correctIndexes = [_dataSource getOneRightPairIndex];
+  int i1 = [[correctIndexes objectAtIndex:0] intValue],
+      i2 = [[correctIndexes objectAtIndex:1] intValue];
+  return [NSArray arrayWithObjects:_leftBlocks[i1], _rightBlocks[i2], nil];
+}
+
 #pragma mark Callbacks
 
 - (void)clearPairWithLeftIndex:(int)leftIndex

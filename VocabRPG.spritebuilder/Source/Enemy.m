@@ -50,7 +50,7 @@ static NSMutableArray *MONSTER_LIST;
           [NSDictionary dictionaryWithObject:[NSNumber numberWithInt:-1]
                                       forKey:@"winSide"];
       [[NSNotificationCenter defaultCenter]
-          postNotificationName:CHARACTER_DIED_NOTIFICATION
+          postNotificationName:kCharacterDiedNotification
                         object:nil
                       userInfo:resultDict];
     }

@@ -42,6 +42,10 @@ static id rotateLeft, rotateRight, tintRed, appear;
 
 - (void)setTouchableAs:(BOOL)touchable {
   _button.userInteractionEnabled = touchable;
+  if (!touchable)
+    _button.enabled = NO;
+  else
+    _button.enabled = YES;
 }
 
 - (void)shakeOnView {

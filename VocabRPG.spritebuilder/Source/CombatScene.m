@@ -1,12 +1,13 @@
 #import "CombatScene.h"
 #import "CombatLayer.h"
 #import "MatchingLayer.h"
+#import "MatchingBlock.h"
 #import "Glossary.h"
 
-static NSString *const CHARACTER_DIED_NOTIFICATION =
+static NSString *const kCharacterDiedNotification =
     @"CharacterDidDieNotification";
 
-static const int COUNT_DOWN_MAX = 10;
+static const int kCountDownMax = 10;
 
 @implementation CombatScene {
   MatchingLayer *_matchingLayer;
@@ -17,21 +18,83 @@ static const int COUNT_DOWN_MAX = 10;
   CCLabelTTF *_countDown;
 
   CCButton *_glossary;
-  
+
   int _countDownTime;
 }
 
 #pragma mark Set up or button callback
 
 - (void)didLoadFromCCB {
+
+  // if it's first time play, go through tutorial first
+  if ([[NSUserDefaults standardUserDefaults] objectForKey:@"tutorial"] &&
+      [[NSUserDefaults standardUserDefaults] boolForKey:@"tutorial"]) {
+    // reset tutorial indicator flag
+    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"tutorial"];
+    [self showTurorial];
+    return;
+  }
+
   [[NSNotificationCenter defaultCenter] addObserver:self
                                            selector:@selector(gameOverForSide:)
-                                               name:CHARACTER_DIED_NOTIFICATION
+                                               name:kCharacterDiedNotification
                                              object:nil];
-  _countDownTime = COUNT_DOWN_MAX;
+  _countDownTime = kCountDownMax;
   [_countDown setString:[@(_countDownTime) stringValue]];
   _countDown.visible = YES;
   [self schedule:@selector(tick) interval:1];
+}
+
+- (void)showTurorial {
+  [_matchingLayer setAllButtonTouchableAs:NO];
+
+  CCNodeColor *backdrop = [CCNodeColor
+      nodeWithColor:[CCColor colorWithRed:0 green:0 blue:0 alpha:0.6]];
+  
+  CCSprite* dialogBox = [CCSprite spriteWithImageNamed:@"paper-dialog.png"];
+  double width = [CCDirector sharedDirector].viewSize.width * 0.6;
+  double height = [CCDirector sharedDirector].viewSize.height * 0.2;
+  dialogBox.scaleX = width / dialogBox.contentSize.width;
+  dialogBox.scaleY = height / dialogBox.contentSize.height;
+  dialogBox.positionType = CCPositionTypeNormalized;
+  dialogBox.anchorPoint = ccp(0.5f, 0.5f);
+  dialogBox.position = ccp(0.5f, 0.6f);
+  
+  CCLabelTTF *label = [CCLabelTTF labelWithString:@"Click to match the words!"
+                                         fontName:@"ArialMT"
+                                         fontSize:16.0f];
+  label.color = [CCColor blackColor];
+  label.positionType = CCPositionTypeNormalized;
+  label.position = ccp(0.5f, 0.8f);
+  label.scaleX = 1.0f / dialogBox.scaleX;
+  label.scaleY = 1.0f / dialogBox.scaleY;
+  [dialogBox addChild:label];
+  
+  CCButton *confirmButton = [CCButton buttonWithTitle:@"Got it!"];
+  confirmButton.color =[CCColor grayColor];
+  confirmButton.preferredSize = CGSizeMake(200, 200);
+  confirmButton.positionType = CCPositionTypeNormalized;
+  confirmButton.anchorPoint = ccp(0.5f, 0.5f);
+  confirmButton.position = ccp(0.5f, 0.2f);
+  confirmButton.scaleX = 1.0f / dialogBox.scaleX;
+  confirmButton.scaleY = 1.0f / dialogBox.scaleY;
+  confirmButton.block = ^void(id sender) {
+    [self replay];
+  };
+  [dialogBox addChild:confirmButton];
+  [self addChild:dialogBox z:2];
+  [self addChild:backdrop z:1];
+
+  NSArray *correctPair = [_matchingLayer getOneRightPairBlock];
+  MatchingBlock *leftCorrectBlock = correctPair[0], *rightCorrectBlock = correctPair[1];
+  [leftCorrectBlock setTouchableAs:YES];
+  [rightCorrectBlock setTouchableAs:YES];
+  [_matchingLayer setZOrder:100];
+
+//  [leftCorrectBlock removeFromParent];
+//  [rightCorrectBlock removeFromParent];
+//  [self addChild:leftCorrectBlock];
+//  [self addChild:rightCorrectBlock];
 }
 
 - (void)replay {
@@ -42,7 +105,7 @@ static const int COUNT_DOWN_MAX = 10;
 
 - (void)displayGlossary {
   CCScene *glossaryScene = [CCScene new];
-  
+
   // add a background
   int width = [self boundingBox].size.width;
   int height = [self boundingBox].size.height;
@@ -51,41 +114,46 @@ static const int COUNT_DOWN_MAX = 10;
         backgroundScaleY = height / colorBackground.contentSize.height;
   [colorBackground setScaleX:backgroundScaleX];
   [colorBackground setScaleY:backgroundScaleY];
-  
+
   colorBackground.userInteractionEnabled = NO;
   colorBackground.positionType = CCPositionTypeNormalized;
   colorBackground.anchorPoint = ccp(0.5f, 0.5f);
   colorBackground.position = ccp(0.5f, 0.5f);
 
   [glossaryScene addChild:colorBackground];
-  
+
   Glossary *glossary = [Glossary new];
-  CCTableView* glossaryTable = [CCTableView new];
+  CCTableView *glossaryTable = [CCTableView new];
   glossaryTable.bounces = YES;
   glossaryTable.positionType = CCPositionTypeNormalized;
   glossaryTable.anchorPoint = ccp(0.5f, 0.5f);
   glossaryTable.position = ccp(0.5f, 0.5f);
   glossaryTable.contentSize = CGSizeMake(1, 0.9f);
-  
+
   glossaryTable.dataSource = glossary;
   [glossaryScene addChild:glossaryTable];
-  
+
   CCButton *backButton = [CCButton buttonWithTitle:@"Back"];
   backButton.positionType = CCPositionTypeNormalized;
   backButton.position = ccp(0.05f, 0.02f);
   backButton.block = ^(id sender) {
-    [[CCDirector sharedDirector] popSceneWithTransition:[CCTransition transitionFadeWithColor:[CCColor blackColor] duration:0.5]];
+    [[CCDirector sharedDirector]
+        popSceneWithTransition:[CCTransition
+                                   transitionFadeWithColor:[CCColor blackColor]
+                                                  duration:0.5]];
   };
   [glossaryScene addChild:backButton];
-  
-  [[CCDirector sharedDirector] pushScene:glossaryScene withTransition:[CCTransition transitionCrossFadeWithDuration:0.5]];
+
+  [[CCDirector sharedDirector]
+           pushScene:glossaryScene
+      withTransition:[CCTransition transitionCrossFadeWithDuration:0.5]];
 }
 
 #pragma mark Message coordinate
 
 - (void)attackWithCharacter:(int)character withType:(int)type {
   [_combatLayer attackWithCharacter:character withType:type];
-  _countDownTime = COUNT_DOWN_MAX + 1;
+  _countDownTime = kCountDownMax + 1;
 }
 
 - (void)updateHealthPointsOn:(int)side withUpdate:(int)value {
@@ -96,7 +164,7 @@ static const int COUNT_DOWN_MAX = 10;
   }
 }
 
-# pragma mark Notification callback
+#pragma mark Notification callback
 
 - (void)gameOverForSide:(NSNotification *)notification {
   // stop interaction
@@ -112,7 +180,8 @@ static const int COUNT_DOWN_MAX = 10;
     NSLog(@"GameOver! You win!");
     _glossary.userInteractionEnabled = NO;
     CCNodeColor *layer = [CCNodeColor
-        nodeWithColor:[CCColor colorWithRed:100 green:100 blue:100 alpha:0.001]];
+        nodeWithColor:
+            [CCColor colorWithRed:100 green:100 blue:100 alpha:0.001]];
     [self addChild:layer];
 
     _winLabel.visible = YES;

@@ -15,5 +15,6 @@ static const int kDisplayWordNumber = 3;
 
 - (id)initWithView:(MatchingLayer *)view;
 - (NSDictionary *)generateWordMeaningPairs;
+- (NSArray *)getOneRightPairIndex;
 
 @end

@@ -11,6 +11,7 @@
 @protocol VocabularyDataSource <NSObject>
 
 - (NSDictionary *)generateWordMeaningPairs;
+- (NSArray *)getOneRightPairIndex;
 
 @end
 
@@ -21,5 +22,7 @@
                     withResult:(BOOL)result;
 - (void)redeployBlocks;
 - (void)clearAllButtons;
+- (void)setAllButtonTouchableAs:(BOOL)touchable;
+- (NSArray *)getOneRightPairBlock;
 
 @end

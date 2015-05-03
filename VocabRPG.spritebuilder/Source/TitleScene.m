@@ -74,6 +74,9 @@
     // clear the core data `table`
     [appDelegate clearStore:slotString];
 
+    // set indicator of tutorial
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"tutorial"];
+    
     // play!
     [self proceedGame:@"LEVEL 1"];
   };
@@ -134,8 +137,8 @@
 /**
  *  A helper function to go directly into a specified level.
  *
- *  @param progress A string indicating the desired level, starting from 'LEVEL
- *1'
+ *  @param progress A string indicating the desired level, 
+ *         starting from 'LEVEL 1'
  */
 - (void)proceedGame:(NSString *)progress {
   // parse the progress string, since only the last part indicates the level

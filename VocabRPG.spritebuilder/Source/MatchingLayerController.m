@@ -59,6 +59,10 @@
   return toReturn;
 }
 
+- (NSArray *)getOneRightPairIndex {
+  return [NSArray arrayWithObjects:@(0), [_correctWordMap objectAtIndex:0], nil];
+}
+
 #pragma mark Callbacks
 
 /**

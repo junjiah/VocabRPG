@@ -9,7 +9,7 @@
 #import "CCSprite.h"
 
 static const double FORWARD_IMPULSE = 1000;
-static NSString * const CHARACTER_DIED_NOTIFICATION = @"CharacterDidDieNotification";
+static NSString * const kCharacterDiedNotification = @"CharacterDidDieNotification";
 
 struct Stats
 {
